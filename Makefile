@@ -3,7 +3,7 @@
 
 MAIN := main
 
-.PHONY: all pdf clean view
+.PHONY: all pdf clean view site
 
 all: pdf
 
@@ -18,6 +18,13 @@ $(MAIN).pdf: $(MAIN).tex
 		pdflatex -interaction=nonstopmode $(MAIN).tex && \
 		pdflatex -interaction=nonstopmode $(MAIN).tex; \
 	fi
+	@$(MAKE) --no-print-directory site
+
+# Sync the compiled PDF + LaTeX source into /docs (GitHub Pages root) so the
+# site can embed the compiled paper and link the source directly.
+site:
+	@cp $(MAIN).pdf docs/$(MAIN).pdf && cp $(MAIN).tex docs/$(MAIN).tex
+	@echo ">> synced $(MAIN).pdf + $(MAIN).tex into docs/"
 
 view: pdf
 	@open $(MAIN).pdf 2>/dev/null || xdg-open $(MAIN).pdf 2>/dev/null || echo "open $(MAIN).pdf manually"

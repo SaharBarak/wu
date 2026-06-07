@@ -1,0 +1,902 @@
+%==============================================================================
+%  Acousto-Cymatic Phase-Change Memory (ACPCM)
+%  A speculative ("idea paper") theoretical framework, arXiv preprint style.
+%
+%  Compile (recommended, self-contained engine):
+%      tectonic main.tex
+%  or with a full TeX Live:
+%      pdflatex main && pdflatex main
+%
+%  No external .bib needed: the bibliography is embedded (thebibliography).
+%  Every reference below was independently verified (Crossref / publisher /
+%  arXiv / ADS) during preparation; see README.md for the audit trail.
+%==============================================================================
+\documentclass[11pt]{article}
+
+% ---- Page geometry: arXiv-like single column -------------------------------
+\usepackage[letterpaper,margin=1in]{geometry}
+
+% ---- Encoding & fonts (Times-like, the classic preprint look) --------------
+% fontenc/inputenc only matter for the pdflatex fallback; under XeTeX/LuaTeX
+% (tectonic) newtx uses fontspec and inputenc would warn, so guard them.
+\usepackage{iftex}
+\ifPDFTeX
+  \usepackage[T1]{fontenc}
+  \usepackage[utf8]{inputenc}
+\fi
+% Load amsmath/amsthm first; do NOT load amssymb (its \Bbbk clashes with
+% newtxmath, which already provides the AMS symbol set we use).
+\usepackage{amsmath}
+\usepackage{amsthm}
+\usepackage{newtxtext,newtxmath}
+\usepackage{microtype}
+\setlength{\emergencystretch}{1em} % relieve minor overfull boxes
+
+% ---- Units -----------------------------------------------------------------
+\usepackage{siunitx}
+\sisetup{detect-all=true}
+
+% ---- Graphics, color, tables -----------------------------------------------
+\usepackage{graphicx}
+\usepackage{xcolor}
+\definecolor{acpcmblue}{HTML}{1F4E79}
+\definecolor{acpcmteal}{HTML}{2E8B8B}
+\definecolor{acpcmgray}{HTML}{4D4D4D}
+\definecolor{warnbg}{HTML}{FBF3E2}
+\definecolor{warnrule}{HTML}{B8860B}
+\usepackage{booktabs}
+\usepackage{array}
+\usepackage{tabularx}
+\usepackage{caption}
+\captionsetup{font=small,labelfont=bf,labelsep=period}
+
+% ---- Lists, boxes, headers -------------------------------------------------
+\usepackage{enumitem}
+\usepackage[most]{tcolorbox}
+\usepackage{fancyhdr}
+\usepackage{titlesec}
+\usepackage{authblk}
+
+% ---- Diagrams --------------------------------------------------------------
+\usepackage{tikz}
+\usetikzlibrary{arrows.meta,positioning,calc,shapes.geometric,backgrounds,fit,decorations.pathmorphing,patterns}
+
+% ---- Hyperlinks (load late, then cleveref last) ----------------------------
+\usepackage[colorlinks=true,allcolors=acpcmblue,breaklinks=true]{hyperref}
+\usepackage{cleveref}
+\crefname{prediction}{Prediction}{Predictions}
+\Crefname{prediction}{Prediction}{Predictions}
+\crefname{assumption}{Assumption}{Assumptions}
+\Crefname{assumption}{Assumption}{Assumptions}
+
+% ---- Section styling --------------------------------------------------------
+\titleformat{\section}{\normalfont\large\bfseries\color{acpcmblue}}{\thesection}{0.6em}{}
+\titleformat{\subsection}{\normalfont\normalsize\bfseries\color{acpcmgray}}{\thesubsection}{0.6em}{}
+
+% ---- Running header ---------------------------------------------------------
+\pagestyle{fancy}
+\fancyhf{}
+\renewcommand{\headrulewidth}{0.4pt}
+\fancyhead[L]{\footnotesize\itshape Acousto-Cymatic Phase-Change Memory}
+\fancyhead[R]{\footnotesize\thepage}
+\fancypagestyle{plain}{\fancyhf{}\fancyhead[R]{\footnotesize\thepage}\renewcommand{\headrulewidth}{0pt}}
+
+% ---- Epistemic-status callout box ------------------------------------------
+\newtcolorbox{epistemic}[1][]{
+  enhanced, breakable, sharp corners,
+  colback=warnbg, colframe=warnrule, boxrule=0.8pt,
+  left=8pt,right=8pt,top=6pt,bottom=6pt,
+  fonttitle=\bfseries, coltitle=warnrule,
+  title=Epistemic status, #1
+}
+
+% ---- Theorem-like environments ---------------------------------------------
+\theoremstyle{definition}
+\newtheorem{prediction}{Prediction}
+\newtheorem{assumption}{Assumption}
+
+% ---- Title metadata ---------------------------------------------------------
+\title{\bfseries\color{acpcmblue}\Large Acousto-Cymatic Phase-Change Memory:\\[2pt]
+A Speculative Theoretical Framework for High-Density Data Storage\\ in Confined Aqueous Media}
+
+\author[1]{Sahar Barak\thanks{Correspondence: \texttt{sahar.h.barak@gmail.com}. Authorship and affiliation are placeholders to be edited before any submission or circulation.}}
+\affil[1]{Independent Researcher}
+
+\date{\small Preprint - \today \\[2pt] \emph{Speculative ``idea paper'' (cf.\ \texttt{physics.pop-ph} / \texttt{cs.ET}).}}
+
+%==============================================================================
+\begin{document}
+\maketitle
+\thispagestyle{plain}
+
+%------------------------------------------------------------------ Abstract
+\begin{abstract}
+\noindent
+As conventional magnetic and solid-state storage technologies approach fundamental
+physical scaling limits - most notably the superparamagnetic limit~\cite{charap1997,wellermoser1999} - new
+architectures are sought to meet global data demand. This paper proposes, as a
+deliberately speculative thought experiment, a data-storage architecture we call
+\emph{Acousto-Cymatic Phase-Change Memory} (ACPCM). By drawing engineering analogies
+from Heat-Assisted Magnetic Recording (HAMR)~\cite{kryder2008hamr}, three-dimensional
+charge-trap flash~\cite{white2000sonos,tanaka2007bics}, megahertz acoustic
+holography~\cite{melde2016holograms}, and scientific data
+sonification~\cite{hermann2011handbook}, we sketch a method for encoding digital data
+into the physical topology of a confined, rapidly frozen aqueous ``pod.'' In the
+proposal, data is encoded as acoustic frequencies, organized into a three-dimensional
+grid by cymatic pressure nodes, and locked into a solid lattice by a HAMR-style
+``broadcast-and-freeze'' phase transition; read-back is designed around established
+megahertz acoustic holography and neural-network field inversion, isolating the
+speculative burden on the write side. We are explicit throughout about which
+ingredients are established physics and which are contested or non-mainstream
+(``water memory,'' structured-water chains, and W.~Russell's octave cosmology). Rather
+than asserting feasibility, we cast the architecture as a set of falsifiable predictions
+and identify the physical obstacles - above all the energetics, lattice distortion, and
+the ${\sim}50$\,fs memory loss and picosecond reorganization of the hydrogen-bond
+network~\cite{cowan2005water} - that would have to be overcome for any such scheme to be
+viable. The contribution is a conceptual synthesis and a research agenda, \emph{not} a
+validated device.
+\end{abstract}
+
+\vspace{2pt}
+\noindent\textbf{Keywords:} unconventional computing; acoustic holography; acoustofluidics;
+phase-change media; ice nucleation; data sonification; speculative storage architectures.
+
+%------------------------------------------------------------------ Epistemic status box
+\begin{epistemic}
+This is a \textbf{speculative theoretical proposal}, written in the spirit of an
+``idea paper.'' It combines \emph{established} engineering mechanisms with
+\emph{contested or refuted} premises, and it should be read as a hypothesis generator,
+not as a report of a working device or of accepted science.
+\begin{itemize}[leftmargin=1.4em,nosep]
+  \item \textbf{Established} (well supported in the literature): the superparamagnetic
+  limit and HAMR~\cite{charap1997,wellermoser1999,kryder2008hamr,challener2009};
+  3D charge-trap flash~\cite{white2000sonos,tanaka2007bics,goda2020}; chalcogenide
+  phase-change memory~\cite{ovshinsky1968,wuttig2007pcm,raoux2010pcm}; passive
+  acoustic-hologram phase plates and acoustofluidic
+  patterning~\cite{melde2016holograms,marzo2015holographic,rufo2022acoustofluidics};
+  deep-learning acoustic-hologram synthesis~\cite{lin2021dlholograms}; and data
+  sonification as a methodology~\cite{kramer1999nsf,hermann2011handbook}.
+  \item \textbf{Contested / minority view}: ``exclusion-zone / fourth-phase'' structured
+  water~\cite{pollack2013fourth} (the interfacial effect is real but its structural
+  interpretation is disputed~\cite{elton2020ez}); quantum coherence in microtubules
+  (Orch-OR)~\cite{hameroff2014orchor}, challenged on decoherence
+  grounds~\cite{tegmark2000decoherence}.
+  \item \textbf{Refuted / pseudoscientific} (used here only as historical or motivational
+  framing, \emph{not} as evidence): ``water memory''~\cite{benveniste1988}, which an
+  on-site investigation found did not survive blinding~\cite{maddox1988} and which later
+  revivals~\cite{montagnier2009} did not reproduce; and W.~Russell's octave periodic
+  system~\cite{russell1926universalone}.
+\end{itemize}
+A claim's appearance in this paper is \emph{not} an endorsement of its validity. Crucially,
+the established citations ground only their own subsystems; none of them lends support to
+the central acousto-cymatic conjecture, which is ours and is clearly labelled as
+speculation throughout. \Cref{sec:limits} and \cref{tab:status} make the dependencies
+explicit.
+\end{epistemic}
+
+%================================================================== 1. Introduction
+\section{Introduction}
+\label{sec:intro}
+
+The data-storage industry is constrained by a set of competing requirements - high areal
+density (which demands small grains), thermal (bit) stability (which demands high magnetic
+anisotropy), and writeability (which demands a switching field a head can actually
+supply) - that become mutually exclusive as bits shrink; in the later literature this is
+often called the \emph{recording trilemma}~\cite{wellermoser1999}. The underlying physics
+is thermodynamic: as a grain's volume $V$ shrinks, its anisotropy energy $K_{\mathrm{u}}V$
+falls toward the thermal energy $k_{\mathrm{B}}T$, and once the stability ratio
+$K_{\mathrm{u}}V/k_{\mathrm{B}}T$ drops below ${\sim}40$--$60$ the magnetization reverses
+spontaneously - the \emph{superparamagnetic limit}, whose onset Charap, Lu, and He first
+projected for thin-film media~\cite{charap1997} and which Weller and Moser analyzed in its
+modern form~\cite{wellermoser1999}.\footnote{Their projected areal-density upper bound of
+${\sim}36$\,Gbit/in$^2$ for longitudinal media was later surpassed by media engineering and
+perpendicular recording; we cite it as a projected estimate, not a proven wall.}
+The industry's response, \emph{Heat-Assisted Magnetic Recording} (HAMR), uses a near-field
+plasmonic transducer to heat a high-anisotropy medium close to its Curie temperature for
+well under a nanosecond, transiently collapsing its coercivity so a modest field can write
+a bit, after which rapid cooling ``freezes'' the magnetization into a thermally stable
+state~\cite{kryder2008hamr}; the near-field-transducer write process has been demonstrated
+experimentally~\cite{challener2009} and HAMR is now shipping commercially.
+
+In parallel, solid-state drives escaped planar scaling by going vertical: 3D NAND with
+\emph{charge-trap flash} (CTF) stores charge in a discrete, electrically insulating
+silicon-nitride layer rather than a continuous conductive floating gate, so a single local
+defect leaks only its neighborhood rather than draining a shared
+pool~\cite{white2000sonos}; the move to stacked, ``punch-and-plug'' vertical strings
+decoupled density from lithography~\cite{tanaka2007bics,goda2020}.
+
+This paper asks a deliberately unconventional question: \emph{what if the two core ideas
+behind these technologies - rapid state-change writing (HAMR) and microscopic spatial
+isolation (CTF) - were applied to an exotic medium, namely water frozen on demand?} Liquid
+water is, on its face, the worst imaginable storage medium: its hydrogen-bond network loses
+memory of its configuration within ${\sim}50$\,fs and fully reorganizes on a picosecond
+timescale~\cite{cowan2005water}, so any imprint in the \emph{liquid} is erased almost
+immediately. Our proposal confronts this directly by never trying to store information in
+the liquid: information exists only fleetingly as a broadcast acoustic field and is
+committed to memory by an \emph{instantaneous phase change} into ice, in loose analogy to
+HAMR's heat-then-quench write cycle~\cite{kryder2008hamr} and to chalcogenide phase-change
+memory's melt--quench amorphization~\cite{ovshinsky1968,wuttig2007pcm}.
+
+We stress at the outset (and repeat in \cref{sec:limits}) that several premises in the
+draft framing of this idea - ``water memory,'' long-lived ``structured-water'' chains, and
+an octave-based re-mapping of the periodic table - are \emph{not} part of accepted physics
+or chemistry; the first was specifically investigated and not
+reproduced~\cite{maddox1988,benveniste1988}. We include them transparently, label their
+status, and engineer the architecture so that the refuted ideas carry no logical load. The
+intended contribution is a clean conceptual synthesis across fields that are rarely
+discussed together, plus an explicit map of where the idea would break.
+
+\paragraph{Contributions.}
+\begin{enumerate}[leftmargin=1.6em,nosep]
+  \item A subsystem-by-subsystem architecture (medium, format, write, read) that
+  transposes HAMR and CTF design principles onto a rapidly frozen aqueous medium
+  (\cref{sec:medium,sec:format,sec:write,sec:read}).
+  \item An explicit \emph{epistemic ledger} (\cref{tab:status}) separating established
+  mechanisms from speculative ones, so the proposal cannot be mistaken for a validated
+  device and so that mainstream citations are not laundered into supporting fringe claims.
+  \item A set of falsifiable predictions and order-of-magnitude obstacles
+  (\cref{sec:predictions,sec:limits}) that define what an experimental test would have to
+  measure.
+\end{enumerate}
+
+%================================================================== System overview figure
+\begin{figure}[t]
+\centering
+% NB: section refs inside these tight TikZ nodes use the compact \S\ref idiom
+% on purpose (cleveref's "Section N" is too wide for the boxes); the body prose
+% uses \cref throughout. Deliberate, applied consistently within this figure.
+\begin{tikzpicture}[
+  font=\small,
+  node distance=6mm,
+  stage/.style={draw=acpcmblue,thick,rounded corners=2pt,fill=acpcmblue!6,
+    align=center,minimum height=10mm,inner sep=4pt,text width=24mm},
+  io/.style={draw=acpcmteal,thick,rounded corners=8pt,fill=acpcmteal!10,
+    align=center,minimum height=10mm,inner sep=4pt,text width=16mm},
+  arr/.style={-{Stealth[length=2.4mm]},acpcmgray,thick}
+]
+% Write path
+\node[io] (bits1) {Digital\\bits};
+\node[stage,right=of bits1] (son) {Elemental\\sonification\\(\S\ref{sec:write})};
+\node[stage,right=of son] (cym) {Cymatic\\format grid\\(\S\ref{sec:format})};
+\node[stage,right=of cym] (freeze) {Broadcast\\\& freeze\\(\S\ref{sec:write})};
+\node[io,right=of freeze] (ice) {Frozen\\pod};
+\draw[arr] (bits1) -- (son);
+\draw[arr] (son) -- (cym);
+\draw[arr] (cym) -- (freeze);
+\draw[arr] (freeze) -- (ice);
+% Read path (below)
+\node[stage,below=10mm of son] (pulse) {MHz acoustic\\pulse\\(\S\ref{sec:read})};
+\node[stage,below=10mm of cym] (holo) {Scattered 3D\\pressure field};
+\node[stage,below=10mm of freeze] (unet) {Hydrophone\\+ U-Net\\decode};
+\node[io,below=10mm of bits1] (bits2) {Digital\\bits};
+\draw[arr] (ice.south) |- (pulse.east);
+\draw[arr] (pulse) -- (holo);
+\draw[arr] (holo) -- (unet);
+\draw[arr] (unet) -- (bits2);
+% labels
+\node[acpcmblue,font=\footnotesize\bfseries,above=1mm of cym] {WRITE PATH};
+\node[acpcmteal,font=\footnotesize\bfseries,below=1mm of holo,yshift=-7mm] {READ PATH};
+\end{tikzpicture}
+\caption{End-to-end ACPCM data path. The write path encodes bits as acoustic tones,
+imposes a cymatic addressing grid, and commits the field to a solid lattice by freezing.
+The read path probes the frozen pod with a megahertz pulse, treats the ice topology as an
+acoustic phase plate, and decodes the scattered field with a neural network. The read path
+and the write \emph{actuation} reuse established techniques; the speculative weight is
+isolated in the freeze step (\cref{as:commit}). Each block's epistemic status is given in
+\cref{tab:status}.}
+\label{fig:overview}
+\end{figure}
+
+%================================================================== 2. Medium
+\section{The storage medium: confined aqueous ``pods''}
+\label{sec:medium}
+
+For water to act even momentarily as an addressable medium, it cannot be a bulk volume.
+In bulk liquid, distinct driving frequencies superpose and produce beat phenomena, so
+independently addressed ``cells'' would modulate and erase one another (crosstalk). The
+proposal therefore confines the medium to microscopic \emph{pods} that physically isolate
+addressable regions - an acoustic analogue of CTF's discrete charge traps, where isolation,
+not bulk capacity, is the design goal~\cite{white2000sonos}.
+
+\begin{assumption}[Confinement enables isolation]\label{as:confine}
+Sub-micron confinement suppresses inter-cell acoustic crosstalk enough that independently
+addressed regions do not annihilate one another during the write window.
+\end{assumption}
+
+As biological \emph{motivation only}, we note the recurring (and contested) claim that
+cytoskeletal microtubules - hollow cylinders with an inner diameter of order
+\qty{15}{\nano\meter} - might shield ordered internal water from thermal noise, a premise of
+the Orch-OR quantum-biology hypothesis~\cite{hameroff2014orchor}. That premise is itself
+disputed: Tegmark's decoherence estimates put any quantum coherence in warm, wet
+microtubules many orders of magnitude below cognitive
+timescales~\cite{tegmark2000decoherence} (a critique that proponents have in turn disputed
+on modelling grounds). We therefore use microtubules strictly as an intuition pump for
+``confinement protects order'' and assert nothing about biological memory. Likewise, the
+notion of long-lived spherical ``water pearls'' or ``trimmed chains'' as information
+carriers belongs to the structured-water literature~\cite{pollack2013fourth}; the
+underlying interfacial exclusion-zone effect is real and replicated, but its
+``fourth-phase'' structural interpretation is a contested minority view that conventional
+mechanisms may explain better~\cite{elton2020ez}. In ACPCM such structures, if they exist
+at all, are relevant only \emph{after} freezing has removed the liquid's thermal lability,
+not before.
+
+%================================================================== 3. Format
+\section{Format: a cymatic cylinder--head--sector grid}
+\label{sec:format}
+
+Conventional drives impose logical structure - tracks and sectors mapped to logical block
+addresses - onto a physical medium. ACPCM proposes to impose this structure
+\emph{acoustically}. Using megahertz ultrasound projected into the pod, intersecting
+wavefronts establish a three-dimensional pattern of standing-wave nodes (pressure minima)
+and antinodes. The nodal surfaces are intended to act as ``sector walls,'' partitioning the
+pod into addressable voxels with definite spatial coordinates.
+
+The \emph{patterning of matter by sound} is established physics. Since Faraday it has been
+known that vibrating surfaces and liquid layers drive particles into ordered
+figures~\cite{faraday1831}; modern acoustofluidics uses MHz standing waves to focus,
+separate, and trap particles and cells at radiation-force nodes~\cite{rufo2022acoustofluidics},
+down to one cell per well~\cite{collins2015saw}, and single-sided holographic arrays form
+programmable ``acoustic tweezers'' and vortex traps that levitate and manipulate discrete
+objects~\cite{marzo2015holographic,marzo2018vortices}. Passive acoustic-hologram phase
+plates can sculpt remarkably intricate 3D pressure landscapes from a single
+transducer~\cite{melde2016holograms,memoli2017bricks}.
+
+\begin{epistemic}[colback=warnbg]
+The \emph{spatial arrangement of discrete particles, droplets, or cells at acoustic nodes}
+is established and reproducible (\cref{fig:pod}) - but it is transient (it lasts only while
+the field is on) and it organizes \emph{pre-existing objects}. The stronger claim that such
+fields coerce \emph{water molecules themselves} into a persistent ``supramolecular
+network'' - sometimes labelled ``molecular cymatics'' - is \textbf{not} established: it has
+no accepted mechanism and no primary literature specifically linking acoustic-field forcing
+to supramolecular water ordering (the structured-water
+literature~\cite{pollack2013fourth,elton2020ez} concerns interfacial proximity, not
+acoustic induction), and liquid-water hydrogen bonds relax in
+picoseconds~\cite{cowan2005water}. It is treated here purely as a hypothesis
+(\cref{as:cymgrid}), and must not be confused with the established assembly result.
+\end{epistemic}
+
+\begin{assumption}[Cymatic addressing]\label{as:cymgrid}
+A megahertz standing-wave field can define stable, reproducible nodal boundaries at the
+length scale of the intended voxels, and these boundaries survive the freezing transition
+well enough to serve as a read-time coordinate system.
+\end{assumption}
+
+%================================================================== pod figure
+\begin{figure}[t]
+\centering
+\begin{tikzpicture}[font=\small]
+% pod boundary
+\draw[acpcmteal,very thick,fill=acpcmteal!6] (0,0) circle (2.4cm);
+\node[acpcmteal] at (0,2.78) {confined aqueous pod (sub-\unit{\micro\meter})};
+% standing-wave nodal grid (concentric + radial = CHS analogy)
+\foreach \r in {0.8,1.4,2.0} \draw[acpcmblue!60,thick] (0,0) circle (\r);
+\foreach \a in {0,30,...,330} \draw[acpcmblue!35] (\a:0.4) -- (\a:2.35);
+% a few "water pearls / chains" sitting at nodes
+\foreach \pt in {(30:1.1),(150:1.7),(255:1.1),(330:1.7),(90:0.6),(210:0.6)}{
+  \fill[warnrule] \pt circle (1.6pt);
+}
+\draw[warnrule,thick] (30:1.1) -- (60:1.4) -- (90:1.55);
+\fill[warnrule] (60:1.4) circle (1.6pt);
+\fill[warnrule] (90:1.55) circle (1.6pt);
+% labels
+\node[align=center,acpcmblue,font=\footnotesize] at (-3.7,-0.2)
+  {nodal ``sector''\\boundaries\\(standing waves)};
+\draw[->,acpcmblue,thin] (-2.5,-0.2) -- (-2.0,0.0);
+\node[align=center,warnrule,font=\footnotesize] at (3.8,-0.4)
+  {hypothesized\\``pearl chains''\\at antinodes};
+\draw[->,warnrule,thin] (2.6,-0.35) -- (2.05,-0.6);
+\end{tikzpicture}
+\caption{Schematic of a pod with a cymatic cylinder--head--sector (CHS) analogue.
+Concentric and radial standing-wave nodes (blue) partition the pod into addressable
+voxels - the established, but transient, particle-patterning physics. The hypothesized
+``pearl chains'' resident at antinodes (amber) belong to the contested structured-water
+premise (\cref{as:cymgrid}). Not to scale.}
+\label{fig:pod}
+\end{figure}
+
+%================================================================== 4. Write
+\section{Encoding and writing: the ``broadcast-and-freeze'' mechanism}
+\label{sec:write}
+
+\subsection{Encoding by elemental sonification}
+Digital payloads are mapped to acoustic spectra. \emph{Data sonification} - the principled
+mapping of data to non-speech sound - is a mature methodology with an NSF-commissioned
+status report~\cite{kramer1999nsf}, a canonical handbook~\cite{hermann2011handbook}, and a
+formal taxonomy whose defining criterion is that the sound reflect \emph{objective}
+properties of the data through a systematic, reproducible
+transform~\cite{hermann2008taxonomy}. Mapping the wavelengths of atomic emission lines into
+the audio band is a documented technique used for analysis, accessibility, and
+education - e.g.\ the audification of astronomical spectra~\cite{trayford2023spectra} and
+an interactive sonified periodic table~\cite{smith2024periodic}. ACPCM uses such a mapping
+as a codebook: payload symbols index a dictionary of multi-tone acoustic ``words.'' These
+audio-band tones serve as \emph{codebook symbols}, not literal drive frequencies: the
+transducer operates in the MHz band (\cref{sec:format}), and each symbol indexes a distinct
+multi-tone pattern within it.
+
+It is essential to be precise about what sonification \emph{is not}. The light-to-audio
+mapping (from ${\sim}10^{14}$\,Hz to ${\sim}10^{2}$--$10^{4}$\,Hz) is an arbitrary,
+reproducible rescaling chosen for human perceptibility~\cite{smith2024periodic}; it is
+\emph{not} a physical resonance, it reveals no ``hidden physics,'' and it carries no
+information beyond what is already in the source data~\cite{hermann2008taxonomy}. The draft
+framing additionally invokes W.~Russell's octave cosmology, in which the elements are
+arranged on a spiral of ten octaves balancing ``centripetal'' and ``centrifugal''
+tendencies~\cite{russell1926universalone}. We are explicit that this is a
+\textbf{historical/esoteric} system - metaphysics, not chemistry - used here, if at all,
+only as one arbitrary-but-fixed codebook among many. Nothing in the architecture depends on
+Russell's metaphysics being correct; any injective, noise-separated frequency code would
+serve, and a \emph{designed} code (e.g.\ orthogonal frequency-division multiplexing) is
+strictly preferable.
+
+\subsection{Writing by phase change}
+The pod is held near its freezing point. The transducer simultaneously broadcasts (i)~the
+cymatic formatting field of \cref{sec:format} and (ii)~the data tones. While the field is
+held, the pod undergoes an \emph{instantaneous phase transition} to a solid. In analogy to
+the melt--quench programming of chalcogenide phase-change
+memory~\cite{wuttig2007pcm,raoux2010pcm} - and, more loosely, to HAMR's heat-and-quench
+write cycle~\cite{kryder2008hamr} - in which a pulse melts a bit and rapid cooling freezes
+it into a distinct solid phase, the rapid solidification is hypothesized to ``record'' the
+instantaneous acoustic field as a frozen-in topology - displacements, density modulations,
+and interface positions locked into the lattice.
+
+\begin{assumption}[Faithful commit]\label{as:commit}
+Freezing transfers the broadcast acoustic field into a static, readable lattice topology
+with sufficient fidelity and reproducibility to be decoded, and the transition's own
+dynamics (stochastic nucleation, latent-heat release, ${\sim}9\%$ volumetric expansion,
+dendritic growth) do not destroy the encoded pattern.
+\end{assumption}
+
+\Cref{as:commit} is the architecture's load-bearing physical claim and its most likely
+point of failure; we return to it in \cref{sec:limits}. We emphasize that the HAMR and PCM
+citations establish only that \emph{their own} rapid-quench mechanisms work; they provide
+\emph{no} evidence that an acoustic field can be recorded by freezing water. That bridge is
+ours, and it is conjecture.
+
+%================================================================== 5. Read
+\section{Reading: megahertz acoustic holography}
+\label{sec:read}
+
+Once committed to ice, the data lives in microscopic features of the solid, far below the
+resolution of any microphone. Read-back is posed as an \emph{acoustic holography}
+problem~\cite{melde2016holograms}.
+
+\paragraph{The ice as a phase plate.}
+A megahertz ultrasonic pulse illuminates the frozen pod. Because acoustic holography is
+diffraction-limited, resolving microscopic features requires correspondingly short
+wavelengths - i.e.\ MHz (or higher) ultrasound, with millimetre-to-sub-millimetre
+wavelengths in water and ice~\cite{melde2016holograms,jimenez2019skull}. The ice topology
+then acts as a passive \emph{acoustic phase plate}~\cite{melde2016holograms,brown2019phaseamp}:
+the scattered wave is transformed into a complex, three-dimensional volumetric pressure
+field that encodes the structure it bounced off, and such plates can in principle be
+stacked or reconfigured to multiplex fields~\cite{brown2020stackable}.
+
+\paragraph{Capturing the field.}
+The scattered field is sampled by a calibrated needle hydrophone over a measurement
+surface, the standardized method for spatially mapping ultrasound
+pressure~\cite{iec62127}. We note an honest caveat from the metrology literature: while
+focal-pressure measurements can be highly \emph{repeatable} (coefficient of variation
+below 2\%), inter-hydrophone \emph{agreement} for tightly focused MHz fields can differ by
+tens of percent due to spatial averaging and frequency-response
+uncertainty~\cite{martin2019hydrophone} - a real ceiling on read fidelity. A frequently
+proposed enhancement is \emph{vectorial} sensing: recording not only the scalar pressure
+$p$ but the particle-velocity components $(v_x,v_y)$. We flag, however, that in a fluid
+these are \emph{not} independent degrees of freedom - they are fixed by spatial gradients
+of the same scalar pressure via Euler's relation - so they add an information
+\emph{dimension} under a physical constraint rather than free, independent bandwidth; this
+remains an emerging idea, not a settled gain.
+
+\paragraph{Neural decoding.}
+Finally, the measured field is inverted to the original bitstream by a deep network - e.g.\
+a U-Net of the kind already used for fast acoustic-hologram
+synthesis~\cite{lin2021dlholograms}. The network \emph{architecture} is mature, but the
+\emph{inverse} field-to-source decoding ACPCM requires is harder and less established than
+the forward synthesis those works demonstrate: such inverse problems are ill-posed and a
+network can hallucinate plausible outputs, so any demonstration must include held-out,
+information-theoretic controls (\cref{pr:decode}).
+
+%================================================================== read figure
+\begin{figure}[t]
+\centering
+\resizebox{\textwidth}{!}{%
+\begin{tikzpicture}[font=\small,node distance=10mm,
+  blk/.style={draw=acpcmblue,thick,rounded corners=2pt,fill=acpcmblue!6,align=center,
+    minimum height=12mm,text width=20mm,inner sep=3pt},
+  arr/.style={-{Stealth[length=2.4mm]},acpcmgray,thick}]
+% MHz source
+\node[blk] (src) {MHz pulse\\source};
+% ice phase plate
+\node[draw=acpcmteal,very thick,fill=acpcmteal!10,minimum width=10mm,minimum height=18mm,
+  right=12mm of src,align=center,text width=12mm] (plate) {ice\\phase\\plate};
+% incoming wave
+\draw[acpcmblue,thick,decorate,decoration={snake,amplitude=1pt,segment length=4pt}]
+  (src.east) -- (plate.west);
+% scattered 3D field
+\node[blk,right=14mm of plate,text width=22mm] (field) {scattered 3D\\pressure field\\$p,\,v_x,\,v_y$};
+\foreach \dy in {-6,-2,2,6}
+  \draw[acpcmteal,thick] (plate.east) to[out=0,in=180]
+    ($(field.west)+(0,\dy mm)$);
+% hydrophone + unet
+\node[blk,right=10mm of field] (hyd) {needle\\hydrophone\\array};
+\node[blk,right=10mm of hyd] (unet) {U-Net\\decode};
+\node[blk,right=10mm of unet,fill=acpcmteal!12,draw=acpcmteal] (bits) {bitstream};
+\draw[arr] (field) -- (hyd);
+\draw[arr] (hyd) -- (unet);
+\draw[arr] (unet) -- (bits);
+\end{tikzpicture}%
+}
+\caption{Read chain. A megahertz pulse scatters off the frozen pod, whose topology acts as
+an acoustic phase plate~\cite{melde2016holograms}; the resulting volumetric field (scalar
+pressure plus, optionally, particle-velocity components) is sampled by a hydrophone
+array~\cite{iec62127,martin2019hydrophone} and inverted to a bitstream by a trained
+network~\cite{lin2021dlholograms}. This read chain reuses only established techniques;
+the speculative burden lies entirely on the write side (\cref{as:commit}).}
+\label{fig:read}
+\end{figure}
+
+%================================================================== 6. Epistemic ledger
+\section{Epistemic ledger}
+\label{sec:ledger}
+
+\Cref{tab:status} is the paper's central honesty device: each subsystem is paired with the
+real-world mechanism it borrows and with a blunt status label. The pattern is deliberate:
+\emph{the read path and the write \textbf{actuation} are built from established techniques,
+while the speculative weight is concentrated in a small number of clearly marked assumptions
+about how freezing water records and preserves an acoustic field.} The refuted ingredient
+(``water memory'') is load-bearing nowhere; it is motivational framing only.
+
+\begin{table}[t]
+\centering
+\small
+\renewcommand{\arraystretch}{1.25}
+\begin{tabularx}{\textwidth}{@{}>{\raggedright\arraybackslash}p{0.21\textwidth}
+  >{\raggedright\arraybackslash}X
+  >{\raggedright\arraybackslash}p{0.205\textwidth}@{}}
+\toprule
+\textbf{ACPCM subsystem} & \textbf{Borrowed real mechanism} & \textbf{Status of the leap} \\
+\midrule
+Rapid ``write'' by phase change (\cref{sec:write})
+  & HAMR heat--quench; chalcogenide PCM melt--quench switching~\cite{kryder2008hamr,wuttig2007pcm}
+  & \textcolor{warnrule}{\bfseries Speculative} (\cref{as:commit}) \\
+Cell isolation via pods (\cref{sec:medium})
+  & Charge-trap flash discrete traps~\cite{white2000sonos}
+  & \textcolor{acpcmgray}{\bfseries Plausible} (\cref{as:confine}) \\
+Cymatic addressing grid (\cref{sec:format})
+  & Acoustofluidic patterning; holographic tweezers~\cite{rufo2022acoustofluidics,marzo2015holographic}
+  & Particle nodes \textcolor{acpcmteal}{\bfseries established}; molecular ordering \textcolor{warnrule}{\bfseries speculative} (\cref{as:cymgrid}) \\
+Sonification codebook (\cref{sec:write})
+  & Data-sonification methodology~\cite{kramer1999nsf,hermann2011handbook}
+  & Mapping \textcolor{acpcmteal}{\bfseries established}; Russell octaves \textcolor{warnrule}{\bfseries esoteric/optional}~\cite{russell1926universalone} \\
+MHz acoustic-holography read-out (\cref{sec:read})
+  & Acoustic holograms; hydrophone metrology; DL inversion~\cite{melde2016holograms,martin2019hydrophone,lin2021dlholograms}
+  & \textcolor{acpcmteal}{\bfseries Established} techniques \\
+``Structured-water'' carriers (\cref{sec:medium})
+  & EZ/fourth-phase water; Orch-OR water~\cite{pollack2013fourth,hameroff2014orchor}
+  & \textcolor{warnrule}{\bfseries Contested / minority}~\cite{elton2020ez,tegmark2000decoherence} \\
+``Water memory'' (motivation only)
+  & Benveniste high-dilution claims~\cite{benveniste1988}
+  & \textcolor{red!70!black}{\bfseries Refuted}~\cite{maddox1988} \\
+\bottomrule
+\end{tabularx}
+\caption{Epistemic ledger mapping each ACPCM subsystem to its borrowed real mechanism and
+the status of the conceptual leap. The architecture is engineered so that the
+\emph{refuted} ingredient (water memory) carries \emph{no} load - it is motivational
+framing only - while the genuinely novel risk is isolated in \cref{as:commit}. Established
+citations support only their own row and lend no credibility to the speculative rows.}
+\label{tab:status}
+\end{table}
+
+%================================================================== 7. Predictions
+\section{Falsifiable predictions}
+\label{sec:predictions}
+
+A speculative proposal earns its keep by being testable. ACPCM implies concrete, disprovable
+predictions; any one of them failing falsifies the corresponding assumption.
+
+\begin{prediction}[Field-to-lattice transfer]\label{pr:transfer}
+Freezing a thin water film while broadcasting a fixed MHz pressure pattern produces a
+\emph{reproducible}, pattern-dependent modulation in the resulting ice (e.g.\ in density,
+birefringence, or scattered-field signature) that is absent under sham (unmodulated)
+freezing. \emph{Test:} interferometric or acoustic readout of patterned vs.\ control
+freezes under blinding; \emph{falsified if} no above-noise, pattern-correlated structure
+survives (\cref{as:commit}).
+\end{prediction}
+
+\begin{prediction}[Addressable nodes]\label{pr:nodes}
+The post-freeze structure is spatially organized at the wavelength scale of the imposed
+standing wave. \emph{Falsified if} the frozen modulation shows no correlation with the node
+geometry (\cref{as:cymgrid}).
+\end{prediction}
+
+\begin{prediction}[Decodable channel]\label{pr:decode}
+A network trained on (pattern $\rightarrow$ scattered-field) pairs recovers the input code
+above chance on held-out patterns, with a measurable channel capacity. \emph{Falsified if}
+decoding accuracy is at chance on held-out data, indicating no recoverable information (and
+guarding against the network merely memorizing or hallucinating).
+\end{prediction}
+
+If \cref{pr:transfer} fails - the most likely outcome given current physics - the
+architecture collapses to its established components, and that negative result is itself
+worth reporting.
+
+%================================================================== 8. Limitations
+\section{Discussion: obstacles, limits, and why this is hard}
+\label{sec:limits}
+
+We do not claim ACPCM is feasible. The honest reading is that it is \emph{probably not},
+for reasons worth stating precisely because they sharpen the predictions above.
+
+\paragraph{The freezing transition is violent.}
+Water expands by roughly 9\% on freezing and releases substantial latent heat; nucleation is
+stochastic and growth is dendritic. Any acoustic ``imprint'' must survive a disordering,
+mechanically disruptive event: a ${\sim}9\%$ volume change (a ${\sim}3\%$ linear strain) at
+a voxel scale of $\lambda/2 \approx 15$--$75\,\unit{\micro\meter}$ (10--50\,MHz in water)
+implies linear displacements of order ${\sim}0.5$--$2\,\unit{\micro\meter}$ - a
+non-negligible fraction of the intended nodal spacing itself. \Cref{as:commit} is thus in
+direct tension with the thermodynamics of solidification. Controlling nucleation site,
+rate, and crystal habit (hexagonal ice $\mathrm{I_h}$ vs.\ vitrified/amorphous ice) is
+itself a hard, partly unsolved problem.
+
+\paragraph{Liquid water has no long-term memory.}
+The hydrogen-bond network reorganizes on picosecond timescales~\cite{cowan2005water}; there
+is no credible evidence for persistent information storage in \emph{liquid} water, and the
+specific ``water memory'' claims invoked as motivation were investigated and not
+reproduced~\cite{maddox1988,benveniste1988}, including later
+revivals~\cite{montagnier2009}. ACPCM only sidesteps this objection by storing nothing in
+the liquid - which places the entire burden on the freeze step.
+
+\paragraph{Resolution versus penetration.}
+Resolving microscopic features acoustically requires very high frequencies, where absorption
+in water and ice rises steeply; there is a real, physics-imposed tension between resolution
+and penetration that caps achievable density. Read-out is also an ill-posed inverse problem,
+and hydrophone metrology already shows tens-of-percent inter-device disagreement for tightly
+focused MHz fields~\cite{martin2019hydrophone}, so any demonstration must include rigorous,
+blinded, information-theoretic controls (\cref{pr:decode}).
+
+\paragraph{Thermodynamic and energy cost.}
+Writing a bit by freezing and reading it by illumination implies an energy budget per bit
+that is plausibly orders of magnitude worse than incumbent technologies, before considering
+throughput. Even if every assumption held, the density/energy/latency envelope would need to
+beat HAMR~\cite{kryder2008hamr} and 3D NAND~\cite{goda2020} to matter - a very high bar.
+
+\paragraph{What would change our mind.}
+A positive, replicated result on \cref{pr:transfer} under blinded controls - pattern-
+dependent, above-noise structure that survives freezing and carries recoverable
+information - would promote \cref{as:commit} from speculation to phenomenon and justify
+pursuing the rest. Absent that, ACPCM remains an organizing metaphor and a teaching device
+for cross-disciplinary analogy, not a storage technology.
+
+%================================================================== 9. Conclusion
+\section{Conclusion}
+\label{sec:conclusion}
+
+We have presented Acousto-Cymatic Phase-Change Memory as a structured thought experiment that
+transposes two proven storage principles - rapid phase-change writing
+(HAMR~\cite{kryder2008hamr}, PCM~\cite{wuttig2007pcm}) and microscopic isolation
+(CTF~\cite{white2000sonos}) - onto a rapidly frozen aqueous medium, with an
+acoustic-holographic, neural-decoded read path that reuses otherwise-established
+techniques~\cite{melde2016holograms,lin2021dlholograms}. Its value is not a feasibility
+claim but the discipline of the synthesis: by laying out an explicit epistemic ledger
+(\cref{tab:status}) and a falsifiable test program (\cref{sec:predictions}), the proposal
+makes clear exactly which single physical claim (\cref{as:commit}) it lives or dies by,
+concentrates all genuinely speculative risk there, and quarantines refuted ideas as
+motivation only. We offer it in that spirit: a provocation to be tested and, most likely,
+falsified - which is the useful kind.
+
+%------------------------------------------------------------------ back matter
+\section*{Epistemic disclosure}
+\addcontentsline{toc}{section}{Epistemic disclosure}
+\small
+This manuscript is a speculative ``idea paper.'' Where it invokes ``water memory,''
+``structured/EZ water,'' or W.~Russell's octave cosmology, it does so with explicit labels
+indicating these are contested, minority, or refuted positions, used as motivational or
+historical framing only; none carries the proposal's logical weight. The established
+mechanisms cited (HAMR, charge-trap flash, phase-change memory, acoustic holography,
+deep-learning acoustic inversion, data sonification) are mainstream, and each is cited only
+to support its own subsystem; their combination into ACPCM is hypothetical and unvalidated.
+Nothing here should be read as a claim that the device works. All references were
+independently verified against Crossref, publisher, arXiv, or ADS records during
+preparation.
+
+\section*{Acknowledgements}
+The synthesis draws on a reading list spanning storage engineering, acoustics, and the
+history of fringe science; the author thanks the open literature and explicitly credits the
+critical and skeptical sources~\cite{tegmark2000decoherence,elton2020ez,maddox1988} that
+establish the boundaries of accepted knowledge.
+
+%------------------------------------------------------------------ Bibliography
+\begin{thebibliography}{99}
+\addcontentsline{toc}{section}{References}
+
+% ---- Magnetic recording limits & HAMR (ESTABLISHED) ----
+\bibitem{charap1997}
+S.~H. Charap, P.-L. Lu, and Y.~He, ``Thermal stability of recorded information at high
+densities,'' \emph{IEEE Trans. Magn.}, vol.~33, no.~1, pp.~978--983, Jan.\ 1997,
+doi:\,10.1109/20.560142.
+
+\bibitem{wellermoser1999}
+D.~Weller and A.~Moser, ``Thermal effect limits in ultrahigh-density magnetic recording,''
+\emph{IEEE Trans. Magn.}, vol.~35, no.~6, pp.~4423--4439, Nov.\ 1999,
+doi:\,10.1109/20.809134.
+
+\bibitem{kryder2008hamr}
+M.~H. Kryder, E.~C. Gage, T.~W. McDaniel, W.~A. Challener, R.~E. Rottmayer, G.~Ju,
+Y.-T. Hsia, and M.~F. Erden, ``Heat assisted magnetic recording,'' \emph{Proc. IEEE},
+vol.~96, no.~11, pp.~1810--1835, Nov.\ 2008, doi:\,10.1109/JPROC.2008.2004315.
+
+\bibitem{challener2009}
+W.~A. Challener \emph{et al.}, ``Heat-assisted magnetic recording by a near-field
+transducer with efficient optical energy transfer,'' \emph{Nat. Photonics}, vol.~3, no.~4,
+pp.~220--224, 2009, doi:\,10.1038/nphoton.2009.26.
+
+% ---- 3D NAND / charge-trap flash (ESTABLISHED) ----
+\bibitem{white2000sonos}
+M.~H. White, D.~A. Adams, and J.~Bu, ``On the go with SONOS,'' \emph{IEEE Circuits Devices
+Mag.}, vol.~16, no.~4, pp.~22--31, Jul.\ 2000, doi:\,10.1109/101.857747.
+
+\bibitem{tanaka2007bics}
+H.~Tanaka \emph{et al.}, ``Bit cost scalable technology with punch and plug process for
+ultra high density flash memory,'' in \emph{2007 IEEE Symp. VLSI Technology, Tech. Dig.},
+Jun.\ 2007, pp.~14--15, doi:\,10.1109/VLSIT.2007.4339708.
+
+\bibitem{goda2020}
+A.~Goda, ``3-D NAND technology achievements and future scaling perspectives,'' \emph{IEEE
+Trans. Electron Devices}, vol.~67, no.~4, pp.~1373--1381, Apr.\ 2020,
+doi:\,10.1109/TED.2020.2968079.
+
+% ---- Phase-change memory (ESTABLISHED) ----
+\bibitem{ovshinsky1968}
+S.~R. Ovshinsky, ``Reversible electrical switching phenomena in disordered structures,''
+\emph{Phys. Rev. Lett.}, vol.~21, no.~20, pp.~1450--1453, 1968,
+doi:\,10.1103/PhysRevLett.21.1450.
+
+\bibitem{wuttig2007pcm}
+M.~Wuttig and N.~Yamada, ``Phase-change materials for rewriteable data storage,''
+\emph{Nat. Mater.}, vol.~6, no.~11, pp.~824--832, 2007, doi:\,10.1038/nmat2009.
+
+\bibitem{raoux2010pcm}
+S.~Raoux, W.~We{\l}nic, and D.~Ielmini, ``Phase change materials and their application to
+nonvolatile memories,'' \emph{Chem. Rev.}, vol.~110, no.~1, pp.~240--267, 2010,
+doi:\,10.1021/cr900040x.
+
+% ---- Acoustic holography & acoustofluidic assembly (ESTABLISHED) ----
+\bibitem{faraday1831}
+M.~Faraday, ``On a peculiar class of acoustical figures; and on certain forms assumed by
+groups of particles upon vibrating elastic surfaces,'' \emph{Phil. Trans. R. Soc. Lond.},
+vol.~121, pp.~299--340, 1831, doi:\,10.1098/rstl.1831.0018.
+
+\bibitem{melde2016holograms}
+K.~Melde, A.~G. Mark, T.~Qiu, and P.~Fischer, ``Holograms for acoustics,'' \emph{Nature},
+vol.~537, no.~7621, pp.~518--522, 2016, doi:\,10.1038/nature19755.
+
+\bibitem{memoli2017bricks}
+G.~Memoli, M.~Caleap, M.~Asakawa, D.~R. Sahoo, B.~W. Drinkwater, and S.~Subramanian,
+``Metamaterial bricks and quantization of meta-surfaces,'' \emph{Nat. Commun.}, vol.~8,
+art.~14608, 2017, doi:\,10.1038/ncomms14608.
+
+\bibitem{jimenez2019skull}
+S.~Jim\'enez-Gamb\'in, N.~Jim\'enez, J.~M. Benlloch, and F.~Camarena, ``Holograms to focus
+arbitrary ultrasonic fields through the skull,'' \emph{Phys. Rev. Applied}, vol.~12,
+art.~014016, 2019, doi:\,10.1103/PhysRevApplied.12.014016.
+
+\bibitem{brown2019phaseamp}
+M.~D. Brown, ``Phase and amplitude modulation with acoustic holograms,'' \emph{Appl. Phys.
+Lett.}, vol.~115, no.~5, art.~053701, 2019, doi:\,10.1063/1.5110673.
+
+\bibitem{brown2020stackable}
+M.~D. Brown, B.~T. Cox, and B.~E. Treeby, ``Stackable acoustic holograms,'' \emph{Appl.
+Phys. Lett.}, vol.~116, no.~26, art.~261901, 2020, doi:\,10.1063/5.0009829.
+
+\bibitem{marzo2015holographic}
+A.~Marzo, S.~A. Seah, B.~W. Drinkwater, D.~R. Sahoo, B.~Long, and S.~Subramanian,
+``Holographic acoustic elements for manipulation of levitated objects,'' \emph{Nat.
+Commun.}, vol.~6, art.~8661, 2015, doi:\,10.1038/ncomms9661.
+
+\bibitem{marzo2018vortices}
+A.~Marzo, M.~Caleap, and B.~W. Drinkwater, ``Acoustic virtual vortices with tunable orbital
+angular momentum for trapping of Mie particles,'' \emph{Phys. Rev. Lett.}, vol.~120,
+art.~044301, 2018, doi:\,10.1103/PhysRevLett.120.044301.
+
+\bibitem{collins2015saw}
+D.~J. Collins, B.~Morahan, J.~Garcia-Bustos, C.~Doerig, M.~Plebanski, and A.~Neild,
+``Two-dimensional single-cell patterning with one cell per well driven by surface acoustic
+waves,'' \emph{Nat. Commun.}, vol.~6, art.~8686, 2015, doi:\,10.1038/ncomms9686.
+
+\bibitem{rufo2022acoustofluidics}
+J.~Rufo, F.~Cai, J.~Friend, M.~Wiklund, and T.~J. Huang, ``Acoustofluidics for biomedical
+applications,'' \emph{Nat. Rev. Methods Primers}, vol.~2, art.~30, 2022,
+doi:\,10.1038/s43586-022-00109-7.
+
+% ---- Hydrophone metrology & DL acoustic inversion ----
+\bibitem{iec62127}
+International Electrotechnical Commission, \emph{IEC 62127-1:2022, Ultrasonics - 
+Hydrophones - Part~1: Measurement and characterization of medical ultrasonic fields},
+2nd~ed. Geneva: IEC, 2022.
+
+\bibitem{martin2019hydrophone}
+E.~Martin and B.~E. Treeby, ``Investigation of the repeatability and reproducibility of
+hydrophone measurements of medical ultrasound fields,'' \emph{J. Acoust. Soc. Am.},
+vol.~145, no.~3, pp.~1270--1282, 2019, doi:\,10.1121/1.5093306.
+
+\bibitem{lin2021dlholograms}
+Q.~Lin, J.~Wang, F.~Cai, R.~Zhang, D.~Zhao, X.~Xia, J.~Wang, and H.~Zheng, ``A deep learning
+approach for the fast generation of acoustic holograms,'' \emph{J. Acoust. Soc. Am.},
+vol.~149, no.~4, pp.~2312--2322, 2021, doi:\,10.1121/10.0003959.
+
+% ---- Data sonification (ESTABLISHED methodology) ----
+\bibitem{kramer1999nsf}
+G.~Kramer, B.~Walker, T.~Bonebright, P.~Cook, J.~H. Flowers, N.~Miner, and J.~Neuhoff,
+\emph{Sonification Report: Status of the Field and Research Agenda}. Report prepared for the
+U.S. National Science Foundation by members of the Int. Community for Auditory Display
+(ICAD), 1999. [Online]. Available: \url{https://digitalcommons.unl.edu/psychfacpub/444/}
+
+\bibitem{hermann2011handbook}
+T.~Hermann, A.~Hunt, and J.~G. Neuhoff, Eds., \emph{The Sonification Handbook}. Berlin:
+Logos Verlag, 2011, ISBN 978-3-8325-2819-5. [Online]. Available:
+\url{https://sonification.de/handbook/}
+
+\bibitem{hermann2008taxonomy}
+T.~Hermann, ``Taxonomy and definitions for sonification and auditory display,'' in
+\emph{Proc. 14th Int. Conf. Auditory Display (ICAD)}, Paris, France, Jun.\ 2008.
+
+\bibitem{trayford2023spectra}
+J.~W. Trayford, C.~M. Harrison, R.~C. Hinz, M.~Kavanagh~Blatt, S.~Dougherty, and A.~Girdhar,
+``Inspecting spectra with sound: proof-of-concept and extension to datacubes,'' \emph{RAS
+Tech. Instrum.}, vol.~2, no.~1, pp.~387--392, 2023, doi:\,10.1093/rasti/rzad021.
+
+\bibitem{smith2024periodic}
+W.~Smith, ``Interactive musical periodic table: sonification of visible element emission
+spectra,'' in \emph{Proc. 21st Sound and Music Computing Conf. (SMC)}, 2024.
+
+% ---- Water structure & quantum biology (CONTESTED / REFUTED) ----
+\bibitem{cowan2005water}
+M.~L. Cowan, B.~D. Bruner, N.~Huse, J.~R. Dwyer, B.~Chugh, E.~T.~J. Nibbering,
+T.~Elsaesser, and R.~J.~D. Miller, ``Ultrafast memory loss and energy redistribution in the
+hydrogen bond network of liquid H$_2$O,'' \emph{Nature}, vol.~434, pp.~199--202, 2005,
+doi:\,10.1038/nature03383.
+
+\bibitem{hameroff2014orchor}
+S.~Hameroff and R.~Penrose, ``Consciousness in the universe: a review of the `Orch OR'
+theory,'' \emph{Phys. Life Rev.}, vol.~11, no.~1, pp.~39--78, 2014,
+doi:\,10.1016/j.plrev.2013.08.002. [Contested hypothesis.]
+
+\bibitem{tegmark2000decoherence}
+M.~Tegmark, ``Importance of quantum decoherence in brain processes,'' \emph{Phys. Rev. E},
+vol.~61, no.~4, pp.~4194--4206, 2000, doi:\,10.1103/PhysRevE.61.4194. [Skeptical rebuttal to
+microtubule quantum coherence.]
+
+\bibitem{elton2020ez}
+D.~C. Elton, P.~D. Spencer, J.~D. Riches, and E.~D. Williams, ``Exclusion zone phenomena in
+water - a critical review of experimental findings and theories,'' \emph{Int. J. Mol.
+Sci.}, vol.~21, no.~14, art.~5041, 2020, doi:\,10.3390/ijms21145041. [Critical review of the
+``fourth phase'' interpretation.]
+
+\bibitem{pollack2013fourth}
+G.~H. Pollack, \emph{The Fourth Phase of Water: Beyond Solid, Liquid, and Vapor}. Seattle,
+WA: Ebner \& Sons, 2013, ISBN 978-0-9626895-4-3. [Self-published; contested minority
+hypothesis - cite with \cite{elton2020ez}.]
+
+\bibitem{benveniste1988}
+E.~Davenas, F.~Beauvais, J.~Amara, \emph{et al.} (J.~Benveniste), ``Human basophil
+degranulation triggered by very dilute antiserum against IgE,'' \emph{Nature}, vol.~333,
+pp.~816--818, 1988, doi:\,10.1038/333816a0. [Original ``memory of water'' claim;
+discredited - see \cite{maddox1988}.]
+
+\bibitem{maddox1988}
+J.~Maddox, J.~Randi, and W.~W. Stewart, ```High-dilution' experiments a delusion,''
+\emph{Nature}, vol.~334, no.~6180, pp.~287--290, 1988, doi:\,10.1038/334287a0. [On-site
+investigation: effect did not survive blinding.]
+
+\bibitem{montagnier2009}
+L.~Montagnier, J.~A\"issa, S.~Ferris, J.-L. Montagnier, and C.~Lavall\'ee, ``Electromagnetic
+signals are produced by aqueous nanostructures derived from bacterial DNA sequences,''
+\emph{Interdiscip. Sci. Comput. Life Sci.}, vol.~1, no.~2, pp.~81--90, 2009,
+doi:\,10.1007/s12539-009-0036-7. [Non-reproduced fringe revival.]
+
+% ---- Russell octave cosmology (ESOTERIC / HISTORICAL) ----
+\bibitem{russell1926universalone}
+W.~Russell, \emph{The Universal One}. New York: privately published by the author, 1926.
+[Esoteric/occult cosmology; historical primary source for the octave/spiral metaphor only,
+not a chemistry reference. Facsimile: \url{https://archive.org/details/the-universal-one-1926-walter-russell}.]
+
+\end{thebibliography}
+
+\end{document}

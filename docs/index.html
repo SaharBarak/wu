@@ -174,6 +174,23 @@ canvas[data-anim]{display:block;width:100%;height:100%;min-height:200px}
 
 .cta{display:inline-flex;align-items:center;gap:.6em;font-size:var(--text-md);color:var(--color-accent)}
 .cta svg{transition:transform .3s var(--ease-out)}.cta:hover svg{transform:translateX(4px)}
+/* GitHub chip + live star count */
+.gh{display:inline-flex;align-items:center;gap:.55em;font-family:var(--font-mono);font-size:var(--text-sm);color:var(--color-text);
+  border:1px solid var(--color-border);background:var(--color-surface-1);padding:.45em .8em;border-radius:6px;
+  letter-spacing:var(--tracking-normal);transition:border-color .25s var(--ease-out),color .25s var(--ease-out)}
+.gh:hover{border-color:var(--color-accent-dim);color:var(--color-text-strong);text-decoration:none}
+.gh svg{flex:none;fill:currentColor}
+.gh .star{color:var(--color-accent-dim)}
+.gh .ct{color:var(--color-text-strong);font-weight:500;font-variant-numeric:tabular-nums}
+.gh .ct[data-loading]{color:var(--color-muted)}
+/* compiled-LaTeX preview frame */
+.paper{grid-column:1/-1;margin-top:var(--space-5);border:1px solid var(--color-border);border-radius:8px;overflow:hidden;background:var(--color-surface-1)}
+.paper .bar{display:flex;align-items:center;justify-content:space-between;gap:var(--space-3);padding:.7em 1em;border-bottom:1px solid var(--color-border);
+  font-family:var(--font-mono);font-size:var(--text-xs);letter-spacing:var(--tracking-wide);color:var(--color-muted);background:var(--color-surface-2)}
+.paper .bar .links{display:inline-flex;gap:1.2em}
+.paper .bar a{color:var(--color-accent-dim)}.paper .bar a:hover{color:var(--color-accent)}
+.paper embed,.paper iframe{display:block;width:100%;height:min(78vh,860px);border:0;background:#222}
+@media (max-width:768px){.paper embed,.paper iframe{height:62vh}}
 .pullcite{grid-column:9/13;border-left:1px solid var(--color-border);padding-left:var(--space-3);font-size:var(--text-sm);font-weight:500;color:var(--color-text);max-width:34ch}
 
 footer{border-top:1px solid var(--color-border);padding-block:var(--space-5)}
@@ -400,13 +417,31 @@ footer .mono{font-size:var(--text-xs);color:var(--color-muted);letter-spacing:va
     <div class="col-narrow reveal">
       <span class="snum">09 / SOURCE</span>
       <h2 style="font-size:var(--text-xl);font-weight:300">Read the preprint</h2>
-      <p class="body" style="margin-top:var(--space-3)">The full idea-paper — verified citations, the complete ledger, falsifiable predictions, and a limitations section that argues against itself.</p>
-      <p style="margin-top:var(--space-4)"><a class="cta" href="main.pdf">Read the PDF
+      <p class="body" style="margin-top:var(--space-3)">The full idea-paper - verified citations, the complete ledger, falsifiable predictions, and a limitations section that argues against itself. Compiled below; the LaTeX source is open.</p>
+      <p style="margin-top:var(--space-4)"><a class="cta" href="main.pdf">Open the PDF
         <svg width="20" height="14" viewBox="0 0 20 14" fill="none" aria-hidden="true"><path d="M1 7h17M12 1l6 6-6 6" stroke="currentColor" stroke-width="1.5"/></svg>
       </a></p>
-      <p class="mono muted" style="font-size:var(--text-sm);margin-top:var(--space-3)">S. Barak · <em>Acousto-Cymatic Phase-Change Memory</em> · preprint, 2026 · <a href="https://github.com/SaharBarak/wu">github.com/SaharBarak/wu</a></p>
+      <p style="margin-top:var(--space-3);display:flex;flex-wrap:wrap;gap:var(--space-2)">
+        <a class="gh" href="https://github.com/SaharBarak/wu" aria-label="GitHub repository, star count">
+          <svg width="16" height="16" viewBox="0 0 16 16" aria-hidden="true"><path d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.01 8.01 0 0 0 16 8c0-4.42-3.58-8-8-8Z"/></svg>
+          <span>SaharBarak/wu</span>
+          <span class="star" aria-hidden="true">★</span><span class="ct js-stars" data-loading>-</span>
+        </a>
+        <a class="gh" href="main.tex">
+          <svg width="16" height="16" viewBox="0 0 16 16" aria-hidden="true"><path d="M4 1h6l4 4v10a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1Zm5 1v3h3"/></svg>
+          <span>main.tex - source</span>
+        </a>
+      </p>
+      <p class="mono muted" style="font-size:var(--text-sm);margin-top:var(--space-3)">S. Barak · <em>Acousto-Cymatic Phase-Change Memory</em> · preprint, 2026</p>
     </div>
     <div class="pullcite reveal">A speculative theoretical framework for high-density data storage in confined aqueous media.</div>
+    <div class="paper reveal">
+      <div class="bar">
+        <span>main.pdf - COMPILED LaTeX · 11 pp.</span>
+        <span class="links"><a href="main.pdf">PDF ↗</a><a href="main.tex">SOURCE ↗</a></span>
+      </div>
+      <embed src="main.pdf#view=FitH&toolbar=0" type="application/pdf" />
+    </div>
   </div>
 </section>
 </main>
@@ -415,7 +450,7 @@ footer .mono{font-size:var(--text-xs);color:var(--color-muted);letter-spacing:va
   <div class="wrap">
     <span class="mono">wu · ACPCM · SPECULATIVE IDEA-PAPER</span>
     <span class="mono">DESIGN: SUPERCOOLED CLARITY</span>
-    <span class="mono"><a href="https://github.com/SaharBarak/wu">SOURCE ↗</a></span>
+    <span class="mono"><a href="https://github.com/SaharBarak/wu">github.com/SaharBarak/wu</a> · <span class="star" aria-hidden="true">★</span> <span class="ct js-stars" data-loading>-</span></span>
   </div>
 </footer>
 
@@ -423,6 +458,17 @@ footer .mono{font-size:var(--text-xs);color:var(--color-muted);letter-spacing:va
 "use strict";
 (function(){
   const reduce = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+
+  /* live GitHub star count (public API, no auth, graceful fallback) */
+  (function stars(){
+    const nodes = document.querySelectorAll(".js-stars"); if(!nodes.length) return;
+    const fmt = n => n>=1000 ? (n/1000).toFixed(n>=10000?0:1).replace(/\.0$/,"")+"k" : String(n);
+    fetch("https://api.github.com/repos/SaharBarak/wu",{headers:{Accept:"application/vnd.github+json"}})
+      .then(r => r.ok ? r.json() : Promise.reject(r.status))
+      .then(d => { const n = d && d.stargazers_count; if(typeof n!=="number") throw 0;
+        nodes.forEach(el => { el.textContent = fmt(n); el.removeAttribute("data-loading"); }); })
+      .catch(() => nodes.forEach(el => { el.textContent = "-"; el.removeAttribute("data-loading"); }));
+  })();
 
   /* progress (transform only) */
   const prog=document.getElementById("progress"); let ticking=false;
