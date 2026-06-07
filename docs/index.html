@@ -1,28 +1,637 @@
 <!doctype html>
 <html lang="en">
 <head>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>ACPCM — Acousto-Cymatic Phase-Change Memory</title>
-  <meta name="description" content="A speculative technical framework for storing data in the physical structure of rapidly frozen water." />
-  <style>
-    :root { color-scheme: dark; }
-    html,body { margin:0; height:100%; background:#0a0b0d; color:#e7e9ee;
-      font-family: ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, sans-serif; }
-    main { min-height:100dvh; display:grid; place-content:center; gap:1rem; padding:2rem;
-      max-width:60ch; margin-inline:auto; }
-    .kicker { font-family: ui-monospace, "SF Mono", Menlo, monospace; font-size:.8rem;
-      letter-spacing:.22em; text-transform:uppercase; color:#5fd0c8; }
-    h1 { font-size:clamp(2rem,6vw,3.4rem); line-height:1.04; letter-spacing:-.03em; margin:0; font-weight:650; }
-    p { color:#9aa3b0; line-height:1.6; max-width:52ch; }
-    a { color:#5fd0c8; }
-  </style>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>ACPCM — Acousto-Cymatic Phase-Change Memory</title>
+<meta name="description" content="A speculative technical framework for storing data in the physical structure of rapidly frozen water — honest about why it probably doesn't work." />
+<meta property="og:title" content="Acousto-Cymatic Phase-Change Memory (ACPCM)" />
+<meta property="og:description" content="Storing data in the topology of frozen water — a speculative idea-paper, told honestly." />
+<meta property="og:type" content="website" />
+<meta name="color-scheme" content="dark" />
+<link rel="preconnect" href="https://api.fontshare.com" crossorigin />
+<link rel="preconnect" href="https://cdn.fontshare.com" crossorigin />
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://api.fontshare.com/v2/css?f[]=satoshi@300,400,500,700&display=swap" rel="stylesheet" />
+<link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet" />
+<style>
+/* ============================ TOKENS ============================ */
+:root{
+  --color-bg:#0c0e0f; --color-surface-1:#141618; --color-surface-2:#1e2124;
+  --color-border:#2a2e33; --color-muted:#5a6370; --color-text:#d8dde3; --color-text-strong:#edf0f3;
+  --color-accent:#5b9ea6; --color-accent-dim:#3d6e75; --color-accent-pale:#1a3840;
+  --color-established:#4a8c78; --color-plausible:#7a8f6a; --color-speculative:#9a8560;
+  --color-contested:#7a6e88; --color-refuted:#6b4a4a;
+
+  --font-display:"Satoshi",ui-sans-serif,system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;
+  --font-mono:"JetBrains Mono",ui-monospace,"SF Mono",Menlo,Consolas,monospace;
+
+  --text-xs:clamp(0.65rem,0.6rem + 0.25vw,0.75rem);
+  --text-sm:clamp(0.8rem,0.75rem + 0.25vw,0.875rem);
+  --text-base:clamp(0.9375rem,0.875rem + 0.3vw,1rem);
+  --text-md:clamp(1.125rem,1rem + 0.6vw,1.25rem);
+  --text-lg:clamp(1.375rem,1.1rem + 1.2vw,1.875rem);
+  --text-xl:clamp(1.875rem,1.4rem + 2vw,2.75rem);
+  --text-2xl:clamp(2.5rem,1.6rem + 4vw,4.5rem);
+  --text-display:clamp(3.5rem,2rem + 7vw,7rem);
+
+  --tracking-tight:-0.03em; --tracking-normal:-0.01em; --tracking-wide:0.08em; --tracking-widest:0.12em;
+  --leading-tight:1.1; --leading-snug:1.35; --leading-normal:1.6; --leading-loose:1.8;
+
+  --space-2:clamp(0.5rem,1vw,0.75rem); --space-3:clamp(0.75rem,1.5vw,1.25rem);
+  --space-4:clamp(1.25rem,2.5vw,2rem); --space-5:clamp(2rem,4vw,3.5rem);
+  --space-6:clamp(3.5rem,7vw,6rem); --space-7:clamp(5rem,10vw,9rem);
+  --space-section:clamp(6rem,14vw,12rem);
+
+  --max-width:1320px; --margin:clamp(1.25rem,6vw,7rem); --gutter:clamp(1rem,4vw,2rem);
+  --ease-out:cubic-bezier(.16,1,.3,1);
+}
+/* ============================ BASE ============================ */
+*,*::before,*::after{box-sizing:border-box}
+html{scroll-behavior:smooth}
+@media (prefers-reduced-motion:reduce){html{scroll-behavior:auto}}
+body{
+  margin:0;background:var(--color-bg);color:var(--color-text);
+  font-family:var(--font-display);font-weight:400;font-size:var(--text-base);
+  line-height:var(--leading-normal);-webkit-font-smoothing:antialiased;text-rendering:optimizeLegibility;
+  overflow-x:hidden;
+}
+h1,h2,h3{color:var(--color-text-strong);font-weight:500;letter-spacing:var(--tracking-tight);
+  line-height:var(--leading-snug);margin:0;text-wrap:balance}
+p{margin:0 0 var(--space-3);max-width:62ch}
+a{color:var(--color-accent);text-decoration:none}
+a:hover{text-decoration:underline;text-underline-offset:3px;text-decoration-thickness:1px}
+::selection{background:var(--color-accent-pale);color:var(--color-text-strong)}
+::-webkit-scrollbar{width:3px;height:3px}
+::-webkit-scrollbar-thumb{background:var(--color-accent-dim)}
+::-webkit-scrollbar-track{background:transparent}
+
+/* ============================ UTILITIES ============================ */
+.mono{font-family:var(--font-mono);font-feature-settings:"ss02" 1}
+.kicker{font-family:var(--font-mono);font-size:var(--text-xs);letter-spacing:var(--tracking-widest);
+  text-transform:uppercase;color:var(--color-muted)}
+.accent{color:var(--color-accent)}
+.wrap{max-width:var(--max-width);margin-inline:auto;padding-inline:var(--margin)}
+.grid{display:grid;grid-template-columns:repeat(12,1fr);column-gap:var(--gutter);row-gap:var(--space-4)}
+.lead{font-size:var(--text-md);color:var(--color-text);line-height:var(--leading-snug);max-width:32ch}
+.body{color:var(--color-text);max-width:60ch}
+.muted{color:var(--color-muted)}
+
+/* ============================ GRAIN ============================ */
+.grain{position:fixed;inset:0;z-index:1000;pointer-events:none;opacity:.035;
+  background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='3' stitchTiles='stitch'/%3E%3CfeColorMatrix type='saturate' values='0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E")}
+
+/* ============================ PROGRESS + NAV ============================ */
+.progress{position:fixed;top:0;left:0;height:2px;width:0;background:var(--color-accent);z-index:1001;transition:width .1s linear}
+.tag{font-family:var(--font-mono);font-size:var(--text-xs);letter-spacing:var(--tracking-wide);
+  text-transform:uppercase;display:inline-flex;align-items:center;gap:.5em;padding:.35em .7em;
+  border:1px solid var(--color-border);color:var(--color-accent);background:var(--color-surface-2);border-radius:2px}
+.assume{color:var(--color-speculative);border-color:color-mix(in srgb,var(--color-speculative) 40%,var(--color-border))}
+
+/* ============================ SECTIONS ============================ */
+section{position:relative;padding-block:var(--space-section)}
+.snum{font-family:var(--font-mono);font-size:var(--text-xs);letter-spacing:var(--tracking-widest);color:var(--color-accent-dim);display:block;margin-bottom:var(--space-3)}
+.s-bg1{background:var(--color-surface-1)}
+.s-bg2{background:var(--color-surface-2)}
+
+/* reveal */
+.reveal{opacity:0;transform:translateY(14px);transition:opacity .7s var(--ease-out),transform .7s var(--ease-out)}
+.reveal.in{opacity:1;transform:none}
+@media (prefers-reduced-motion:reduce){.reveal{opacity:1;transform:none;transition:none}}
+
+/* ============================ HERO ============================ */
+.hero{min-height:100dvh;display:flex;align-items:center;padding-top:var(--space-6)}
+.hero .grid{align-items:center;width:100%}
+.hero-title{grid-column:1/9;font-family:var(--font-display);font-weight:300;font-size:var(--text-display);
+  line-height:.95;letter-spacing:var(--tracking-tight);color:var(--color-text-strong)}
+.hero-sub{grid-column:1/8;margin-top:var(--space-4);font-size:var(--text-lg);font-weight:300;color:var(--color-text);max-width:24ch;line-height:1.2}
+.hero-canvas{grid-column:9/13;align-self:stretch;min-height:clamp(220px,38vh,420px)}
+.hero-foot{grid-column:1/8;margin-top:var(--space-5)}
+.hero-foot p{color:var(--color-muted);max-width:54ch;font-size:var(--text-sm)}
+.sidelabel{position:absolute;right:calc(var(--margin) - 1.2rem);top:38%;writing-mode:vertical-rl;
+  font-family:var(--font-mono);font-size:var(--text-xs);letter-spacing:var(--tracking-widest);color:var(--color-muted)}
+
+/* split sections */
+.col-left{grid-column:1/7}
+.col-right{grid-column:7/13}
+.col-wide{grid-column:1/10}
+.col-narrow{grid-column:1/8}
+.fig{min-height:clamp(240px,40vh,460px);border-top:1px solid var(--color-accent-dim);position:relative}
+.fig canvas{display:block;width:100%;height:100%}
+canvas[data-anim]{display:block;width:100%;height:100%;min-height:200px}
+.hero-canvas{display:block}
+.figcap{font-family:var(--font-mono);font-size:var(--text-xs);color:var(--color-muted);letter-spacing:var(--tracking-wide);margin-top:var(--space-2)}
+
+/* callouts */
+.callout{background:var(--color-surface-2);border:1px solid var(--color-border);border-radius:2px;
+  box-shadow:inset 0 1px 0 rgba(255,255,255,.04);padding:var(--space-4);border-left-width:3px}
+.callout h4{margin:0 0 .4em;font-size:var(--text-md);color:var(--color-text-strong)}
+.callout p{font-size:var(--text-sm);color:var(--color-muted);margin:0}
+.callout.est{border-left-color:var(--color-established)}
+.callout.spec{border-left-color:var(--color-speculative)}
+.pair{display:grid;grid-template-columns:1fr 1fr;gap:var(--gutter);align-items:start}
+.pair .callout:last-child{margin-top:.5rem}
+
+/* climax banner (section 4) */
+.banner{display:inline-block;background:color-mix(in srgb,var(--color-speculative) 18%,transparent);
+  border:1px solid color-mix(in srgb,var(--color-speculative) 45%,var(--color-border));color:var(--color-text-strong);
+  font-family:var(--font-mono);font-size:var(--text-sm);letter-spacing:var(--tracking-wide);
+  padding:.6em 1em;border-radius:2px}
+.pullquote{border-left:3px solid var(--color-speculative);padding-left:var(--space-4);
+  font-size:var(--text-md);font-weight:500;color:var(--color-text-strong);max-width:54ch;line-height:1.4}
+
+/* ============================ LEDGER ============================ */
+.ledger-cap{font-size:var(--text-sm);color:var(--color-muted);max-width:60ch;margin-bottom:var(--space-4)}
+.ledger{display:grid;grid-template-columns:22% 38% 40%;border-top:1px solid var(--color-border)}
+.lrow{display:contents}
+.lhead{font-family:var(--font-mono);font-size:var(--text-xs);letter-spacing:var(--tracking-wide);
+  text-transform:uppercase;color:var(--color-muted);padding:var(--space-2) var(--space-3);border-bottom:1px solid var(--color-border)}
+.lcell{padding:var(--space-3);border-bottom:1px solid var(--color-border);display:flex;flex-direction:column;justify-content:center;gap:.4em;
+  opacity:0;transform:translateY(8px);transition:opacity .5s var(--ease-out),transform .5s var(--ease-out)}
+.lcell.shown{opacity:1;transform:none}
+.lcell .sub{color:var(--color-text-strong);font-weight:500}
+.lcell .mech{color:var(--color-text);font-size:var(--text-sm)}
+.lcell[data-status="established"]{background:color-mix(in srgb,var(--color-established) 6%,transparent)}
+.lcell[data-status="plausible"]{background:color-mix(in srgb,var(--color-plausible) 8%,transparent)}
+.lcell[data-status="speculative"]{background:color-mix(in srgb,var(--color-speculative) 10%,transparent)}
+.lcell[data-status="contested"]{background:color-mix(in srgb,var(--color-contested) 9%,transparent)}
+.lcell[data-status="refuted"]{background:color-mix(in srgb,var(--color-refuted) 10%,transparent)}
+.lcell.lead{border-left:3px solid var(--color-border)}
+.lcell.lead[data-status="established"]{border-left-color:var(--color-established)}
+.lcell.lead[data-status="plausible"]{border-left-color:var(--color-plausible)}
+.lcell.lead[data-status="speculative"]{border-left-color:var(--color-speculative)}
+.lcell.lead[data-status="contested"]{border-left-color:var(--color-contested)}
+.lcell.lead[data-status="refuted"]{border-left-color:var(--color-refuted)}
+.lcell.lead[data-loadbearing]{border-left-width:6px}
+.lcell.lead[data-status="refuted"] .sub{text-decoration:line-through;color:var(--color-muted)}
+.badge{display:inline-flex;align-items:center;gap:.5em;font-family:var(--font-mono);font-size:var(--text-xs);
+  letter-spacing:var(--tracking-wide);text-transform:uppercase;color:var(--color-text-strong)}
+.badge svg{flex:none}
+.statline{font-size:var(--text-sm);color:var(--color-muted)}
+.lb-note{font-family:var(--font-mono);font-size:var(--text-xs);color:var(--color-speculative);letter-spacing:var(--tracking-wide)}
+@media (prefers-reduced-motion:reduce){.lcell{opacity:1;transform:none;transition:none}}
+
+/* ============================ PREDICTIONS ============================ */
+.pred{border-top:1px solid var(--color-border);padding-top:var(--space-3);margin-top:var(--space-4);display:grid;
+  grid-template-columns:3rem 1fr;gap:var(--gutter)}
+.pred .pn{font-family:var(--font-mono);font-size:var(--text-sm);color:var(--color-accent)}
+.pred h3{font-size:var(--text-md);margin-bottom:.4em}
+.pred .fcond{font-family:var(--font-mono);font-size:var(--text-sm);color:var(--color-muted);margin-top:.6em;padding-left:var(--space-4);border-left:1px solid var(--color-border)}
+.pred-1{margin-left:0}.pred-2{margin-left:clamp(0px,3vw,3rem)}.pred-3{margin-left:clamp(0px,6vw,6rem)}
+
+/* ============================ PREPRINT ============================ */
+.cta{display:inline-flex;align-items:center;gap:.6em;font-size:var(--text-md);color:var(--color-accent)}
+.cta svg{transition:transform .3s var(--ease-out)}
+.cta:hover svg{transform:translateX(4px)}
+.pullcite{grid-column:9/13;border-left:1px solid var(--color-border);padding-left:var(--space-3);
+  font-size:var(--text-sm);font-weight:500;color:var(--color-text);max-width:34ch}
+
+/* ============================ FOOTER ============================ */
+footer{border-top:1px solid var(--color-border);padding-block:var(--space-5)}
+footer .wrap{display:flex;flex-wrap:wrap;gap:var(--space-3) var(--space-5);justify-content:space-between;align-items:baseline}
+footer .mono{font-size:var(--text-xs);color:var(--color-muted);letter-spacing:var(--tracking-wide)}
+
+/* ============================ RESPONSIVE ============================ */
+@media (max-width:768px){
+  .grid{row-gap:var(--space-3)}
+  .hero-title,.hero-sub,.hero-foot,.col-left,.col-right,.col-wide,.col-narrow{grid-column:1/-1}
+  .hero-canvas{grid-column:1/-1;min-height:46vw;order:2}
+  .sidelabel{display:none}
+  .pair{grid-template-columns:1fr}
+  .ledger{display:block;grid-template-columns:1fr;border-top:none}
+  .lhead{display:none}
+  .lrow{display:block;border:1px solid var(--color-border);border-left-width:3px;border-radius:2px;margin-bottom:var(--space-3);padding:var(--space-3)}
+  .lrow[data-status="established"]{border-left-color:var(--color-established)}
+  .lrow[data-status="plausible"]{border-left-color:var(--color-plausible)}
+  .lrow[data-status="speculative"]{border-left-color:var(--color-speculative)}
+  .lrow[data-status="contested"]{border-left-color:var(--color-contested)}
+  .lrow[data-status="refuted"]{border-left-color:var(--color-refuted)}
+  .lrow[data-loadbearing]{border-left-width:6px}
+  .lcell{border-bottom:none!important;border-left:none!important;padding:var(--space-2) 0!important;background:transparent!important}
+  .pullcite{grid-column:1/-1}
+  .pred-1,.pred-2,.pred-3{margin-left:0}
+}
+.noscript{padding:var(--space-3) var(--margin);background:var(--color-surface-2);border-bottom:1px solid var(--color-border);font-size:var(--text-sm)}
+</style>
 </head>
 <body>
-  <main>
-    <span class="kicker">Building the explainer</span>
-    <h1>Acousto-Cymatic Phase-Change Memory</h1>
-    <p>An interactive, honest walkthrough of a speculative idea — storing data in the physical topology of rapidly frozen water — is under construction. Meanwhile, read the preprint: <a href="https://github.com/SaharBarak/wu">github.com/SaharBarak/wu</a>.</p>
-  </main>
+<div class="grain" aria-hidden="true"></div>
+<div class="progress" id="progress" aria-hidden="true"></div>
+<noscript><div class="noscript">This explainer uses canvas animation; with JavaScript disabled you still get the full text. <a href="https://github.com/SaharBarak/wu">Read the preprint.</a></div></noscript>
+
+<main>
+
+<!-- ================= 01 HERO ================= -->
+<section class="hero" id="problem">
+  <div class="wrap grid">
+    <h1 class="hero-title reveal">ACPCM</h1>
+    <p class="hero-sub reveal">Data storage is running out of physics. This is one very speculative answer.</p>
+    <div class="hero-canvas reveal"><canvas data-anim="cymatic" data-mode="liquid" aria-label="Animation: liquid water in motion"></canvas></div>
+    <div class="hero-foot reveal">
+      <p><span class="mono accent">Acousto-Cymatic Phase-Change Memory.</span> As magnetic and solid-state storage approach the superparamagnetic limit, the field hunts for new media. This is a thought experiment: encode data into the physical topology of a pod of water, then freeze it solid in an instant to lock it in. It almost certainly does not work — and the honest part is the point.</p>
+    </div>
+  </div>
+  <span class="sidelabel" aria-hidden="true">PREPRINT // 2026 // SPECULATIVE</span>
+</section>
+
+<!-- ================= 02 PODS ================= -->
+<section class="s-bg1" id="pods">
+  <div class="wrap grid">
+    <div class="col-left reveal">
+      <span class="snum">02 / MEDIUM</span>
+      <h2 class="text-xl">The medium: a single pod of water</h2>
+      <p class="body" style="margin-top:var(--space-3)">Liquid water is the worst imaginable storage medium — its hydrogen-bond network loses memory of its own configuration within roughly 50 femtoseconds. So ACPCM never stores anything in the liquid. Instead it confines water to microscopic <em>pods</em> that isolate each addressable region, the way 3D charge-trap flash isolates charge in discrete traps so one defect leaks only its neighbourhood.</p>
+      <p class="tag assume" style="margin-top:var(--space-3)">ASSUMPTION 1 · confinement enables isolation</p>
+    </div>
+    <div class="col-right reveal">
+      <div class="fig"><canvas data-anim="pod" aria-label="Diagram: a confined aqueous pod with concentric and radial nodes"></canvas></div>
+      <p class="figcap">FIG. A — sub-micron pod · isolation, not capacity, is the goal</p>
+    </div>
+  </div>
+</section>
+
+<!-- ================= 03 CYMATIC GRID ================= -->
+<section id="grid">
+  <div class="wrap grid">
+    <div class="col-wide reveal">
+      <span class="snum">03 / FORMAT</span>
+      <h2 class="text-xl">A cymatic addressing grid</h2>
+    </div>
+    <div class="col-narrow reveal">
+      <p class="body">A hard drive maps logical blocks onto physical tracks and sectors. ACPCM proposes to draw that grid <em>acoustically</em>: intersecting megahertz wavefronts set up standing-wave nodes whose quiet lines act as sector walls, partitioning the pod into addressable voxels.</p>
+      <p class="tag assume" style="margin-top:var(--space-3)">ASSUMPTION 2 · cymatic addressing</p>
+    </div>
+    <div class="col-right reveal" style="grid-row:span 2;align-self:start">
+      <div class="fig"><canvas data-anim="cymatic" data-mode="grid" aria-label="Animation: standing-wave nodal grid oscillating"></canvas></div>
+      <p class="figcap">FIG. B — standing-wave nodes · f(r,θ)=cos(kr)·cos(pθ)</p>
+    </div>
+    <div class="col-narrow reveal">
+      <div class="pair">
+        <div class="callout est"><h4>Established</h4><p>Sound organising particles at pressure nodes is textbook physics — Faraday figures, acoustofluidics, acoustic tweezers.</p></div>
+        <div class="callout spec"><h4>Speculative</h4><p>That the same field reorders <em>water molecules</em> into a persistent network — "molecular cymatics" — has no mechanism and no literature.</p></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ================= 04 WRITE (CLIMAX) ================= -->
+<section class="s-bg1" id="write">
+  <div class="wrap grid">
+    <div style="grid-column:1/-1" class="reveal">
+      <span class="snum">04 / WRITE</span>
+      <h2 style="font-size:var(--text-xl);font-weight:500">The moment of freezing</h2>
+      <p class="banner" style="margin-top:var(--space-3)">ASSUMPTION 3 — this is where the idea either works or it doesn't.</p>
+    </div>
+    <div class="col-left reveal">
+      <p class="body" style="margin-top:var(--space-3)">The pod is held at the edge of freezing while the transducer broadcasts both the addressing grid and the data tones. Then — in an instant — it freezes. The hope, by loose analogy to a phase-change memory cell's melt-and-quench, is that the rapid solidification <em>records</em> the live acoustic field as a frozen-in topology: displacements and densities locked into ice.</p>
+      <p class="body">It is the one claim everything rests on, and the most likely to fail. Freezing is violent: water expands ~9%, releases latent heat, and nucleates dendritically — all of which fight the delicate pattern you are trying to preserve.</p>
+    </div>
+    <div class="col-right reveal">
+      <div class="fig"><canvas data-anim="cymatic" data-mode="freeze" aria-label="Animation: liquid water freezing and locking into a cymatic lattice"></canvas></div>
+      <p class="figcap">FIG. C — broadcast &amp; freeze · liquid → freeze-front → locked lattice</p>
+    </div>
+    <div style="grid-column:1/-1" class="reveal">
+      <p class="pullquote" style="margin-top:var(--space-4)">The established citations ground only their own subsystems; none of them lends support to the central acousto-cymatic conjecture. That bridge is the author's, and it is conjecture.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ================= 05 READ ================= -->
+<section class="s-bg2" id="read">
+  <div class="wrap grid">
+    <div class="col-right reveal" style="grid-column:4/13">
+      <span class="snum">05 / READ</span>
+      <h2 class="text-xl">Reading frozen sound</h2>
+      <p class="body" style="margin-top:var(--space-3)">Once data lives in the microscopic shape of the ice, read-back becomes an acoustic-holography problem. A megahertz pulse illuminates the frozen pod; its topology acts as a passive phase plate, scattering the wave into a complex 3-D pressure field. A calibrated hydrophone samples that field, and a trained neural network inverts it back to bits.</p>
+      <p class="body">This is the most mature part — phase plates, hydrophone metrology, and deep-learning inversion are all real. The honest caveat: the inverse problem is ill-posed, so a network can hallucinate plausible bits. Any demonstration needs blinded, information-theoretic controls.</p>
+    </div>
+    <div class="reveal" style="grid-column:1/4;grid-row:1;align-self:center">
+      <div class="fig" style="min-height:clamp(260px,46vh,420px)"><canvas data-anim="read" aria-label="Animation: a pulse scattering off frozen ice into a decoded bitstream"></canvas></div>
+      <p class="figcap">FIG. D — pulse → scatter → decode</p>
+    </div>
+  </div>
+</section>
+
+<!-- ================= 06 LEDGER ================= -->
+<section class="s-bg1" id="ledger">
+  <div class="wrap">
+    <div class="grid" style="margin-bottom:var(--space-4)">
+      <div class="col-wide reveal">
+        <span class="snum">06 / HONESTY</span>
+        <h2 class="text-xl">The epistemic ledger</h2>
+      </div>
+    </div>
+    <p class="ledger-cap reveal">Each row names a real mechanism and the size of the leap from it to ACPCM. Established citations support only their own row — the credibility never transfers to the speculative ones. Read the status column top to bottom and the whole story is there.</p>
+    <div class="ledger reveal" role="table" aria-label="Epistemic ledger: subsystem, borrowed mechanism, status">
+      <div class="lhead" role="columnheader">Subsystem</div>
+      <div class="lhead" role="columnheader">Borrowed real mechanism</div>
+      <div class="lhead" role="columnheader">Status of the leap</div>
+    </div>
+    <div class="ledger" id="ledgerBody" role="rowgroup"></div>
+  </div>
+</section>
+
+<!-- ================= 07 PREDICTIONS ================= -->
+<section id="predictions">
+  <div class="wrap grid">
+    <div class="col-wide reveal">
+      <span class="snum">07 / FALSIFIABLE</span>
+      <h2 class="text-xl">Probably won't work. Here's how to check.</h2>
+      <p class="body" style="margin-top:var(--space-3);max-width:56ch">A speculative proposal earns its keep by being testable. Three predictions; any one failing falsifies the matching assumption. They stair-step on purpose: if the first fails, the rest are moot.</p>
+    </div>
+    <div class="col-wide">
+      <div class="pred pred-1 reveal"><div class="pn">P1</div><div>
+        <h3>Field-to-lattice transfer</h3>
+        <p class="body">Freezing a thin water film under a fixed MHz pattern leaves a reproducible, pattern-dependent modulation in the ice that sham (unmodulated) freezing does not.</p>
+        <p class="fcond">FALSIFIED IF — no above-noise, pattern-correlated structure survives the freeze.</p>
+      </div></div>
+      <div class="pred pred-2 reveal"><div class="pn">P2</div><div>
+        <h3>Addressable nodes</h3>
+        <p class="body">The frozen structure is organised at the wavelength scale of the imposed standing wave.</p>
+        <p class="fcond">FALSIFIED IF — the modulation shows no correlation with node geometry.</p>
+      </div></div>
+      <div class="pred pred-3 reveal"><div class="pn">P3</div><div>
+        <h3>Decodable channel</h3>
+        <p class="body">A network recovers the input code above chance on held-out patterns, with measurable capacity.</p>
+        <p class="fcond">FALSIFIED IF — decoding is at chance on held-out data (guards against memorisation / hallucination).</p>
+      </div></div>
+      <p class="reveal" style="font-size:var(--text-md);font-weight:300;color:var(--color-muted);margin-top:var(--space-5);max-width:60ch">If P1 fails — the most likely outcome — the architecture collapses to its established parts. That negative result is itself worth reporting.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ================= 08 PREPRINT ================= -->
+<section id="preprint">
+  <div class="wrap grid">
+    <div class="col-narrow reveal">
+      <span class="snum">08 / SOURCE</span>
+      <h2 style="font-size:var(--text-xl);font-weight:300">Read the preprint</h2>
+      <p class="body" style="margin-top:var(--space-3)">The full idea-paper — verified citations, the complete ledger, falsifiable predictions, and a limitations section that argues against itself.</p>
+      <p style="margin-top:var(--space-4)"><a class="cta" href="main.pdf">Read the PDF
+        <svg width="20" height="14" viewBox="0 0 20 14" fill="none" aria-hidden="true"><path d="M1 7h17M12 1l6 6-6 6" stroke="currentColor" stroke-width="1.5"/></svg>
+      </a></p>
+      <p class="mono muted" style="font-size:var(--text-sm);margin-top:var(--space-3)">S. Barak · <em>Acousto-Cymatic Phase-Change Memory</em> · preprint, 2026 · <a href="https://github.com/SaharBarak/wu">github.com/SaharBarak/wu</a></p>
+    </div>
+    <div class="pullcite reveal">A speculative theoretical framework for high-density data storage in confined aqueous media.</div>
+  </div>
+</section>
+</main>
+
+<footer>
+  <div class="wrap">
+    <span class="mono">ACPCM · A SPECULATIVE IDEA-PAPER</span>
+    <span class="mono">DESIGN: SUPERCOOLED CLARITY</span>
+    <span class="mono"><a href="https://github.com/SaharBarak/wu">SOURCE ↗</a></span>
+  </div>
+</footer>
+
+<script>
+"use strict";
+(function(){
+  const reduce = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+
+  /* ---------- scroll progress ---------- */
+  const prog = document.getElementById("progress");
+  let ticking=false;
+  function onScroll(){
+    if(ticking) return; ticking=true;
+    requestAnimationFrame(()=>{
+      const h=document.documentElement;
+      const p=h.scrollTop/(h.scrollHeight-h.clientHeight||1);
+      prog.style.width=(p*100).toFixed(2)+"%"; ticking=false;
+    });
+  }
+  window.addEventListener("scroll",onScroll,{passive:true}); onScroll();
+
+  /* ---------- reveals ---------- */
+  const revealIO = new IntersectionObserver((entries)=>{
+    for(const e of entries){ if(e.isIntersecting){ e.target.classList.add("in"); revealIO.unobserve(e.target);} }
+  },{threshold:0.15, rootMargin:"0px 0px -10% 0px"});
+  document.querySelectorAll(".reveal").forEach(el=>revealIO.observe(el));
+
+  /* ---------- epistemic ledger data ---------- */
+  const ICONS = {
+    established:'<svg width="22" height="8" viewBox="0 0 22 8"><line x1="1" y1="4" x2="21" y2="4" stroke="currentColor" stroke-width="1.5"/></svg>',
+    plausible:'<svg width="22" height="8" viewBox="0 0 22 8"><line x1="1" y1="4" x2="21" y2="4" stroke="currentColor" stroke-width="1.5" stroke-dasharray="3 3"/></svg>',
+    speculative:'<svg width="22" height="8" viewBox="0 0 22 8"><path d="M1 4 Q4 0 7 4 T13 4 T19 4" stroke="currentColor" stroke-width="1.5" fill="none"/></svg>',
+    contested:'<svg width="22" height="8" viewBox="0 0 22 8"><path d="M8 1 4 4l4 3M14 1l4 3-4 3" stroke="currentColor" stroke-width="1.5" fill="none"/></svg>',
+    refuted:'<svg width="22" height="8" viewBox="0 0 22 8"><line x1="1" y1="4" x2="21" y2="4" stroke="currentColor" stroke-width="1.5"/><line x1="6" y1="1" x2="16" y2="7" stroke="currentColor" stroke-width="1.5"/></svg>'
+  };
+  const ROWS = [
+    {sub:"Rapid write by phase change",mech:"HAMR heat–quench; chalcogenide PCM melt–quench",status:"speculative",label:"Speculative",note:"Assumption 3 · load-bearing",loadbearing:true},
+    {sub:"Cell isolation via pods",mech:"Charge-trap flash discrete traps",status:"plausible",label:"Plausible",note:"Assumption 1"},
+    {sub:"Cymatic addressing grid",mech:"Acoustofluidic patterning; holographic tweezers",status:"speculative",label:"Mixed",note:"nodes established · molecular ordering speculative"},
+    {sub:"Sonification codebook",mech:"Data-sonification methodology",status:"established",label:"Mixed",note:"mapping established · Russell octaves esoteric"},
+    {sub:"MHz acoustic-holography read-out",mech:"Acoustic holograms; hydrophone metrology; DL inversion",status:"established",label:"Established",note:"reuses proven technique"},
+    {sub:"Structured-water carriers",mech:"EZ / fourth-phase water; Orch-OR water",status:"contested",label:"Contested",note:"minority interpretation"},
+    {sub:"Water memory",mech:"Benveniste high-dilution claims (motivation only)",status:"refuted",label:"Refuted",note:"investigated; did not survive blinding"}
+  ];
+  const body = document.getElementById("ledgerBody");
+  if(body){
+    for(const r of ROWS){
+      const wrap=document.createElement("div");
+      wrap.className="lrow"; wrap.setAttribute("role","row"); wrap.dataset.status=r.status;
+      if(r.loadbearing) wrap.dataset.loadbearing="1";
+      wrap.style.display="contents"; // let inner cells flow into the grid
+      // Because display:contents drops the border, we instead render a 3-cell row group with shared styling:
+      const c1=document.createElement("div"); c1.className="lrow"; c1.dataset.status=r.status; if(r.loadbearing)c1.dataset.loadbearing="1";
+      c1.innerHTML='<span class="sub">'+r.sub+'</span>';
+      const c2=document.createElement("div"); c2.className="lrow-cell mech-cell"; c2.innerHTML='<span class="mech">'+r.mech+'</span>';
+      const c3=document.createElement("div"); c3.className="lrow-cell";
+      c3.innerHTML='<span class="badge" style="color:var(--color-'+r.status+')">'+ICONS[r.status]+r.label+'</span>'+
+                   '<span class="statline">'+r.note+'</span>'+(r.loadbearing?'<span class="lb-note">← the whole idea lives or dies here</span>':'');
+      body.appendChild(c1); body.appendChild(c2); body.appendChild(c3);
+    }
+  }
+  // ledger stagger on view
+  const ledgerEl = document.querySelector("#ledger .ledger#ledgerBody");
+  if(ledgerEl){
+    const rows=[...ledgerEl.children];
+    if(reduce){ ledgerEl.classList.add("in"); }
+    else{
+      const lio=new IntersectionObserver((es)=>{es.forEach(e=>{ if(e.isIntersecting){
+        rows.forEach((row,i)=>{ const last = row.dataset && row.dataset.status==="refuted";
+          setTimeout(()=>{ row.style.opacity="1"; row.style.transform="none"; }, i*60 + (last?120:0)); });
+        lio.disconnect(); }});},{threshold:0.2});
+      lio.observe(ledgerEl);
+    }
+  }
+
+  /* ============================================================
+     CANVAS ENGINE — shared rAF, offscreen pausing
+  ============================================================ */
+  const DPR = Math.min(window.devicePixelRatio||1, 2);
+  const anims=[];
+  function fit(cv){
+    const r=cv.getBoundingClientRect();
+    cv.width=Math.max(1,Math.round(r.width*DPR));
+    cv.height=Math.max(1,Math.round(r.height*DPR));
+    return {w:r.width,h:r.height};
+  }
+
+  /* ----- Cymatic field: f(r,theta)=cos(k r)cos(p theta) ----- */
+  function makeCymatic(cv, mode){
+    const ctx=cv.getContext("2d");
+    let W=0,H=0,cx=0,cy=0,R=0;
+    const N = mode==="grid"?0:220;
+    let parts=[];
+    const k0=3*Math.PI, p=6;
+    let t0=null, freezeT=null, frozen=false, visible=false, started=false;
+    function resize(){ const s=fit(cv); W=s.w;H=s.h; ctx.setTransform(DPR,0,0,DPR,0,0);
+      cx=W/2; cy=H/2; R=Math.min(W,H)*0.46; seed(); }
+    function field(x,y){ const dx=(x-cx)/R, dy=(y-cy)/R; const r=Math.hypot(dx,dy); const th=Math.atan2(dy,dx);
+      return Math.cos(k0*r)*Math.cos(p*th); }
+    function grad(x,y){ const e=1.2; return [ (field(x+e,y)-field(x-e,y))/(2*e), (field(x,y+e)-field(x,y-e))/(2*e) ]; }
+    function seed(){ parts=[]; const n = mode==="grid"?0:N;
+      for(let i=0;i<n;i++){ const a=Math.random()*Math.PI*2, rr=Math.sqrt(Math.random())*R;
+        parts.push({x:cx+Math.cos(a)*rr,y:cy+Math.sin(a)*rr,vx:0,vy:0,locked:false}); } }
+    function drawNodes(alpha){
+      ctx.save(); ctx.globalAlpha=alpha; ctx.strokeStyle="#3d6e75"; ctx.lineWidth=1;
+      // concentric nodal rings: cos(k r)=0 -> k r = pi/2 + m pi
+      for(let m=0;m<6;m++){ const rr=(Math.PI/2+m*Math.PI)/k0*R; if(rr<R){ ctx.beginPath(); ctx.arc(cx,cy,rr,0,Math.PI*2); ctx.stroke(); } }
+      // radial nodal spokes: cos(p th)=0 -> th = pi/(2p)+ j pi/p
+      ctx.strokeStyle="rgba(42,46,51,0.9)";
+      for(let j=0;j<2*p;j++){ const th=Math.PI/(2*p)+j*Math.PI/p; ctx.beginPath(); ctx.moveTo(cx,cy);
+        ctx.lineTo(cx+Math.cos(th)*R,cy+Math.sin(th)*R); ctx.stroke(); }
+      ctx.restore();
+    }
+    function step(ts){
+      if(t0===null) t0=ts; const el=(ts-t0)/1000;
+      ctx.clearRect(0,0,W,H);
+      // boundary
+      ctx.save(); ctx.globalAlpha=.5; ctx.strokeStyle="#2a2e33"; ctx.lineWidth=1; ctx.beginPath(); ctx.arc(cx,cy,R,0,Math.PI*2); ctx.stroke(); ctx.restore();
+
+      let frontX = Infinity, gridAlpha=0;
+      if(mode==="grid"){ gridAlpha=0.5+0.5*Math.sin(el*1.1); drawNodes(0.25+0.22*gridAlpha); }
+      if(mode==="freeze"){
+        if(freezeT!==null){ const fp=Math.min(1,(ts-freezeT)/2600); frontX=(cx-R)+fp*(2*R);
+          drawNodes(0.55*fp);
+          if(fp>=1) frozen=true;
+          // freeze front line
+          if(fp<1){ ctx.save(); ctx.strokeStyle="#5b9ea6"; ctx.globalAlpha=.8; ctx.lineWidth=1.5;
+            ctx.beginPath(); ctx.moveTo(frontX,cy-R); ctx.lineTo(frontX,cy+R); ctx.stroke(); ctx.restore(); }
+        }
+      }
+      // particles
+      for(const pt of parts){
+        const behind = (mode==="freeze") ? (pt.x<frontX) : (mode==="liquid"?false:true);
+        if(behind || mode==="liquid"){
+          if(mode!=="liquid" && behind){
+            const f=field(pt.x,pt.y), g=grad(pt.x,pt.y);
+            // descend |f|^2 -> move opposite sign(f)*grad
+            const s = 2*f; pt.vx += -s*g[0]*42; pt.vy += -s*g[1]*42;
+            pt.vx*=0.78; pt.vy*=0.78; pt.x+=pt.vx*0.016; pt.y+=pt.vy*0.016;
+            if(Math.hypot(pt.vx,pt.vy)<0.04) pt.locked=true;
+          } else {
+            // liquid drift
+            pt.x += Math.sin(el*0.9+pt.y*0.03)*0.25 + (Math.random()-0.5)*0.3;
+            pt.y += Math.cos(el*0.8+pt.x*0.03)*0.25 + (Math.random()-0.5)*0.3;
+            const dx=pt.x-cx,dy=pt.y-cy,d=Math.hypot(dx,dy); if(d>R){pt.x=cx+dx/d*R;pt.y=cy+dy/d*R;}
+          }
+        }
+        ctx.beginPath();
+        ctx.fillStyle = pt.locked? "#7fb6bd" : (behind?"#5b9ea6":"#3d6e75");
+        ctx.globalAlpha = pt.locked?0.95:0.7;
+        ctx.arc(pt.x,pt.y, pt.locked?1.6:1.3, 0, Math.PI*2); ctx.fill();
+      }
+      ctx.globalAlpha=1;
+    }
+    function staticFrame(){ // reduced-motion
+      ctx.clearRect(0,0,W,H);
+      ctx.save(); ctx.globalAlpha=.5; ctx.strokeStyle="#2a2e33"; ctx.beginPath(); ctx.arc(cx,cy,R,0,Math.PI*2); ctx.stroke(); ctx.restore();
+      if(mode!=="liquid"){ for(const pt of parts){pt.locked=true;} drawNodes(0.5);
+        // settle particles onto nodes quickly
+        for(let it=0;it<60;it++){ for(const pt of parts){ const f=field(pt.x,pt.y),g=grad(pt.x,pt.y); const s=2*f; pt.x+=-s*g[0]*0.4; pt.y+=-s*g[1]*0.4; } }
+      }
+      for(const pt of parts){ ctx.beginPath(); ctx.fillStyle="#5b9ea6"; ctx.globalAlpha=.85; ctx.arc(pt.x,pt.y,1.4,0,Math.PI*2); ctx.fill(); }
+      ctx.globalAlpha=1;
+    }
+    const api={cv,resize,
+      tick:(ts)=>{ if(!visible) return; if(mode==="freeze"&&freezeT===null&&started===false) return; step(ts); },
+      onVisible:(v)=>{ visible=v; if(v&&mode==="freeze"&&freezeT===null){ freezeT=performance.now(); started=true; }
+        if(v&&mode==="freeze"&&frozen){ /* keep */ } },
+      reduced:staticFrame };
+    api.resize();
+    return api;
+  }
+
+  /* ----- Read path: pulse -> ice -> scatter -> bits ----- */
+  function makeRead(cv){
+    const ctx=cv.getContext("2d"); let W=0,H=0,cx=0,cy=0; let t0=null,visible=false,loop=0;
+    function resize(){const s=fit(cv);W=s.w;H=s.h;ctx.setTransform(DPR,0,0,DPR,0,0);cx=W*0.5;cy=H*0.5;}
+    const bits="10110 01001 11010 00111";
+    function step(ts){
+      if(t0===null)t0=ts; let el=((ts-t0)/1000)%6; ctx.clearRect(0,0,W,H);
+      const iceX=cx, iceY=cy, iw=Math.min(W,H)*0.16;
+      // ice glyph
+      ctx.save(); ctx.strokeStyle="#2a2e33"; ctx.lineWidth=2; ctx.strokeRect(iceX-iw/2,iceY-iw/2,iw,iw);
+      ctx.strokeStyle="#3d6e75"; ctx.globalAlpha=.6; ctx.beginPath();
+      ctx.moveTo(iceX-iw/2,iceY); ctx.lineTo(iceX+iw/2,iceY); ctx.moveTo(iceX,iceY-iw/2); ctx.lineTo(iceX,iceY+iw/2); ctx.stroke(); ctx.restore();
+      // phase 1: incoming sine wavefront from left
+      if(el<2.2){ const adv=(el/2.2); const x=20+adv*(iceX-iw/2-20);
+        ctx.save(); ctx.strokeStyle="#5b9ea6"; ctx.lineWidth=1.5; ctx.globalAlpha=.9; ctx.beginPath();
+        for(let y=cy-H*0.4;y<cy+H*0.4;y+=3){ const xx=x+Math.sin((y+ts*0.15)*0.12)*5; if(y===cy-H*0.4)ctx.moveTo(xx,y); else ctx.lineTo(xx,y);} ctx.stroke(); ctx.restore(); }
+      // phase 2: scatter arcs from ice
+      if(el>=2.2&&el<4.2){ const sp=(el-2.2)/2; ctx.save(); ctx.strokeStyle="#5b9ea6"; ctx.lineWidth=1;
+        for(let i=0;i<5;i++){ ctx.globalAlpha=(1-sp)*0.8; const rad=sp*Math.min(W,H)*0.5*(0.6+i*0.12);
+          const a0=-0.6+i*0.3; ctx.beginPath(); ctx.arc(iceX,iceY,rad,a0,a0+0.9); ctx.stroke(); } ctx.restore(); }
+      // phase 3: decoded bits
+      if(el>=3.6){ const bp=Math.min(1,(el-3.6)/1.2); ctx.save();
+        ctx.font='600 '+Math.round(Math.min(W,H)*0.08)+'px "JetBrains Mono",monospace';
+        ctx.fillStyle="#3d6e75"; ctx.globalAlpha=bp; ctx.textAlign="center";
+        ctx.fillText(bits, cx, cy+H*0.38); ctx.restore(); }
+    }
+    function staticFrame(){ ctx.clearRect(0,0,W,H); const iw=Math.min(W,H)*0.16;
+      ctx.strokeStyle="#2a2e33"; ctx.lineWidth=2; ctx.strokeRect(cx-iw/2,cy-iw/2,iw,iw);
+      ctx.strokeStyle="#5b9ea6"; ctx.lineWidth=1.5; ctx.globalAlpha=.8;
+      ctx.beginPath(); ctx.moveTo(20,cy); ctx.lineTo(cx-iw/2,cy); ctx.stroke();
+      ctx.font='600 '+Math.round(Math.min(W,H)*0.08)+'px "JetBrains Mono",monospace'; ctx.fillStyle="#3d6e75"; ctx.globalAlpha=1; ctx.textAlign="center";
+      ctx.fillText("10110 01001", cx, cy+H*0.38); }
+    const api={cv,resize,tick:(ts)=>{if(visible)step(ts);},onVisible:(v)=>{visible=v;},reduced:staticFrame};
+    api.resize(); return api;
+  }
+
+  /* ----- Pod diagram (static, drawn once / on resize) ----- */
+  function makePod(cv){
+    const ctx=cv.getContext("2d"); let W=0,H=0;
+    function draw(){ const s=fit(cv); W=s.w;H=s.h; ctx.setTransform(DPR,0,0,DPR,0,0); ctx.clearRect(0,0,W,H);
+      const cx=W/2,cy=H/2,R=Math.min(W,H)*0.44;
+      ctx.strokeStyle="#3d6e75"; ctx.lineWidth=1.5; ctx.globalAlpha=.9; ctx.beginPath(); ctx.arc(cx,cy,R,0,Math.PI*2); ctx.stroke();
+      ctx.globalAlpha=.6; ctx.lineWidth=1;
+      for(let i=1;i<=3;i++){ ctx.strokeStyle="#3d6e75"; ctx.beginPath(); ctx.arc(cx,cy,R*i/3.4,0,Math.PI*2); ctx.stroke(); }
+      ctx.strokeStyle="#2a2e33";
+      for(let j=0;j<12;j++){ const th=j*Math.PI/6; ctx.beginPath(); ctx.moveTo(cx+Math.cos(th)*R*0.16,cy+Math.sin(th)*R*0.16); ctx.lineTo(cx+Math.cos(th)*R,cy+Math.sin(th)*R); ctx.stroke(); }
+      // antinode markers
+      ctx.fillStyle="#9a8560"; ctx.globalAlpha=.9;
+      const pts=[[0.5,0.3],[2.1,0.62],[3.4,0.45],[4.7,0.6],[5.7,0.35]];
+      for(const [a,rr] of pts){ ctx.beginPath(); ctx.arc(cx+Math.cos(a)*R*rr,cy+Math.sin(a)*R*rr,2.2,0,Math.PI*2); ctx.fill(); }
+      ctx.globalAlpha=1;
+    }
+    return {cv,resize:draw,tick:()=>{},onVisible:()=>{},reduced:draw};
+  }
+
+  /* ---------- wire up canvases ---------- */
+  document.querySelectorAll("canvas[data-anim]").forEach(cv=>{
+    const type=cv.dataset.anim; let a;
+    if(type==="cymatic") a=makeCymatic(cv, cv.dataset.mode||"liquid");
+    else if(type==="read") a=makeRead(cv);
+    else if(type==="pod") a=makePod(cv);
+    if(!a) return; anims.push(a);
+    if(reduce){ a.reduced(); }
+    else{
+      const io=new IntersectionObserver((es)=>{es.forEach(e=>a.onVisible(e.isIntersecting));},{threshold:0.05});
+      io.observe(cv);
+    }
+  });
+
+  if(!reduce){
+    let raf;
+    function frame(ts){ for(const a of anims) a.tick(ts); raf=requestAnimationFrame(frame); }
+    raf=requestAnimationFrame(frame);
+    let rt; window.addEventListener("resize",()=>{ clearTimeout(rt); rt=setTimeout(()=>{ for(const a of anims) a.resize(); },150); },{passive:true});
+  }
+})();
+</script>
 </body>
 </html>
