@@ -12,9 +12,9 @@ Three phases deliver a static, animation-rich scroll-driven site explaining ACPC
 
 Decimal phases appear between their surrounding integers in numeric order.
 
-- [ ] **Phase 1: Foundation** - Design direction (claude-octo + taste-skill) + static scaffold + GitHub Pages deploy pipeline end-to-end
-- [ ] **Phase 2: Narrative** - All eight sections, layout, responsiveness, and epistemic-ledger honesty framing
-- [ ] **Phase 3: Motion & Ship** - Signature canvas animations, scroll choreography, a11y/perf polish, live verification
+- [x] **Phase 1: Foundation** - Design direction (claude-octo + taste-skill) + static scaffold + GitHub Pages deploy pipeline end-to-end
+- [x] **Phase 2: Narrative** - All eight sections, layout, responsiveness, and epistemic-ledger honesty framing
+- [x] **Phase 3: Motion & Ship** - Signature canvas animations, scroll choreography, a11y/perf polish, live verification
 
 ## Phase Details
 

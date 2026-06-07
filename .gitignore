@@ -19,3 +19,6 @@
 
 # Keep the compiled PDF tracked (remove the next line if you prefer not to):
 # main.pdf
+
+# local agent state / harness
+.claude/
