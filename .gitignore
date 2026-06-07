@@ -1,0 +1,21 @@
+# LaTeX build artifacts
+*.aux
+*.log
+*.out
+*.toc
+*.bbl
+*.blg
+*.fls
+*.fdb_latexmk
+*.synctex.gz
+*.run.xml
+
+# Tectonic
+*.tectonic-cache/
+
+# Editor / OS
+*.swp
+.DS_Store
+
+# Keep the compiled PDF tracked (remove the next line if you prefer not to):
+# main.pdf
