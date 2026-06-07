@@ -140,7 +140,7 @@
   --font-display:"Satoshi",ui-sans-serif,system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;
   --font-mono:"JetBrains Mono",ui-monospace,"SF Mono",Menlo,Consolas,monospace;
 
-  /* Type scale — modular ratio 1.2 (minor third) */
+  /* Type scale - modular ratio 1.2 (minor third) */
   --text-xs:clamp(0.69rem,0.66rem + 0.13vw,0.72rem);
   --text-sm:clamp(0.8rem,0.77rem + 0.13vw,0.83rem);
   --text-base:clamp(0.94rem,0.9rem + 0.18vw,1rem);
@@ -343,11 +343,11 @@ footer .mono{font-size:var(--text-xs);color:var(--color-muted);letter-spacing:va
 <section class="hero" id="problem">
   <div class="wrap grid">
     <div class="hero-text reveal">
-      <p class="hero-kicker">ACPCM — Acousto-Cymatic Phase-Change Memory</p>
+      <p class="hero-kicker">ACPCM - Acousto-Cymatic Phase-Change Memory</p>
       <h1 class="hero-title">wu</h1>
       <p class="hero-sub">Data storage is running out of physics. This is one very speculative answer.</p>
       <div class="hero-foot">
-        <p>As magnetic and solid-state storage approach the superparamagnetic limit, the field hunts for new media. <span class="mono accent">wu</span> is a thought experiment: encode data into the physical topology of a pod of water, then freeze it solid in an instant to lock it in. It almost certainly does not work — and the honest part is the point.</p>
+        <p>As magnetic and solid-state storage approach the superparamagnetic limit, the field hunts for new media. <span class="mono accent">wu</span> is a thought experiment: encode data into the physical topology of a pod of water, then freeze it solid in an instant to lock it in. It almost certainly does not work - and the honest part is the point.</p>
       </div>
     </div>
     <div class="hero-canvas reveal"><canvas data-anim="cymatic" data-mode="liquid" aria-label="Animation: liquid water in motion"></canvas></div>
@@ -361,13 +361,13 @@ footer .mono{font-size:var(--text-xs);color:var(--color-muted);letter-spacing:va
     <div class="col-left reveal">
       <span class="snum">02 / MEDIUM</span>
       <h2 style="font-size:var(--text-xl)">The medium: a pod of water</h2>
-      <p class="body" style="margin-top:var(--space-3)">Liquid water is the worst imaginable storage medium — its hydrogen-bond network forgets its own arrangement within roughly 50&nbsp;femtoseconds. The molecules never stop reshuffling. So ACPCM never stores anything in the liquid; it first confines water to microscopic <em>pods</em>.</p>
-      <p class="body">Confinement buys isolation: a signal injected into one pod stays inside its walls and never leaks to its neighbours — the acoustic analogue of charge-trap flash isolating charge in discrete traps.</p>
+      <p class="body" style="margin-top:var(--space-3)">Liquid water is the worst imaginable storage medium - its hydrogen-bond network forgets its own arrangement within roughly 50&nbsp;femtoseconds. The molecules never stop reshuffling. So ACPCM never stores anything in the liquid; it first confines water to microscopic <em>pods</em>.</p>
+      <p class="body">Confinement buys isolation: a signal injected into one pod stays inside its walls and never leaks to its neighbours - the acoustic analogue of charge-trap flash isolating charge in discrete traps.</p>
       <p class="tag assume" style="margin-top:var(--space-3)">ASSUMPTION 1 · confinement enables isolation</p>
     </div>
     <div class="col-right reveal">
       <div class="fig"><canvas data-anim="medium" aria-label="Animation: three confined pods of jittering water; a pulse in the centre pod stays contained"></canvas></div>
-      <p class="figcap">FIG. A — confined pods · liquid is chaotic (left/right jitter) · a contained pulse cannot cross a pod wall</p>
+      <p class="figcap">FIG. A - confined pods · liquid is chaotic (left/right jitter) · a contained pulse cannot cross a pod wall</p>
     </div>
   </div>
 </section>
@@ -378,13 +378,13 @@ footer .mono{font-size:var(--text-xs);color:var(--color-muted);letter-spacing:va
     <div class="col-left reveal">
       <span class="snum">03 / FORMAT</span>
       <h2 style="font-size:var(--text-xl)">A cymatic addressing grid</h2>
-      <p class="body" style="margin-top:var(--space-3)">A hard drive maps logical blocks onto physical tracks and sectors. ACPCM draws that grid <em>acoustically</em>. A possible device: a ring or array of megahertz transducers around the pod, fired in a phased pattern. Their wavefronts interfere into standing-wave nodes — quiet lines that partition the pod into addressable voxels: concentric <span class="mono accent">tracks</span> and radial <span class="mono accent">sectors</span>, a cymatic cylinder–head–sector grid. Which elements fire selects which voxel you address.</p>
-      <p class="inline-note"><b>Established:</b> sound organising particles at pressure nodes (Faraday figures, acoustofluidics, acoustic tweezers). <b>Speculative:</b> that the same field reorders the <em>water molecules themselves</em> into a persistent network — that leap is Assumption&nbsp;2.</p>
+      <p class="body" style="margin-top:var(--space-3)">A hard drive maps logical blocks onto physical tracks and sectors. ACPCM draws that grid <em>acoustically</em>. A possible device: a ring or array of megahertz transducers around the pod, fired in a phased pattern. Their wavefronts interfere into standing-wave nodes - quiet lines that partition the pod into addressable voxels: concentric <span class="mono accent">tracks</span> and radial <span class="mono accent">sectors</span>, a cymatic cylinder–head–sector grid. Which elements fire selects which voxel you address.</p>
+      <p class="inline-note"><b>Established:</b> sound organising particles at pressure nodes (Faraday figures, acoustofluidics, acoustic tweezers). <b>Speculative:</b> that the same field reorders the <em>water molecules themselves</em> into a persistent network - that leap is Assumption&nbsp;2.</p>
       <p class="tag assume" style="margin-top:var(--space-3)">ASSUMPTION 2 · cymatic addressing</p>
     </div>
     <div class="col-right reveal">
       <div class="fig tall"><canvas data-anim="device" aria-label="Schematic: a phased megahertz transducer array drives standing-wave nodes inside an aqueous pod"></canvas></div>
-      <p class="figcap">FIG. B — a plausible device · phased MHz transducer array → wavefronts → standing-wave nodes in the pod · f(r,θ)=cos(kr)·cos(pθ)</p>
+      <p class="figcap">FIG. B - a plausible device · phased MHz transducer array → wavefronts → standing-wave nodes in the pod · f(r,θ)=cos(kr)·cos(pθ)</p>
     </div>
   </div>
 </section>
@@ -395,15 +395,15 @@ footer .mono{font-size:var(--text-xs);color:var(--color-muted);letter-spacing:va
     <div style="grid-column:1/-1" class="reveal">
       <span class="snum">04 / WRITE</span>
       <h2 style="font-size:var(--text-xl);font-weight:500">The moment of freezing</h2>
-      <p class="banner" style="margin-top:var(--space-3)">ASSUMPTION 3 — this is where the idea either works or it doesn't.</p>
+      <p class="banner" style="margin-top:var(--space-3)">ASSUMPTION 3 - this is where the idea either works or it doesn't.</p>
     </div>
     <div class="col-left reveal">
-      <p class="body" style="margin-top:var(--space-3)">The pod is held at the edge of freezing while the transducers broadcast both the addressing grid and the data tones. Then — in an instant — it freezes. The hope, by loose analogy to a phase-change memory cell's melt-and-quench, is that rapid solidification <em>records</em> the live acoustic field as a frozen-in topology: displacements and densities locked into ice.</p>
-      <p class="body">It is the one claim everything rests on, and the most likely to fail. Freezing is violent: water expands ~9%, releases latent heat, and nucleates dendritically — all of which fight the delicate pattern you are trying to preserve.</p>
+      <p class="body" style="margin-top:var(--space-3)">The pod is held at the edge of freezing while the transducers broadcast both the addressing grid and the data tones. Then - in an instant - it freezes. The hope, by loose analogy to a phase-change memory cell's melt-and-quench, is that rapid solidification <em>records</em> the live acoustic field as a frozen-in topology: displacements and densities locked into ice.</p>
+      <p class="body">It is the one claim everything rests on, and the most likely to fail. Freezing is violent: water expands ~9%, releases latent heat, and nucleates dendritically - all of which fight the delicate pattern you are trying to preserve.</p>
     </div>
     <div class="col-right reveal">
       <div class="fig"><canvas data-anim="cymatic" data-mode="freeze" aria-label="Animation: liquid water freezing and locking into a cymatic lattice"></canvas></div>
-      <p class="figcap">FIG. C — broadcast &amp; freeze · liquid → freeze-front → locked lattice</p>
+      <p class="figcap">FIG. C - broadcast &amp; freeze · liquid → freeze-front → locked lattice</p>
     </div>
     <div style="grid-column:1/-1" class="reveal">
       <p class="pullquote" style="margin-top:var(--space-4)">The established citations ground only their own subsystems; none of them lends support to the central acousto-cymatic conjecture. That bridge is the author's, and it is conjecture.</p>
@@ -418,11 +418,11 @@ footer .mono{font-size:var(--text-xs);color:var(--color-muted);letter-spacing:va
       <span class="snum">05 / READ</span>
       <h2 style="font-size:var(--text-xl)">Reading frozen sound</h2>
       <p class="body" style="margin-top:var(--space-3)">Once data lives in the microscopic shape of the ice, read-back becomes an acoustic-holography problem. A megahertz pulse illuminates the frozen pod; its topology acts as a passive phase plate, scattering the wave into a complex 3-D pressure field. A calibrated hydrophone samples that field, and a trained neural network inverts it back to bits.</p>
-      <p class="body">This is the most mature part — phase plates, hydrophone metrology, and deep-learning inversion are all real. The honest caveat: the inverse problem is ill-posed, so a network can hallucinate plausible bits. Any demonstration needs blinded, information-theoretic controls.</p>
+      <p class="body">This is the most mature part - phase plates, hydrophone metrology, and deep-learning inversion are all real. The honest caveat: the inverse problem is ill-posed, so a network can hallucinate plausible bits. Any demonstration needs blinded, information-theoretic controls.</p>
     </div>
     <div class="reveal" style="grid-column:1/4;grid-row:1;align-self:center">
       <div class="fig" style="min-height:clamp(280px,48vh,440px)"><canvas data-anim="read" aria-label="Animation: a pulse scattering off frozen ice into a decoded bitstream"></canvas></div>
-      <p class="figcap">FIG. D — pulse → scatter → decode</p>
+      <p class="figcap">FIG. D - pulse → scatter → decode</p>
     </div>
   </div>
 </section>
@@ -436,7 +436,7 @@ footer .mono{font-size:var(--text-xs);color:var(--color-muted);letter-spacing:va
         <h2 style="font-size:var(--text-xl)">The epistemic ledger</h2>
       </div>
     </div>
-    <p class="ledger-cap reveal">Each subsystem borrows a real mechanism; the tag marks how big the leap is from that mechanism to ACPCM. Read the tags top-to-bottom — established, established, plausible&nbsp;… refuted — and the honesty of the project is visible at a glance.</p>
+    <p class="ledger-cap reveal">Each subsystem borrows a real mechanism; the tag marks how big the leap is from that mechanism to ACPCM. Read the tags top-to-bottom - established, established, plausible&nbsp;… refuted - and the honesty of the project is visible at a glance.</p>
     <div class="ledger reveal" id="ledgerBody" role="table" aria-label="Epistemic ledger"></div>
   </div>
 </section>
@@ -447,7 +447,7 @@ footer .mono{font-size:var(--text-xs);color:var(--color-muted);letter-spacing:va
     <div class="col-wide reveal">
       <span class="snum">07 / FALSIFIABLE</span>
       <h2 style="font-size:var(--text-xl)">Probably won't work. Here's how to check.</h2>
-      <p class="body" style="margin-top:var(--space-3);max-width:60ch">A speculative proposal earns its keep by being testable. Three gated tests; failing any one falsifies the matching assumption — and, because they are sequential, collapses the whole architecture back to its established parts.</p>
+      <p class="body" style="margin-top:var(--space-3);max-width:60ch">A speculative proposal earns its keep by being testable. Three gated tests; failing any one falsifies the matching assumption - and, because they are sequential, collapses the whole architecture back to its established parts.</p>
     </div>
     <div class="reveal" style="grid-column:1/6;align-self:start">
       <svg class="flow" viewBox="0 0 360 296" role="img" aria-label="Falsification flow: any gate that fails collapses the architecture to its established parts">
@@ -476,25 +476,25 @@ footer .mono{font-size:var(--text-xs);color:var(--color-muted);letter-spacing:va
         <text class="yes" x="116" y="176" font-size="7">yes</text>
         <text class="lab" x="214" y="98" font-size="7">no</text>
       </svg>
-      <p class="figcap">FIG. E — falsification flow · any gate fails → collapse to established parts</p>
+      <p class="figcap">FIG. E - falsification flow · any gate fails → collapse to established parts</p>
     </div>
     <div style="grid-column:6/13">
       <div class="pred reveal"><div class="pn">P1</div><div>
         <h3>Field-to-lattice transfer</h3>
         <p class="body">Freezing a thin water film under a fixed MHz pattern leaves a reproducible, pattern-dependent modulation in the ice that sham (unmodulated) freezing does not.</p>
-        <p class="fcond">FALSIFIED IF — no above-noise, pattern-correlated structure survives the freeze.</p>
+        <p class="fcond">FALSIFIED IF - no above-noise, pattern-correlated structure survives the freeze.</p>
       </div></div>
       <div class="pred reveal"><div class="pn">P2</div><div>
         <h3>Addressable nodes</h3>
         <p class="body">The frozen structure is organised at the wavelength scale of the imposed standing wave.</p>
-        <p class="fcond">FALSIFIED IF — the modulation shows no correlation with node geometry.</p>
+        <p class="fcond">FALSIFIED IF - the modulation shows no correlation with node geometry.</p>
       </div></div>
       <div class="pred reveal"><div class="pn">P3</div><div>
         <h3>Decodable channel</h3>
         <p class="body">A network recovers the input code above chance on held-out patterns, with measurable capacity.</p>
-        <p class="fcond">FALSIFIED IF — decoding is at chance on held-out data (guards against memorisation / hallucination).</p>
+        <p class="fcond">FALSIFIED IF - decoding is at chance on held-out data (guards against memorisation / hallucination).</p>
       </div></div>
-      <p class="reveal" style="font-size:var(--text-md);font-weight:300;color:var(--color-muted);margin-top:var(--space-4);max-width:60ch">If P1 fails — the most likely outcome — that negative result is itself worth reporting.</p>
+      <p class="reveal" style="font-size:var(--text-md);font-weight:300;color:var(--color-muted);margin-top:var(--space-4);max-width:60ch">If P1 fails - the most likely outcome - that negative result is itself worth reporting.</p>
     </div>
   </div>
 </section>
@@ -505,9 +505,9 @@ footer .mono{font-size:var(--text-xs);color:var(--color-muted);letter-spacing:va
     <div class="col-narrow reveal">
       <span class="snum">08 / THE PRIZE</span>
       <h2 style="font-size:var(--text-xl)">Why water? Look at the ceiling.</h2>
-      <p class="body" style="margin-top:var(--space-3)">The information density of matter itself is staggering. A raindrop-sized droplet — about 50&nbsp;microlitres — holds roughly <span class="mono accent">10<sup>21</sup> water molecules</span>. At the molecular limit of one bit per molecule, that single drop could in principle hold <span class="mono accent">exabyte-scale</span> data — more than entire data centres, balanced on a fingertip. That ceiling is what makes water tantalizing.</p>
-      <p class="body">The catch — and why this needs experiments, not enthusiasm: the megahertz acoustic addressing proposed here is diffraction-limited to micron-scale voxels, capping that same droplet at roughly <span class="mono">one megabyte</span>. About <em>fourteen orders of magnitude</em> separate the molecular ceiling from the method.</p>
-      <p class="body">So why run the trial? Because that gap <em>is</em> the research question, and the first test is cheap and decisive (Prediction&nbsp;1). A faint positive starts the race to address below the diffraction limit — toward an abundant, cheap, archival medium with headroom nothing else has. A negative rules out a tempting dead end for the price of a freezer and a transducer. That asymmetric, cheap falsifiability is exactly why a speculative idea earns a careful look.</p>
+      <p class="body" style="margin-top:var(--space-3)">The information density of matter itself is staggering. A raindrop-sized droplet - about 50&nbsp;microlitres - holds roughly <span class="mono accent">10<sup>21</sup> water molecules</span>. At the molecular limit of one bit per molecule, that single drop could in principle hold <span class="mono accent">exabyte-scale</span> data - more than entire data centres, balanced on a fingertip. That ceiling is what makes water tantalizing.</p>
+      <p class="body">The catch - and why this needs experiments, not enthusiasm: the megahertz acoustic addressing proposed here is diffraction-limited to micron-scale voxels, capping that same droplet at roughly <span class="mono">one megabyte</span>. About <em>fourteen orders of magnitude</em> separate the molecular ceiling from the method.</p>
+      <p class="body">So why run the trial? Because that gap <em>is</em> the research question, and the first test is cheap and decisive (Prediction&nbsp;1). A faint positive starts the race to address below the diffraction limit - toward an abundant, cheap, archival medium with headroom nothing else has. A negative rules out a tempting dead end for the price of a freezer and a transducer. That asymmetric, cheap falsifiability is exactly why a speculative idea earns a careful look.</p>
     </div>
     <div class="reveal" style="grid-column:1/-1">
       <div class="axis">
@@ -618,7 +618,7 @@ footer .mono{font-size:var(--text-xs);color:var(--color-muted);letter-spacing:va
   if(body){ for(const r of ROWS){
     const row=document.createElement("div"); row.className="lrow"; row.setAttribute("role","row"); row.dataset.status=r.status; if(r.loadbearing)row.dataset.loadbearing="1";
     row.innerHTML='<div><span class="sub">'+r.sub+'</span><div class="mech">'+r.mech+'</div></div>'+
-      '<div class="right"><span class="lstatus" data-status="'+r.status+'">'+LABEL[r.status]+'</span><span class="note">'+r.note+'</span>'+(r.loadbearing?'<span class="lb-note">load-bearing — the idea lives or dies here</span>':'')+'</div>';
+      '<div class="right"><span class="lstatus" data-status="'+r.status+'">'+LABEL[r.status]+'</span><span class="note">'+r.note+'</span>'+(r.loadbearing?'<span class="lb-note">load-bearing - the idea lives or dies here</span>':'')+'</div>';
     body.appendChild(row);
   }}
   (function(){ const el=document.getElementById("ledgerBody"); if(!el)return; const rows=[...el.children];
@@ -633,7 +633,7 @@ footer .mono{font-size:var(--text-xs);color:var(--color-muted);letter-spacing:va
   function fit(cv){const r=cv.getBoundingClientRect();cv.width=Math.max(1,Math.round(r.width*DPR));cv.height=Math.max(1,Math.round(r.height*DPR));return {w:r.width,h:r.height};}
   function rr(c,x,y,w,h,r){c.beginPath();c.moveTo(x+r,y);c.arcTo(x+w,y,x+w,y+h,r);c.arcTo(x+w,y+h,x,y+h,r);c.arcTo(x,y+h,x,y,r);c.arcTo(x,y,x+w,y,r);c.closePath();}
 
-  /* Cymatic field cos(kr)cos(pθ) — hero (liquid) + write (freeze) */
+  /* Cymatic field cos(kr)cos(pθ) - hero (liquid) + write (freeze) */
   function makeCymatic(cv,mode){
     const ctx=cv.getContext("2d"); let W=0,H=0,cx=0,cy=0,R=0,parts=[],t0=null,freezeT=null,frozen=false,visible=false;
     const k0=3*Math.PI,p=6;
@@ -662,7 +662,7 @@ footer .mono{font-size:var(--text-xs);color:var(--color-muted);letter-spacing:va
     api.resize();return api;
   }
 
-  /* The Medium — confined pods, chaotic water, contained pulse */
+  /* The Medium - confined pods, chaotic water, contained pulse */
   function makeMedium(cv){
     const ctx=cv.getContext("2d");let W=0,H=0,pods=[],t0=null,visible=false,pulseT=null;
     function resize(){const s=fit(cv);W=s.w;H=s.h;ctx.setTransform(DPR,0,0,DPR,0,0);
@@ -684,7 +684,7 @@ footer .mono{font-size:var(--text-xs);color:var(--color-muted);letter-spacing:va
     api.resize();return api;
   }
 
-  /* Device schematic — transducer array -> wavefronts -> pod with cymatic grid */
+  /* Device schematic - transducer array -> wavefronts -> pod with cymatic grid */
   function makeDevice(cv){
     const ctx=cv.getContext("2d");let W=0,H=0,t0=null,visible=false,ch=null,arr=[],parts=[];
     const k0=2.6*Math.PI,p=6;
