@@ -123,41 +123,26 @@ canvas[data-anim]{display:block;width:100%;height:100%;min-height:200px}
 .inline-note b{color:var(--color-text)}
 
 /* ============================ LEDGER ============================ */
-.ledger-cap{font-size:var(--text-sm);color:var(--color-muted);max-width:62ch;margin-bottom:var(--space-4)}
-.ledger-legend{display:flex;align-items:center;gap:.7em;flex-wrap:wrap;margin-bottom:var(--space-5);
-  font-family:var(--font-mono);font-size:var(--text-xs);letter-spacing:var(--tracking-wide);color:var(--color-muted)}
-.ledger-legend .axis{color:var(--color-accent-dim);text-transform:uppercase}
-.ledger-legend .key{display:inline-flex;align-items:center;gap:.4em;padding:.2em .5em;border:1px solid var(--color-border);border-radius:2px}
-.ledger-legend .dot{width:9px;height:9px;border-radius:2px;display:inline-block}
-.ledger-legend .arrow{flex:1;min-width:24px;height:1px;background:linear-gradient(90deg,var(--color-established),var(--color-refuted));opacity:.5}
-
-.ledger{display:grid;grid-template-columns:26% 36% 38%;border-top:1px solid var(--color-border)}
-.lrow{display:contents}
-.lhead{font-family:var(--font-mono);font-size:var(--text-xs);letter-spacing:var(--tracking-wide);text-transform:uppercase;color:var(--color-muted);padding:var(--space-2) var(--space-3);border-bottom:1px solid var(--color-border)}
-.lcell{padding:var(--space-3);border-bottom:1px solid var(--color-border);display:flex;flex-direction:column;justify-content:center;gap:.45em;
+.ledger-cap{font-size:var(--text-sm);color:var(--color-muted);max-width:62ch;margin-bottom:var(--space-5)}
+.ledger{border-top:1px solid var(--color-border)}
+.lrow{display:grid;grid-template-columns:1.25fr 1fr;gap:var(--gutter);align-items:start;
+  padding:var(--space-4);border-bottom:1px solid var(--color-border);border-left:3px solid var(--color-border);
   opacity:0;transform:translateY(8px);transition:opacity .5s var(--ease-out),transform .5s var(--ease-out)}
-.lcell.shown{opacity:1;transform:none}
-.lcell .sub{color:var(--color-text-strong);font-weight:500;font-size:var(--text-md)}
-.lcell .mech{color:var(--color-text);font-size:var(--text-sm)}
-.lcell[data-status="established"]{background:color-mix(in srgb,var(--color-established) 6%,transparent)}
-.lcell[data-status="plausible"]{background:color-mix(in srgb,var(--color-plausible) 8%,transparent)}
-.lcell[data-status="speculative"]{background:color-mix(in srgb,var(--color-speculative) 10%,transparent)}
-.lcell[data-status="contested"]{background:color-mix(in srgb,var(--color-contested) 9%,transparent)}
-.lcell[data-status="refuted"]{background:color-mix(in srgb,var(--color-refuted) 11%,transparent)}
-.lcell.lead{border-left:3px solid var(--color-border)}
-.lcell.lead[data-status="established"]{border-left-color:var(--color-established)}
-.lcell.lead[data-status="plausible"]{border-left-color:var(--color-plausible)}
-.lcell.lead[data-status="speculative"]{border-left-color:var(--color-speculative)}
-.lcell.lead[data-status="contested"]{border-left-color:var(--color-contested)}
-.lcell.lead[data-status="refuted"]{border-left-color:var(--color-refuted)}
-.lcell.lead[data-loadbearing]{border-left-width:6px}
-.lcell.lead[data-status="refuted"] .sub{text-decoration:line-through;color:var(--color-muted)}
-.meter{display:inline-flex;gap:3px;align-items:center}
-.pip{width:18px;height:7px;border:1px solid var(--color-border);border-radius:1px;background:transparent}
-.statusword{font-family:var(--font-mono);font-size:var(--text-xs);letter-spacing:var(--tracking-wide);text-transform:uppercase;color:var(--color-text-strong)}
-.statline{font-size:var(--text-sm);color:var(--color-muted)}
+.lrow.shown{opacity:1;transform:none}
+.lrow .sub{font-size:var(--text-md);color:var(--color-text-strong);font-weight:500;letter-spacing:var(--tracking-normal)}
+.lrow .mech{font-size:var(--text-sm);color:var(--color-muted);margin-top:.35em;max-width:48ch}
+.lrow .right{display:flex;flex-direction:column;gap:.6em;align-items:flex-start}
+.lrow .note{font-size:var(--text-sm);color:var(--color-muted)}
+.lstatus{font-family:var(--font-mono);font-size:var(--text-xs);letter-spacing:var(--tracking-wide);text-transform:uppercase;display:inline-flex;align-items:center;padding:.32em .7em;border:1px solid var(--color-border);border-radius:2px;color:var(--color-text)}
+.lrow[data-status="established"]{border-left-color:var(--color-established)} .lstatus[data-status="established"]{color:var(--color-established);border-color:color-mix(in srgb,var(--color-established) 45%,var(--color-border))}
+.lrow[data-status="plausible"]{border-left-color:var(--color-plausible)} .lstatus[data-status="plausible"]{color:var(--color-plausible);border-color:color-mix(in srgb,var(--color-plausible) 45%,var(--color-border))}
+.lrow[data-status="speculative"]{border-left-color:var(--color-speculative)} .lstatus[data-status="speculative"]{color:var(--color-speculative);border-color:color-mix(in srgb,var(--color-speculative) 45%,var(--color-border))}
+.lrow[data-status="contested"]{border-left-color:var(--color-contested)} .lstatus[data-status="contested"]{color:var(--color-contested);border-color:color-mix(in srgb,var(--color-contested) 45%,var(--color-border))}
+.lrow[data-status="refuted"]{border-left-color:var(--color-refuted)} .lstatus[data-status="refuted"]{color:var(--color-refuted);border-color:color-mix(in srgb,var(--color-refuted) 45%,var(--color-border))}
+.lrow[data-loadbearing]{border-left-width:6px}
+.lrow[data-status="refuted"] .sub{text-decoration:line-through;color:var(--color-muted)}
 .lb-note{font-family:var(--font-mono);font-size:var(--text-xs);color:var(--color-speculative);letter-spacing:var(--tracking-wide)}
-@media (prefers-reduced-motion:reduce){.lcell{opacity:1;transform:none;transition:none}}
+@media (prefers-reduced-motion:reduce){.lrow{opacity:1;transform:none;transition:none}}
 
 /* ============================ PREDICTIONS ============================ */
 .pred{border-top:1px solid var(--color-border);padding-top:var(--space-3);margin-top:var(--space-4);display:grid;grid-template-columns:3rem 1fr;gap:var(--gutter)}
@@ -203,7 +188,7 @@ footer .mono{font-size:var(--text-xs);color:var(--color-muted);letter-spacing:va
   .sidelabel{display:none}
   .ledger{display:block;border-top:none}
   .lhead{display:none}
-  .lrow{display:block;border:1px solid var(--color-border);border-left-width:3px;border-radius:2px;margin-bottom:var(--space-3);padding:var(--space-3)}
+  .lrow{grid-template-columns:1fr;gap:var(--space-3);border:1px solid var(--color-border);border-left-width:3px;border-radius:2px;margin-bottom:var(--space-3);padding:var(--space-3)}
   .lrow[data-status="established"]{border-left-color:var(--color-established)}
   .lrow[data-status="plausible"]{border-left-color:var(--color-plausible)}
   .lrow[data-status="speculative"]{border-left-color:var(--color-speculative)}
@@ -321,14 +306,8 @@ footer .mono{font-size:var(--text-xs);color:var(--color-muted);letter-spacing:va
         <h2 style="font-size:var(--text-xl)">The epistemic ledger</h2>
       </div>
     </div>
-    <p class="ledger-cap reveal">Each subsystem borrows a real mechanism. The question is the size of the leap from that mechanism to ACPCM. The meter on each row places it on one spectrum — from solid ground to disproven. Read the meters top-to-bottom and the whole honesty of the project is visible at a glance.</p>
-    <div class="ledger-legend reveal" id="ledgerLegend" aria-hidden="true"></div>
-    <div class="ledger reveal" role="table" aria-label="Epistemic ledger header">
-      <div class="lhead" role="columnheader">Subsystem</div>
-      <div class="lhead" role="columnheader">Borrowed real mechanism</div>
-      <div class="lhead" role="columnheader">Size of the leap</div>
-    </div>
-    <div class="ledger" id="ledgerBody" role="rowgroup"></div>
+    <p class="ledger-cap reveal">Each subsystem borrows a real mechanism; the tag marks how big the leap is from that mechanism to ACPCM. Read the tags top-to-bottom — established, established, plausible&nbsp;… refuted — and the honesty of the project is visible at a glance.</p>
+    <div class="ledger reveal" id="ledgerBody" role="table" aria-label="Epistemic ledger"></div>
   </div>
 </section>
 
@@ -479,18 +458,14 @@ footer .mono{font-size:var(--text-xs);color:var(--color-muted);letter-spacing:va
   const body=document.getElementById("ledgerBody");
   if(body){ for(const r of ROWS){
     const row=document.createElement("div"); row.className="lrow"; row.setAttribute("role","row"); row.dataset.status=r.status; if(r.loadbearing)row.dataset.loadbearing="1";
-    const c1=document.createElement("div"); c1.className="lcell lead"; c1.setAttribute("role","cell"); c1.dataset.status=r.status; if(r.loadbearing)c1.dataset.loadbearing="1"; c1.innerHTML='<span class="sub">'+r.sub+'</span>';
-    const c2=document.createElement("div"); c2.className="lcell"; c2.setAttribute("role","cell"); c2.dataset.status=r.status; c2.innerHTML='<span class="mech">'+r.mech+'</span>';
-    const c3=document.createElement("div"); c3.className="lcell"; c3.setAttribute("role","cell"); c3.dataset.status=r.status;
-    c3.innerHTML=meterHTML(r.status)+'<span class="statusword" style="color:'+CVAR(r.status)+'">'+LABEL[r.status]+'</span><span class="statline">'+r.note+'</span>'+(r.loadbearing?'<span class="lb-note">load-bearing — the idea lives or dies here</span>':'');
-    row.appendChild(c1);row.appendChild(c2);row.appendChild(c3); body.appendChild(row);
+    row.innerHTML='<div><span class="sub">'+r.sub+'</span><div class="mech">'+r.mech+'</div></div>'+
+      '<div class="right"><span class="lstatus" data-status="'+r.status+'">'+LABEL[r.status]+'</span><span class="note">'+r.note+'</span>'+(r.loadbearing?'<span class="lb-note">load-bearing — the idea lives or dies here</span>':'')+'</div>';
+    body.appendChild(row);
   }}
   (function(){ const el=document.getElementById("ledgerBody"); if(!el)return; const rows=[...el.children];
-    const showAll=()=>rows.forEach(row=>[...row.children].forEach(c=>c.classList.add("shown")));
-    if(reduce){ showAll(); return; }
+    if(reduce){ rows.forEach(r=>r.classList.add("shown")); return; }
     const io=new IntersectionObserver((es)=>{es.forEach(e=>{ if(e.isIntersecting){
-      rows.forEach((row,i)=>{ const ref=row.dataset.status==="refuted"; const d=i*70+(ref?140:0);
-        [...row.children].forEach(c=>setTimeout(()=>c.classList.add("shown"),d)); }); io.disconnect(); }});},{threshold:0.15});
+      rows.forEach((r,i)=>{ const ref=r.dataset.status==="refuted"; setTimeout(()=>r.classList.add("shown"),i*70+(ref?140:0)); }); io.disconnect(); }});},{threshold:0.15});
     io.observe(el);
   })();
 
