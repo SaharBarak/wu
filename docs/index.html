@@ -3,9 +3,9 @@
 <head>
 <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
-<title>ACPCM — Acousto-Cymatic Phase-Change Memory</title>
-<meta name="description" content="A speculative technical framework for storing data in the physical structure of rapidly frozen water — honest about why it probably doesn't work." />
-<meta property="og:title" content="Acousto-Cymatic Phase-Change Memory (ACPCM)" />
+<title>wu — Acousto-Cymatic Phase-Change Memory (ACPCM)</title>
+<meta name="description" content="wu — a speculative technical framework for storing data in the physical structure of rapidly frozen water (ACPCM). Honest about why it probably doesn't work." />
+<meta property="og:title" content="wu — Acousto-Cymatic Phase-Change Memory (ACPCM)" />
 <meta property="og:description" content="Storing data in the topology of frozen water — a speculative idea-paper, told honestly." />
 <meta property="og:type" content="website" />
 <meta name="color-scheme" content="dark" />
@@ -89,11 +89,21 @@ section{position:relative;padding-block:var(--space-section)}
 
 .hero{min-height:100dvh;display:flex;align-items:center;padding-top:var(--space-6)}
 .hero .grid{align-items:center;width:100%}
-.hero-title{grid-column:1/9;font-family:var(--font-display);font-weight:300;font-size:var(--text-display);line-height:.95;letter-spacing:var(--tracking-tight);color:var(--color-text-strong)}
-.hero-sub{grid-column:1/8;margin-top:var(--space-4);font-size:var(--text-lg);font-weight:300;color:var(--color-text);max-width:26ch;line-height:1.2}
-.hero-canvas{grid-column:9/13;align-self:stretch;min-height:clamp(220px,38vh,420px)}
-.hero-foot{grid-column:1/8;margin-top:var(--space-5)}
+.hero-text{grid-column:1/8;display:flex;flex-direction:column}
+.hero-kicker{font-family:var(--font-mono);font-size:var(--text-sm);letter-spacing:var(--tracking-wide);color:var(--color-accent);margin:0 0 var(--space-3)}
+.hero-title{font-family:var(--font-display);font-weight:300;font-size:var(--text-display);line-height:.95;letter-spacing:-0.04em;color:var(--color-text-strong);margin:0}
+.hero-sub{margin-top:var(--space-4);font-size:var(--text-lg);font-weight:300;color:var(--color-text);max-width:28ch;line-height:1.2}
+.hero-canvas{grid-column:8/13;align-self:center;min-height:clamp(240px,42vh,440px)}
+.hero-foot{margin-top:var(--space-5)}
 .hero-foot p{color:var(--color-muted);max-width:56ch;font-size:var(--text-sm)}
+/* capacity scale */
+.scale{display:flex;flex-direction:column;gap:var(--space-4)}
+.scale-row{display:flex;flex-direction:column;gap:.5em}
+.scale-lab{font-size:var(--text-sm);color:var(--color-text)}
+.scale-bar{height:10px;background:var(--color-surface-1);border:1px solid var(--color-border);border-radius:2px;overflow:hidden;display:block}
+.scale-bar i{display:block;height:100%;transform:scaleX(0);transform-origin:0 50%;transition:transform 1s var(--ease-out)}
+.reveal.in .scale-bar i{transform:scaleX(1)}
+@media (prefers-reduced-motion:reduce){.scale-bar i{transform:scaleX(1);transition:none}}
 .sidelabel{position:absolute;right:calc(var(--margin) - 1.2rem);top:38%;writing-mode:vertical-rl;font-family:var(--font-mono);font-size:var(--text-xs);letter-spacing:var(--tracking-widest);color:var(--color-muted)}
 
 .col-left{grid-column:1/6}.col-right{grid-column:6/13}
@@ -166,7 +176,7 @@ footer .mono{font-size:var(--text-xs);color:var(--color-muted);letter-spacing:va
 
 @media (max-width:768px){
   .grid{row-gap:var(--space-3)}
-  .hero-title,.hero-sub,.hero-foot,.col-left,.col-right,.col-wide,.col-narrow{grid-column:1/-1}
+  .hero-text,.hero-title,.hero-sub,.hero-foot,.col-left,.col-right,.col-wide,.col-narrow{grid-column:1/-1}
   .hero-canvas{grid-column:1/-1;min-height:46vw;order:2}
   .sidelabel{display:none}
   .ledger{display:block;border-top:none}
@@ -195,21 +205,45 @@ footer .mono{font-size:var(--text-xs);color:var(--color-muted);letter-spacing:va
 <!-- 01 HERO -->
 <section class="hero" id="problem">
   <div class="wrap grid">
-    <h1 class="hero-title reveal">ACPCM</h1>
-    <p class="hero-sub reveal">Data storage is running out of physics. This is one very speculative answer.</p>
-    <div class="hero-canvas reveal"><canvas data-anim="cymatic" data-mode="liquid" aria-label="Animation: liquid water in motion"></canvas></div>
-    <div class="hero-foot reveal">
-      <p><span class="mono accent">Acousto-Cymatic Phase-Change Memory.</span> As magnetic and solid-state storage approach the superparamagnetic limit, the field hunts for new media. This is a thought experiment: encode data into the physical topology of a pod of water, then freeze it solid in an instant to lock it in. It almost certainly does not work — and the honest part is the point.</p>
+    <div class="hero-text reveal">
+      <p class="hero-kicker">ACPCM — Acousto-Cymatic Phase-Change Memory</p>
+      <h1 class="hero-title">wu</h1>
+      <p class="hero-sub">Data storage is running out of physics. This is one very speculative answer.</p>
+      <div class="hero-foot">
+        <p>As magnetic and solid-state storage approach the superparamagnetic limit, the field hunts for new media. <span class="mono accent">wu</span> is a thought experiment: encode data into the physical topology of a pod of water, then freeze it solid in an instant to lock it in. It almost certainly does not work — and the honest part is the point.</p>
+      </div>
     </div>
+    <div class="hero-canvas reveal"><canvas data-anim="cymatic" data-mode="liquid" aria-label="Animation: liquid water in motion"></canvas></div>
   </div>
   <span class="sidelabel" aria-hidden="true">PREPRINT // 2026 // SPECULATIVE</span>
+</section>
+
+<!-- 02 THE PRIZE -->
+<section class="s-bg2" id="potential">
+  <div class="wrap grid">
+    <div class="col-narrow reveal">
+      <span class="snum">02 / THE PRIZE</span>
+      <h2 style="font-size:var(--text-xl)">Why water? Look at the ceiling.</h2>
+      <p class="body" style="margin-top:var(--space-3)">The information density of matter itself is staggering. A raindrop-sized droplet — about 50&nbsp;microlitres — holds roughly <span class="mono accent">10<sup>21</sup> water molecules</span>. At the molecular limit of one bit per molecule, that single drop could in principle hold <span class="mono accent">exabyte-scale</span> data — more than entire data centres, in something you can balance on a fingertip. That ceiling is what makes water tantalizing.</p>
+      <p class="body">The catch — and the reason this needs experiments, not enthusiasm: the megahertz acoustic addressing proposed here is diffraction-limited to micron-scale voxels, which caps that same droplet at roughly <span class="mono">one megabyte</span>. About <em>fourteen orders of magnitude</em> separate the molecular ceiling from the method.</p>
+      <p class="body">So why run the trial at all? Because that gap <em>is</em> the research question, and the first test is cheap and decisive: freeze water under a fixed pattern and look for a reproducible imprint (Prediction&nbsp;1). If it is there — even faintly — the race to address below the diffraction limit begins, and the payoff is an abundant, cheap, archival medium with headroom nothing else has. If it is not, we have ruled out a tempting dead end for the price of a freezer and a transducer. That asymmetric, cheap falsifiability is exactly why a speculative idea earns a careful look.</p>
+    </div>
+    <div class="col-right reveal" style="align-self:center">
+      <div class="scale">
+        <div class="scale-row"><span class="scale-lab">Water — molecular ceiling <span class="mono muted">· ~10<sup>21</sup> bits/droplet · 1 bit per molecule</span></span><span class="scale-bar"><i style="width:95%;background:var(--color-accent)"></i></span></div>
+        <div class="scale-row"><span class="scale-lab">A microSD card today <span class="mono muted">· ~1 TB</span></span><span class="scale-bar"><i style="width:57%;background:var(--color-muted)"></i></span></div>
+        <div class="scale-row"><span class="scale-lab">ACPCM — diffraction-limited <span class="mono muted">· ~1 MB/droplet · the honest reality</span></span><span class="scale-bar"><i style="width:29%;background:var(--color-speculative)"></i></span></div>
+        <p class="figcap">Log scale (bytes). The prize is the ceiling; closing the gap to the method is the whole problem.</p>
+      </div>
+    </div>
+  </div>
 </section>
 
 <!-- 02 THE MEDIUM -->
 <section class="s-bg1" id="pods">
   <div class="wrap grid">
     <div class="col-left reveal">
-      <span class="snum">02 / MEDIUM</span>
+      <span class="snum">03 / MEDIUM</span>
       <h2 style="font-size:var(--text-xl)">The medium: a pod of water</h2>
       <p class="body" style="margin-top:var(--space-3)">Liquid water is the worst imaginable storage medium — its hydrogen-bond network forgets its own arrangement within roughly 50&nbsp;femtoseconds. The molecules never stop reshuffling. So ACPCM never stores anything in the liquid; it first confines water to microscopic <em>pods</em>.</p>
       <p class="body">Confinement buys isolation: a signal injected into one pod stays inside its walls and never leaks to its neighbours — the acoustic analogue of charge-trap flash isolating charge in discrete traps.</p>
@@ -226,7 +260,7 @@ footer .mono{font-size:var(--text-xs);color:var(--color-muted);letter-spacing:va
 <section id="grid">
   <div class="wrap grid">
     <div class="col-left reveal">
-      <span class="snum">03 / FORMAT</span>
+      <span class="snum">04 / FORMAT</span>
       <h2 style="font-size:var(--text-xl)">A cymatic addressing grid</h2>
       <p class="body" style="margin-top:var(--space-3)">A hard drive maps logical blocks onto physical tracks and sectors. ACPCM draws that grid <em>acoustically</em>. A possible device: a ring or array of megahertz transducers around the pod, fired in a phased pattern. Their wavefronts interfere into standing-wave nodes — quiet lines that partition the pod into addressable voxels: concentric <span class="mono accent">tracks</span> and radial <span class="mono accent">sectors</span>, a cymatic cylinder–head–sector grid. Which elements fire selects which voxel you address.</p>
       <p class="inline-note"><b>Established:</b> sound organising particles at pressure nodes (Faraday figures, acoustofluidics, acoustic tweezers). <b>Speculative:</b> that the same field reorders the <em>water molecules themselves</em> into a persistent network — that leap is Assumption&nbsp;2.</p>
@@ -243,7 +277,7 @@ footer .mono{font-size:var(--text-xs);color:var(--color-muted);letter-spacing:va
 <section class="s-bg1" id="write">
   <div class="wrap grid">
     <div style="grid-column:1/-1" class="reveal">
-      <span class="snum">04 / WRITE</span>
+      <span class="snum">05 / WRITE</span>
       <h2 style="font-size:var(--text-xl);font-weight:500">The moment of freezing</h2>
       <p class="banner" style="margin-top:var(--space-3)">ASSUMPTION 3 — this is where the idea either works or it doesn't.</p>
     </div>
@@ -265,7 +299,7 @@ footer .mono{font-size:var(--text-xs);color:var(--color-muted);letter-spacing:va
 <section class="s-bg2" id="read">
   <div class="wrap grid">
     <div class="reveal" style="grid-column:4/13">
-      <span class="snum">05 / READ</span>
+      <span class="snum">06 / READ</span>
       <h2 style="font-size:var(--text-xl)">Reading frozen sound</h2>
       <p class="body" style="margin-top:var(--space-3)">Once data lives in the microscopic shape of the ice, read-back becomes an acoustic-holography problem. A megahertz pulse illuminates the frozen pod; its topology acts as a passive phase plate, scattering the wave into a complex 3-D pressure field. A calibrated hydrophone samples that field, and a trained neural network inverts it back to bits.</p>
       <p class="body">This is the most mature part — phase plates, hydrophone metrology, and deep-learning inversion are all real. The honest caveat: the inverse problem is ill-posed, so a network can hallucinate plausible bits. Any demonstration needs blinded, information-theoretic controls.</p>
@@ -282,7 +316,7 @@ footer .mono{font-size:var(--text-xs);color:var(--color-muted);letter-spacing:va
   <div class="wrap">
     <div class="grid" style="margin-bottom:var(--space-4)">
       <div class="col-wide reveal">
-        <span class="snum">06 / HONESTY</span>
+        <span class="snum">07 / HONESTY</span>
         <h2 style="font-size:var(--text-xl)">The epistemic ledger</h2>
       </div>
     </div>
@@ -301,7 +335,7 @@ footer .mono{font-size:var(--text-xs);color:var(--color-muted);letter-spacing:va
 <section id="predictions">
   <div class="wrap grid">
     <div class="col-wide reveal">
-      <span class="snum">07 / FALSIFIABLE</span>
+      <span class="snum">08 / FALSIFIABLE</span>
       <h2 style="font-size:var(--text-xl)">Probably won't work. Here's how to check.</h2>
       <p class="body" style="margin-top:var(--space-3);max-width:56ch">A speculative proposal earns its keep by being testable. Three predictions; any one failing falsifies the matching assumption. They stair-step on purpose: if the first fails, the rest are moot.</p>
     </div>
@@ -330,7 +364,7 @@ footer .mono{font-size:var(--text-xs);color:var(--color-muted);letter-spacing:va
 <section id="preprint">
   <div class="wrap grid">
     <div class="col-narrow reveal">
-      <span class="snum">08 / SOURCE</span>
+      <span class="snum">09 / SOURCE</span>
       <h2 style="font-size:var(--text-xl);font-weight:300">Read the preprint</h2>
       <p class="body" style="margin-top:var(--space-3)">The full idea-paper — verified citations, the complete ledger, falsifiable predictions, and a limitations section that argues against itself.</p>
       <p style="margin-top:var(--space-4)"><a class="cta" href="main.pdf">Read the PDF
@@ -345,7 +379,7 @@ footer .mono{font-size:var(--text-xs);color:var(--color-muted);letter-spacing:va
 
 <footer>
   <div class="wrap">
-    <span class="mono">ACPCM · A SPECULATIVE IDEA-PAPER</span>
+    <span class="mono">wu · ACPCM · SPECULATIVE IDEA-PAPER</span>
     <span class="mono">DESIGN: SUPERCOOLED CLARITY</span>
     <span class="mono"><a href="https://github.com/SaharBarak/wu">SOURCE ↗</a></span>
   </div>
