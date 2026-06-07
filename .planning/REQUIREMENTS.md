@@ -59,13 +59,30 @@
 
 | Requirement | Phase | Status |
 |-------------|-------|--------|
-| (populated by roadmapper) | — | Pending |
+| DSGN-02 | Phase 1 — Foundation | Pending |
+| DSGN-01 | Phase 1 — Foundation | Pending |
+| SITE-01 | Phase 1 — Foundation | Pending |
+| NARR-01 | Phase 2 — Narrative | Pending |
+| NARR-02 | Phase 2 — Narrative | Pending |
+| NARR-03 | Phase 2 — Narrative | Pending |
+| NARR-04 | Phase 2 — Narrative | Pending |
+| NARR-05 | Phase 2 — Narrative | Pending |
+| NARR-06 | Phase 2 — Narrative | Pending |
+| NARR-07 | Phase 2 — Narrative | Pending |
+| NARR-08 | Phase 2 — Narrative | Pending |
+| SITE-02 | Phase 2 — Narrative | Pending |
+| HON-01 | Phase 2 — Narrative | Pending |
+| ANIM-01 | Phase 3 — Motion & Ship | Pending |
+| ANIM-02 | Phase 3 — Motion & Ship | Pending |
+| ANIM-03 | Phase 3 — Motion & Ship | Pending |
+| ANIM-04 | Phase 3 — Motion & Ship | Pending |
+| SITE-03 | Phase 3 — Motion & Ship | Pending |
 
 **Coverage:**
-- v1 requirements: 15 total
-- Mapped to phases: 0 (pending roadmap)
-- Unmapped: 15 ⚠️
+- v1 requirements: 18 total
+- Mapped to phases: 18
+- Unmapped: 0 ✓
 
 ---
 *Requirements defined: 2026-06-07*
-*Last updated: 2026-06-07 after initialization*
+*Last updated: 2026-06-07 after roadmap creation*
