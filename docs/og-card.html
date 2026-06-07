@@ -1,0 +1,36 @@
+<!doctype html><html><head><meta charset="utf-8"/>
+<link href="https://api.fontshare.com/v2/css?f[]=satoshi@300,400,500,700&display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet"/>
+<style>
+  *{margin:0;box-sizing:border-box}
+  html,body{width:1200px;height:630px;overflow:hidden}
+  body{background:#0c0e0f;color:#d8dde3;font-family:"Satoshi",sans-serif;position:relative}
+  .rings{position:absolute;right:-120px;top:50%;transform:translateY(-50%);width:760px;height:760px}
+  .rings circle{fill:none;stroke:#5b9ea6}
+  .grad{position:absolute;inset:0;background:radial-gradient(120% 90% at 88% 50%,rgba(91,158,166,.10),transparent 55%)}
+  .wrap{position:absolute;left:84px;top:0;height:100%;display:flex;flex-direction:column;justify-content:center;max-width:720px}
+  .kick{font-family:"JetBrains Mono",monospace;font-size:21px;letter-spacing:.14em;color:#3d6e75;text-transform:uppercase;margin-bottom:26px}
+  h1{font-size:168px;font-weight:500;letter-spacing:-.04em;color:#edf0f3;line-height:.9}
+  .sub{font-size:33px;font-weight:400;color:#d8dde3;margin-top:30px;letter-spacing:-.01em;line-height:1.32;max-width:640px}
+  .foot{position:absolute;left:84px;bottom:54px;font-family:"JetBrains Mono",monospace;font-size:19px;letter-spacing:.06em;color:#5a6370}
+  .foot b{color:#5b9ea6;font-weight:500}
+  .dot{position:absolute;left:84px;top:54px;font-family:"JetBrains Mono",monospace;font-size:19px;letter-spacing:.12em;color:#9a8560}
+</style></head>
+<body>
+  <div class="grad"></div>
+  <svg class="rings" viewBox="0 0 760 760">
+    <circle cx="380" cy="380" r="350" stroke-width="2" opacity="0.14"/>
+    <circle cx="380" cy="380" r="270" stroke-width="2" opacity="0.22"/>
+    <circle cx="380" cy="380" r="195" stroke-width="2" opacity="0.34"/>
+    <circle cx="380" cy="380" r="125" stroke-width="2.5" opacity="0.55"/>
+    <circle cx="380" cy="380" r="62"  stroke-width="2.5" opacity="0.85"/>
+    <circle cx="380" cy="380" r="7" fill="#edf0f3" stroke="none"/>
+  </svg>
+  <div class="dot">SPECULATIVE IDEA-PAPER // 2026</div>
+  <div class="wrap">
+    <div class="kick">ACPCM - Acousto-Cymatic Phase-Change Memory</div>
+    <h1>wu</h1>
+    <div class="sub">Storing data in the topology of rapidly frozen water - a speculative idea-paper, told honestly.</div>
+  </div>
+  <div class="foot">github.com/SaharBarak/wu &nbsp;·&nbsp; <b>saharbarak.github.io/wu</b></div>
+</body></html>
