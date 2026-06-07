@@ -296,14 +296,6 @@ canvas[data-anim]{display:block;width:100%;height:100%;min-height:200px}
 .gh .star{color:var(--color-accent-dim)}
 .gh .ct{color:var(--color-text-strong);font-weight:500;font-variant-numeric:tabular-nums}
 .gh .ct[data-loading]{color:var(--color-muted)}
-/* compiled-LaTeX preview frame */
-.paper{grid-column:1/-1;margin-top:var(--space-5);border:1px solid var(--color-border);border-radius:8px;overflow:hidden;background:var(--color-surface-1)}
-.paper .bar{display:flex;align-items:center;justify-content:space-between;gap:var(--space-3);padding:.7em 1em;border-bottom:1px solid var(--color-border);
-  font-family:var(--font-mono);font-size:var(--text-xs);letter-spacing:var(--tracking-wide);color:var(--color-muted);background:var(--color-surface-2)}
-.paper .bar .links{display:inline-flex;gap:1.2em}
-.paper .bar a{color:var(--color-accent-dim)}.paper .bar a:hover{color:var(--color-accent)}
-.paper embed,.paper iframe{display:block;width:100%;height:min(78vh,860px);border:0;background:#222}
-@media (max-width:768px){.paper embed,.paper iframe{height:62vh}}
 .pullcite{grid-column:9/13;border-left:1px solid var(--color-border);padding-left:var(--space-3);font-size:var(--text-sm);font-weight:500;color:var(--color-text);max-width:34ch}
 
 footer{border-top:1px solid var(--color-border);padding-block:var(--space-5)}
@@ -530,7 +522,7 @@ footer .mono{font-size:var(--text-xs);color:var(--color-muted);letter-spacing:va
     <div class="col-narrow reveal">
       <span class="snum">09 / SOURCE</span>
       <h2 style="font-size:var(--text-xl);font-weight:300">Read the preprint</h2>
-      <p class="body" style="margin-top:var(--space-3)">The full idea-paper - verified citations, the complete ledger, falsifiable predictions, and a limitations section that argues against itself. Compiled below; the LaTeX source is open.</p>
+      <p class="body" style="margin-top:var(--space-3)">The full idea-paper - verified citations, the complete ledger, falsifiable predictions, and a limitations section that argues against itself. Open it as a PDF, or read the LaTeX source.</p>
       <p style="margin-top:var(--space-4)"><a class="cta" href="main.pdf">Open the PDF
         <svg width="20" height="14" viewBox="0 0 20 14" fill="none" aria-hidden="true"><path d="M1 7h17M12 1l6 6-6 6" stroke="currentColor" stroke-width="1.5"/></svg>
       </a></p>
@@ -548,13 +540,6 @@ footer .mono{font-size:var(--text-xs);color:var(--color-muted);letter-spacing:va
       <p class="mono muted" style="font-size:var(--text-sm);margin-top:var(--space-3)">S. Barak · <em>Acousto-Cymatic Phase-Change Memory</em> · preprint, 2026</p>
     </div>
     <div class="pullcite reveal">A speculative theoretical framework for high-density data storage in confined aqueous media.</div>
-    <div class="paper reveal">
-      <div class="bar">
-        <span>main.pdf - COMPILED LaTeX · 11 pp.</span>
-        <span class="links"><a href="main.pdf">PDF ↗</a><a href="main.tex">SOURCE ↗</a></span>
-      </div>
-      <embed src="main.pdf#view=FitH&toolbar=0" type="application/pdf" />
-    </div>
   </div>
 </section>
 </main>
