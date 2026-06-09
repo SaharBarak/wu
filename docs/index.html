@@ -323,6 +323,19 @@ footer .mono{font-size:var(--text-xs);color:var(--color-muted);letter-spacing:va
 }
 .noscript{padding:var(--space-3) var(--margin);background:var(--color-surface-2);border-bottom:1px solid var(--color-border);font-size:var(--text-sm)}
 
+
+/* ===================== capacity log-bar chart ===================== */
+.capchart{display:block;width:100%;height:auto;max-width:1000px;margin:var(--space-4) auto 0}
+.capchart .cc-bar{fill:var(--color-accent);opacity:.30}
+.capchart .cc-bar.hl{opacity:.92}
+.capchart .cc-lab{fill:var(--color-text);font-family:var(--font-mono);font-size:13px}
+.capchart .cc-val{fill:var(--color-muted);font-family:var(--font-mono);font-size:11px}
+.capchart .cc-grid{stroke:var(--color-border);stroke-width:1;stroke-dasharray:2 4}
+.capchart .cc-tick{fill:var(--color-muted);font-family:var(--font-mono);font-size:12px}
+.capchart .cc-axis{fill:var(--color-muted);font-family:var(--font-mono);font-size:11px;letter-spacing:.04em}
+.capchart .cc-gapline{stroke:var(--color-accent-dim);stroke-width:1;stroke-dasharray:2 3;opacity:.55}
+.capchart .cc-gaparrow{stroke:var(--color-accent);stroke-width:1}
+.capchart .cc-gaplab{fill:var(--color-accent);font-family:var(--font-mono);font-size:11px;letter-spacing:.05em}
 </style>
 </head>
 <body>
@@ -504,15 +517,41 @@ footer .mono{font-size:var(--text-xs);color:var(--color-muted);letter-spacing:va
       <p class="body">So why run the trial? Because that gap <em>is</em> the research question, and the first test is cheap and decisive (Prediction&nbsp;1). A faint positive starts the race to address below the diffraction limit - toward an abundant, cheap, archival medium with headroom nothing else has. A negative rules out a tempting dead end for the price of a freezer and a transducer. That asymmetric, cheap falsifiability is exactly why a speculative idea earns a careful look.</p>
     </div>
     <div class="reveal" style="grid-column:1/-1">
-      <div class="axis">
-        <div class="line"></div>
-        <div class="gap" style="left:28.6%;width:67.1%"></div>
-        <div class="gaplab" style="left:62%">the research gap · ~14 orders of magnitude</div>
-        <div class="mk acpcm" style="left:28.6%"><i></i><b>ACPCM<span>~1 MB / droplet</span></b></div>
-        <div class="mk" style="left:57.1%"><i></i><b>microSD<span>~1 TB</span></b></div>
-        <div class="mk ceil" style="left:95.7%"><i></i><b>water ceiling<span>~100 EB / droplet</span></b></div>
-        <div class="ticks"><span>1&nbsp;B</span><span>KB</span><span>MB</span><span>GB</span><span>TB</span><span>PB</span><span>EB</span><span>ZB</span></div>
-      </div>
+      <svg class="capchart" viewBox="0 0 1000 360" role="img" aria-label="Volumetric storage density across media on a log scale: ACPCM read-limited reality sits about fourteen orders of magnitude below the molecular ceiling and below DNA, 5D glass and holography.">
+      <line x1="196.0" y1="34" x2="196.0" y2="300" class="cc-grid"/>
+      <text x="196.0" y="320" class="cc-tick" text-anchor="middle">10<tspan dy="-5" font-size="9">6</tspan></text>
+      <line x1="340.8" y1="34" x2="340.8" y2="300" class="cc-grid"/>
+      <text x="340.8" y="320" class="cc-tick" text-anchor="middle">10<tspan dy="-5" font-size="9">9</tspan></text>
+      <line x1="485.5" y1="34" x2="485.5" y2="300" class="cc-grid"/>
+      <text x="485.5" y="320" class="cc-tick" text-anchor="middle">10<tspan dy="-5" font-size="9">12</tspan></text>
+      <line x1="630.2" y1="34" x2="630.2" y2="300" class="cc-grid"/>
+      <text x="630.2" y="320" class="cc-tick" text-anchor="middle">10<tspan dy="-5" font-size="9">15</tspan></text>
+      <line x1="775.0" y1="34" x2="775.0" y2="300" class="cc-grid"/>
+      <text x="775.0" y="320" class="cc-tick" text-anchor="middle">10<tspan dy="-5" font-size="9">18</tspan></text>
+      <line x1="919.8" y1="34" x2="919.8" y2="300" class="cc-grid"/>
+      <text x="919.8" y="320" class="cc-tick" text-anchor="middle">10<tspan dy="-5" font-size="9">21</tspan></text>
+      <text x="968" y="344" class="cc-axis" text-anchor="end">bytes per cm&#179; (log scale)</text>
+      <text x="182" y="53" class="cc-lab" text-anchor="end">molecular ceiling</text>
+      <rect x="196.0" y="44.0" width="752.8" height="16" rx="2" class="cc-bar"/>
+      <text x="958.8" y="53" class="cc-val">~10^21 / cm^3</text>
+      <text x="182" y="105" class="cc-lab" text-anchor="end">DNA (demonstrated)</text>
+      <rect x="196.0" y="96.0" width="549.1" height="16" rx="2" class="cc-bar"/>
+      <text x="755.1" y="105" class="cc-val">215 PB/g</text>
+      <text x="182" y="157" class="cc-lab" text-anchor="end">5D fused silica</text>
+      <rect x="196.0" y="148.0" width="357.8" height="16" rx="2" class="cc-bar"/>
+      <text x="563.8" y="157" class="cc-val">~26 TB/cm^3</text>
+      <text x="182" y="209" class="cc-lab" text-anchor="end">volume holography</text>
+      <rect x="196.0" y="200.0" width="289.5" height="16" rx="2" class="cc-bar"/>
+      <text x="495.5" y="209" class="cc-val">~1 TB/cm^3</text>
+      <text x="182" y="261" class="cc-lab" text-anchor="end">ACPCM (read-limited)</text>
+      <rect x="196.0" y="252.0" width="48.2" height="16" rx="2" class="cc-bar hl"/>
+      <text x="254.2" y="261" class="cc-val">this work</text>
+      <line x1="244.2" y1="246.0" x2="244.2" y2="38" class="cc-gapline"/>
+      <line x1="948.8" y1="42.0" x2="948.8" y2="38" class="cc-gapline"/>
+      <line x1="244.2" y1="40" x2="948.8" y2="40" class="cc-gaparrow" marker-start="url(#ah)" marker-end="url(#ah)"/>
+      <text x="596.5" y="28" class="cc-gaplab" text-anchor="middle">the research gap &#183; ~14 orders of magnitude</text>
+      <defs><marker id="ah" markerWidth="7" markerHeight="7" refX="3.5" refY="3.5" orient="auto"><path d="M1 1 L6 3.5 L1 6" fill="none" stroke="#5b9ea6" stroke-width="1"/></marker></defs>
+      </svg>
       <p class="figcap">Information capacity, log scale (bytes per droplet). The prize is the ceiling; closing the gap to the method is the whole problem.</p>
     </div>
   </div>
@@ -627,29 +666,49 @@ footer .mono{font-size:var(--text-xs);color:var(--color-muted);letter-spacing:va
   function rr(c,x,y,w,h,r){c.beginPath();c.moveTo(x+r,y);c.arcTo(x+w,y,x+w,y+h,r);c.arcTo(x+w,y+h,x,y+h,r);c.arcTo(x,y+h,x,y,r);c.arcTo(x,y,x+w,y,r);c.closePath();}
 
   /* Cymatic field cos(kr)cos(pθ) - hero (liquid) + write (freeze) */
+  /* Cymatic field cos(kr)cos(p theta) - hero (liquid) + write (freeze).
+     Renders the addressing grid (track x sector antinode cells + nodal lines) so the
+     standing-wave pattern is legible; particles collect at the nodes (Chladni). */
   function makeCymatic(cv,mode){
-    const ctx=cv.getContext("2d"); let W=0,H=0,cx=0,cy=0,R=0,parts=[],t0=null,freezeT=null,frozen=false,visible=false;
+    const ctx=cv.getContext("2d");
+    let W=0,H=0,cx=0,cy=0,R=0,parts=[],t0=null,freezeT=null,visible=false,edges=[];
     const k0=3*Math.PI,p=6;
-    function field(x,y){const dx=(x-cx)/R,dy=(y-cy)/R,r=Math.hypot(dx,dy),th=Math.atan2(dy,dx);return Math.cos(k0*r)*Math.cos(p*th);}
-    function grad(x,y){const e=1.2;return[(field(x+e,y)-field(x-e,y))/(2*e),(field(x,y+e)-field(x,y-e))/(2*e)];}
-    function seed(){parts=[];const n=200;for(let i=0;i<n;i++){const a=Math.random()*6.283,r=Math.sqrt(Math.random())*R;parts.push({x:cx+Math.cos(a)*r,y:cy+Math.sin(a)*r,vx:0,vy:0,locked:false});}}
-    function resize(){const s=fit(cv);W=s.w;H=s.h;ctx.setTransform(DPR,0,0,DPR,0,0);cx=W/2;cy=H/2;R=Math.min(W,H)*0.46;seed();}
-    function nodes(al){ctx.save();ctx.globalAlpha=al;ctx.strokeStyle="#3d6e75";ctx.lineWidth=1;
-      for(let m=0;m<6;m++){const r=(Math.PI/2+m*Math.PI)/k0*R;if(r<R){ctx.beginPath();ctx.arc(cx,cy,r,0,6.283);ctx.stroke();}}
-      ctx.strokeStyle="rgba(42,46,51,.9)";for(let j=0;j<2*p;j++){const th=Math.PI/(2*p)+j*Math.PI/p;ctx.beginPath();ctx.moveTo(cx,cy);ctx.lineTo(cx+Math.cos(th)*R,cy+Math.sin(th)*R);ctx.stroke();}ctx.restore();}
-    function step(ts){if(t0===null)t0=ts;const el=(ts-t0)/1000;ctx.clearRect(0,0,W,H);
-      ctx.save();ctx.globalAlpha=.5;ctx.strokeStyle="#2a2e33";ctx.beginPath();ctx.arc(cx,cy,R,0,6.283);ctx.stroke();ctx.restore();
-      let front=Infinity;
-      if(mode==="freeze"&&freezeT!==null){const fp=Math.min(1,(ts-freezeT)/2600);front=(cx-R)+fp*2*R;nodes(.55*fp);if(fp>=1)frozen=true;
-        if(fp<1){ctx.save();ctx.strokeStyle="#5b9ea6";ctx.globalAlpha=.85;ctx.lineWidth=1.5;ctx.beginPath();ctx.moveTo(front,cy-R);ctx.lineTo(front,cy+R);ctx.stroke();ctx.restore();}}
-      for(const q of parts){const behind=(mode==="freeze")?(q.x<front):false;
-        if(mode==="freeze"&&behind){const f=field(q.x,q.y),g=grad(q.x,q.y),s=2*f;q.vx+=-s*g[0]*42;q.vy+=-s*g[1]*42;q.vx*=0.78;q.vy*=0.78;q.x+=q.vx*0.016;q.y+=q.vy*0.016;if(Math.hypot(q.vx,q.vy)<0.05)q.locked=true;}
-        else{q.x+=Math.sin(el*0.9+q.y*0.03)*0.25+(Math.random()-0.5)*0.35;q.y+=Math.cos(el*0.8+q.x*0.03)*0.25+(Math.random()-0.5)*0.35;const dx=q.x-cx,dy=q.y-cy,d=Math.hypot(dx,dy);if(d>R){q.x=cx+dx/d*R;q.y=cy+dy/d*R;}}
-        ctx.beginPath();ctx.fillStyle=q.locked?"#8fc3ca":(behind?"#6fb0b8":"#5b9ea6");ctx.globalAlpha=q.locked?0.96:0.8;ctx.arc(q.x,q.y,q.locked?1.7:1.4,0,6.283);ctx.fill();}
-      ctx.globalAlpha=1;}
-    function staticFrame(){ctx.clearRect(0,0,W,H);ctx.save();ctx.globalAlpha=.5;ctx.strokeStyle="#2a2e33";ctx.beginPath();ctx.arc(cx,cy,R,0,6.283);ctx.stroke();ctx.restore();
-      if(mode==="freeze"){nodes(.55);for(let it=0;it<70;it++){for(const q of parts){const f=field(q.x,q.y),g=grad(q.x,q.y),s=2*f;q.x+=-s*g[0]*0.4;q.y+=-s*g[1]*0.4;}}for(const q of parts)q.locked=true;}
-      for(const q of parts){ctx.beginPath();ctx.fillStyle=mode==="freeze"?"#8fc3ca":"#5b9ea6";ctx.globalAlpha=.85;ctx.arc(q.x,q.y,1.5,0,6.283);ctx.fill();}ctx.globalAlpha=1;}
+    const field=(x,y)=>{const dx=(x-cx)/R,dy=(y-cy)/R,r=Math.hypot(dx,dy),th=Math.atan2(dy,dx);return Math.cos(k0*r)*Math.cos(p*th);};
+    const grad=(x,y)=>{const e=1.2;return[(field(x+e,y)-field(x-e,y))/(2*e),(field(x,y+e)-field(x,y-e))/(2*e)];};
+    function trackEdges(){const e=[0];for(let m=0;;m++){const r=(Math.PI/2+m*Math.PI)/k0*R;if(r>=R){e.push(R);break;}e.push(r);}return e;}
+    function seed(){parts=[];const n=Math.min(380,Math.max(180,Math.round(W*H/210)));for(let i=0;i<n;i++){const a=Math.random()*6.283,r=Math.sqrt(Math.random())*R;parts.push({x:cx+Math.cos(a)*r,y:cy+Math.sin(a)*r,vx:0,vy:0,locked:false});}}
+    function resize(){const s=fit(cv);W=s.w;H=s.h;ctx.setTransform(DPR,0,0,DPR,0,0);cx=W/2;cy=H/2;R=Math.min(W,H)*0.46;edges=trackEdges();seed();}
+    function backdrop(intensity,front){
+      ctx.save();ctx.beginPath();ctx.arc(cx,cy,R,0,6.283);ctx.clip();
+      if(front!==undefined){ctx.beginPath();ctx.rect(0,0,front,H);ctx.clip();}
+      const NS=2*p;
+      for(let t=0;t<edges.length-1;t++){const rm=(edges[t]+edges[t+1])/2;
+        for(let s=0;s<NS;s++){const a0=Math.PI/(2*p)+s*Math.PI/p,a1=a0+Math.PI/p,th=(a0+a1)/2;
+          if(field(cx+Math.cos(th)*rm,cy+Math.sin(th)*rm)>0){
+            ctx.beginPath();ctx.arc(cx,cy,edges[t+1],a0,a1);ctx.arc(cx,cy,edges[t],a1,a0,true);ctx.closePath();
+            ctx.fillStyle="#5b9ea6";ctx.globalAlpha=0.075*intensity;ctx.fill();}}}
+      ctx.globalAlpha=0.55*intensity;ctx.strokeStyle="#3d6e75";ctx.lineWidth=1;
+      for(const r of edges){if(r>0&&r<R){ctx.beginPath();ctx.arc(cx,cy,r,0,6.283);ctx.stroke();}}
+      ctx.globalAlpha=0.4*intensity;
+      for(let j=0;j<2*p;j++){const th=Math.PI/(2*p)+j*Math.PI/p;ctx.beginPath();ctx.moveTo(cx,cy);ctx.lineTo(cx+Math.cos(th)*R,cy+Math.sin(th)*R);ctx.stroke();}
+      ctx.restore();
+    }
+    function rim(){ctx.save();ctx.globalAlpha=.6;ctx.strokeStyle="#2a2e33";ctx.lineWidth=1.2;ctx.beginPath();ctx.arc(cx,cy,R,0,6.283);ctx.stroke();ctx.restore();}
+    function toNodes(q,strength,jitter){const f=field(q.x,q.y),g=grad(q.x,q.y),s=2*f;
+      q.vx+=-s*g[0]*strength;q.vy+=-s*g[1]*strength;q.vx*=0.8;q.vy*=0.8;
+      if(jitter){q.vx+=(Math.random()-0.5)*jitter;q.vy+=(Math.random()-0.5)*jitter;}
+      q.x+=q.vx*0.016;q.y+=q.vy*0.016;
+      const dx=q.x-cx,dy=q.y-cy,d=Math.hypot(dx,dy);if(d>R){q.x=cx+dx/d*R;q.y=cy+dy/d*R;q.vx*=-0.3;q.vy*=-0.3;}}
+    function settle(){for(let it=0;it<80;it++)for(const q of parts){const f=field(q.x,q.y),g=grad(q.x,q.y),s=2*f;q.x+=-s*g[0]*0.4;q.y+=-s*g[1]*0.4;}}
+    function drawParts(){for(const q of parts){ctx.beginPath();ctx.fillStyle=q.locked?"#9fd2d8":"#6fb0b8";ctx.globalAlpha=q.locked?0.95:0.82;ctx.arc(q.x,q.y,q.locked?1.8:1.5,0,6.283);ctx.fill();}ctx.globalAlpha=1;}
+    function step(ts){if(t0===null)t0=ts;ctx.clearRect(0,0,W,H);
+      if(mode==="freeze"){const fp=freezeT===null?0:Math.min(1,(ts-freezeT)/2600);const front=(cx-R)+fp*2*R;
+        backdrop(0.4+0.6*fp,front);rim();
+        if(fp>0&&fp<1){ctx.save();ctx.strokeStyle="#9fd2d8";ctx.globalAlpha=.9;ctx.lineWidth=1.6;ctx.beginPath();ctx.moveTo(front,cy-R*1.03);ctx.lineTo(front,cy+R*1.03);ctx.stroke();ctx.restore();}
+        for(const q of parts){if(q.x<front){toNodes(q,42,0);if(Math.hypot(q.vx,q.vy)<0.05)q.locked=true;}else{q.x+=(Math.random()-0.5)*0.5;q.y+=(Math.random()-0.5)*0.5;}}
+        drawParts();
+      }else{backdrop(0.9,undefined);rim();for(const q of parts)toNodes(q,12,0.6);drawParts();}}
+    function staticFrame(){ctx.clearRect(0,0,W,H);settle();if(mode==="freeze")for(const q of parts)q.locked=true;backdrop(mode==="freeze"?1:0.9,undefined);rim();drawParts();}
     const api={cv,resize,tick:(ts)=>{if(!visible)return;if(mode==="freeze"&&freezeT===null)return;step(ts);},
       onVisible:(v)=>{visible=v;if(v&&mode==="freeze"&&freezeT===null)freezeT=performance.now();},reduced:staticFrame};
     api.resize();return api;
@@ -722,17 +781,36 @@ footer .mono{font-size:var(--text-xs);color:var(--color-muted);letter-spacing:va
   }
 
   /* Read path */
+  /* Read path: MHz pulse -> ice phase plate (frozen pattern) -> scattered field
+     -> hydrophone -> U-Net -> bitstream. Staged left-to-right, looping. */
   function makeRead(cv){
-    const ctx=cv.getContext("2d");let W=0,H=0,t0=null,visible=false;const bits="10110 01001 11010 00111";
+    const ctx=cv.getContext("2d");let W=0,H=0,t0=null,visible=false;
+    const bits="10110 01001 11010";
     function resize(){const s=fit(cv);W=s.w;H=s.h;ctx.setTransform(DPR,0,0,DPR,0,0);}
+    function mono(s,x,y,al,align){ctx.save();ctx.font='500 '+Math.max(9,Math.round(Math.min(W,H)*0.034))+'px "JetBrains Mono",monospace';ctx.fillStyle="#5a6370";ctx.globalAlpha=al;ctx.textAlign=align||"center";ctx.fillText(s,x,y);ctx.restore();}
+    function plate(px,py,pr){ctx.save();ctx.strokeStyle="#3d6e75";ctx.lineWidth=1.5;ctx.globalAlpha=.95;rr(ctx,px-pr,py-pr,2*pr,2*pr,6);ctx.stroke();
+      ctx.beginPath();rr(ctx,px-pr,py-pr,2*pr,2*pr,6);ctx.clip();ctx.strokeStyle="#3d6e75";ctx.globalAlpha=.38;ctx.lineWidth=1;
+      for(let m=1;m<5;m++){ctx.beginPath();ctx.arc(px,py,pr*m/4,0,6.283);ctx.stroke();}
+      for(let j=0;j<8;j++){const th=j*Math.PI/4;ctx.beginPath();ctx.moveTo(px,py);ctx.lineTo(px+Math.cos(th)*pr*1.5,py+Math.sin(th)*pr*1.5);ctx.stroke();}ctx.restore();}
+    function hydro(hx,py,pr,active,ts){ctx.save();ctx.strokeStyle="#3d6e75";ctx.lineWidth=1.5;ctx.globalAlpha=.9;
+      ctx.beginPath();ctx.moveTo(hx,py-pr*0.8);ctx.lineTo(hx,py+pr*0.8);ctx.moveTo(hx-5,py-pr*0.8);ctx.lineTo(hx+5,py-pr*0.8);ctx.stroke();
+      ctx.beginPath();ctx.arc(hx,py,2.6,0,6.283);ctx.fillStyle="#5b9ea6";ctx.globalAlpha=active?(0.55+0.45*Math.sin(ts*0.02)):0.5;ctx.fill();ctx.restore();}
     function step(ts){if(t0===null)t0=ts;const el=((ts-t0)/1000)%6;ctx.clearRect(0,0,W,H);
-      const cx=W*0.5,cy=H*0.45,iw=Math.min(W,H)*0.17;
-      ctx.save();ctx.strokeStyle="#2a2e33";ctx.lineWidth=2;ctx.strokeRect(cx-iw/2,cy-iw/2,iw,iw);
-      ctx.strokeStyle="#3d6e75";ctx.globalAlpha=.6;ctx.beginPath();ctx.moveTo(cx-iw/2,cy);ctx.lineTo(cx+iw/2,cy);ctx.moveTo(cx,cy-iw/2);ctx.lineTo(cx,cy+iw/2);ctx.stroke();ctx.restore();
-      if(el<2.2){const x=20+(el/2.2)*(cx-iw/2-20);ctx.save();ctx.strokeStyle="#5b9ea6";ctx.lineWidth=1.5;ctx.globalAlpha=.9;ctx.beginPath();for(let y=cy-H*0.34;y<cy+H*0.34;y+=3){const xx=x+Math.sin((y+ts*0.15)*0.12)*5;if(y===cy-H*0.34)ctx.moveTo(xx,y);else ctx.lineTo(xx,y);}ctx.stroke();ctx.restore();}
-      if(el>=2.2&&el<4.4){const sp=(el-2.2)/2.2;ctx.save();ctx.strokeStyle="#5b9ea6";ctx.lineWidth=1;for(let i=0;i<5;i++){ctx.globalAlpha=(1-sp)*0.8;const rad=sp*Math.min(W,H)*0.42*(0.6+i*0.12);const a0=-0.6+i*0.3;ctx.beginPath();ctx.arc(cx,cy,rad,a0,a0+0.9);ctx.stroke();}ctx.restore();}
-      if(el>=3.7){const bp=Math.min(1,(el-3.7)/1.2);ctx.save();ctx.font='600 '+Math.round(Math.min(W,H)*0.075)+'px "JetBrains Mono",monospace';ctx.fillStyle="#5b9ea6";ctx.globalAlpha=bp;ctx.textAlign="center";ctx.fillText(bits,cx,cy+H*0.36);ctx.restore();}}
-    function staticFrame(){ctx.clearRect(0,0,W,H);const cx=W*0.5,cy=H*0.45,iw=Math.min(W,H)*0.17;ctx.strokeStyle="#2a2e33";ctx.lineWidth=2;ctx.strokeRect(cx-iw/2,cy-iw/2,iw,iw);ctx.strokeStyle="#5b9ea6";ctx.lineWidth=1.5;ctx.globalAlpha=.85;ctx.beginPath();ctx.moveTo(20,cy);ctx.lineTo(cx-iw/2,cy);ctx.stroke();ctx.globalAlpha=1;ctx.font='600 '+Math.round(Math.min(W,H)*0.075)+'px "JetBrains Mono",monospace';ctx.fillStyle="#5b9ea6";ctx.textAlign="center";ctx.fillText("10110 01001",cx,cy+H*0.36);}
+      const py=H*0.40,pr=Math.min(W,H)*0.13,px=W*0.42,srcX=W*0.08,hydX=W*0.72;
+      ctx.save();ctx.fillStyle="#5b9ea6";ctx.globalAlpha=.9;ctx.beginPath();ctx.arc(srcX,py,3,0,6.283);ctx.fill();ctx.restore();
+      mono("MHz PULSE",srcX,py-pr-8,.8);plate(px,py,pr);mono("ICE PHASE PLATE",px,py-pr-8,.85);
+      if(el<2){const x=srcX+(el/2)*(px-pr-srcX);ctx.save();ctx.strokeStyle="#5b9ea6";ctx.lineWidth=1.5;ctx.globalAlpha=.85;
+        ctx.beginPath();for(let y=py-pr*1.4;y<py+pr*1.4;y+=3){const xx=x+Math.sin((y+ts*0.12)*0.1)*4;if(y<=py-pr*1.4)ctx.moveTo(xx,y);else ctx.lineTo(xx,y);}ctx.stroke();ctx.restore();}
+      if(el>=1.9&&el<4.2){const sp=(el-1.9)/2.3;ctx.save();ctx.strokeStyle="#5b9ea6";ctx.lineWidth=1;
+        for(let i=0;i<6;i++){ctx.globalAlpha=(1-sp)*0.7;const rad=sp*(hydX-px)*(0.5+i*0.11);const a0=-0.85+i*0.28;ctx.beginPath();ctx.arc(px,py,rad,a0,a0+1.0);ctx.stroke();}ctx.restore();}
+      hydro(hydX,py,pr,(el>=2.6&&el<4.6),ts);mono("HYDROPHONE",hydX,py-pr-8,.8);
+      if(el>=3.6){const bp=Math.min(1,(el-3.6)/1.3);ctx.save();ctx.strokeStyle="#3d6e75";ctx.globalAlpha=bp*.6;ctx.lineWidth=1;ctx.setLineDash([3,4]);
+        ctx.beginPath();ctx.moveTo(hydX+10,py+pr*1.15);ctx.lineTo(W*0.92,py+pr*1.15);ctx.stroke();ctx.restore();
+        mono("U-NET DECODE",(hydX+W*0.92)/2,py+pr*1.15-7,bp*.8);
+        ctx.save();ctx.font='600 '+Math.round(Math.min(W,H)*0.085)+'px "JetBrains Mono",monospace';ctx.fillStyle="#7fc4cc";ctx.globalAlpha=bp;ctx.textAlign="center";ctx.fillText(bits,W*0.5,py+pr*2.05);ctx.restore();}}
+    function staticFrame(){t0=null;ctx.clearRect(0,0,W,H);const py=H*0.40,pr=Math.min(W,H)*0.13,px=W*0.42,hydX=W*0.72;
+      plate(px,py,pr);mono("ICE PHASE PLATE",px,py-pr-8,.85);hydro(hydX,py,pr,false,0);mono("HYDROPHONE",hydX,py-pr-8,.8);
+      ctx.save();ctx.font='600 '+Math.round(Math.min(W,H)*0.085)+'px "JetBrains Mono",monospace';ctx.fillStyle="#7fc4cc";ctx.textAlign="center";ctx.fillText(bits,W*0.5,py+pr*2.05);ctx.restore();}
     const api={cv,resize,tick:(ts)=>{if(visible)step(ts);},onVisible:(v)=>{visible=v;},reduced:staticFrame};
     api.resize();return api;
   }
