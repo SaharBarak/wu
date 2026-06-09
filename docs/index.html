@@ -323,58 +323,6 @@ footer .mono{font-size:var(--text-xs);color:var(--color-muted);letter-spacing:va
 }
 .noscript{padding:var(--space-3) var(--margin);background:var(--color-surface-2);border-bottom:1px solid var(--color-border);font-size:var(--text-sm)}
 
-/* ===================== 04 ENCODE - interactive cymatic lab ===================== */
-.enc-sr{position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap;border:0}
-#encode .enc-flag{display:inline-block;font-family:var(--font-mono);font-size:var(--text-xs);letter-spacing:var(--tracking-wide);
-  text-transform:uppercase;color:var(--color-speculative);border:1px solid color-mix(in srgb,var(--color-speculative) 38%,transparent);
-  border-radius:4px;padding:.2em .55em;margin-top:var(--space-3)}
-#encode .enc-lab{display:grid;grid-template-columns:1.5fr 1fr;gap:clamp(1rem,3vw,2.5rem);align-items:start;margin-top:var(--space-5)}
-@media (max-width:860px){#encode .enc-lab{grid-template-columns:1fr}}
-#encode .enc-stage{position:relative;border:1px solid var(--color-border);border-radius:10px;overflow:hidden;aspect-ratio:1/1;outline:none;
-  background:radial-gradient(120% 120% at 50% 40%,#101315,#0c0e0f)}
-#encode .enc-stage:focus-visible{box-shadow:inset 0 0 0 1px var(--color-accent),0 0 0 3px var(--color-accent-pale)}
-#encode .enc-stage[data-frozen="1"]{box-shadow:inset 0 0 0 1px var(--color-accent-dim)}
-#encode .enc-stage canvas{display:block;width:100%;height:100%;cursor:crosshair}
-#encode .enc-hint{position:absolute;left:12px;bottom:10px;font-family:var(--font-mono);font-size:var(--text-xs);
-  letter-spacing:.06em;color:var(--color-muted);pointer-events:none;opacity:.85}
-#encode .enc-panel{display:flex;flex-direction:column;gap:var(--space-3)}
-#encode .enc-ctl label{display:flex;justify-content:space-between;align-items:baseline;font-family:var(--font-mono);
-  font-size:var(--text-sm);letter-spacing:.03em;color:var(--color-text);margin-bottom:.5rem}
-#encode .enc-ctl .v{color:var(--color-accent);font-weight:500;font-variant-numeric:tabular-nums}
-#encode .enc-ctl .nm{color:var(--color-muted)}
-#encode input[type=range]{-webkit-appearance:none;appearance:none;width:100%;height:2px;background:var(--color-border);border-radius:2px;outline:none}
-#encode input[type=range]::-webkit-slider-thumb{-webkit-appearance:none;width:15px;height:15px;border-radius:50%;
-  background:var(--color-accent);border:2px solid var(--color-bg);cursor:pointer;transition:transform .15s var(--ease-out)}
-#encode input[type=range]::-webkit-slider-thumb:hover{transform:scale(1.18)}
-#encode input[type=range]::-moz-range-thumb{width:13px;height:13px;border-radius:50%;background:var(--color-accent);border:2px solid var(--color-bg);cursor:pointer}
-#encode input[type=range]:focus-visible{box-shadow:0 0 0 3px var(--color-accent-pale)}
-#encode input[type=text]{width:100%;font-family:var(--font-mono);font-size:var(--text-base);letter-spacing:.18em;color:var(--color-accent);
-  background:var(--color-bg);border:1px solid var(--color-border);border-radius:7px;padding:.6em .7em;outline:none;transition:border-color .2s var(--ease-out)}
-#encode input[type=text]:focus-visible{border-color:var(--color-accent-dim);box-shadow:0 0 0 3px var(--color-accent-pale)}
-#encode input[type=text]::placeholder{color:var(--color-muted);letter-spacing:.04em}
-#encode .enc-row{display:flex;gap:.6rem}
-#encode .enc-btn{flex:1;font-family:var(--font-mono);font-size:var(--text-xs);letter-spacing:.06em;text-transform:uppercase;
-  padding:.75em .5em;border-radius:7px;border:1px solid var(--color-border);background:var(--color-surface-1);color:var(--color-text);
-  cursor:pointer;transition:border-color .2s var(--ease-out),color .2s var(--ease-out),background .2s var(--ease-out)}
-#encode .enc-btn:hover{border-color:var(--color-accent-dim);color:var(--color-text-strong)}
-#encode .enc-btn:focus-visible{outline:none;border-color:var(--color-accent);box-shadow:0 0 0 3px var(--color-accent-pale)}
-#encode .enc-btn.primary{background:var(--color-accent-pale);border-color:var(--color-accent-dim);color:var(--color-text-strong)}
-#encode .enc-btn.primary:hover{background:color-mix(in srgb,var(--color-accent-pale) 70%,var(--color-accent))}
-#encode .enc-readout{border:1px solid var(--color-border);border-radius:9px;background:var(--color-surface-1);overflow:hidden;margin-top:.4rem}
-#encode .enc-readout .hd{font-family:var(--font-mono);font-size:var(--text-xs);letter-spacing:var(--tracking-wide);text-transform:uppercase;
-  color:var(--color-muted);padding:.6em .9em;border-bottom:1px solid var(--color-border);background:var(--color-surface-2)}
-#encode .enc-readout dl{margin:0;padding:.35em .9em .7em;display:grid;grid-template-columns:1fr auto;gap:.02em .8em}
-#encode .enc-readout dt{font-size:var(--text-sm);color:var(--color-muted);align-self:center;padding:.38em 0}
-#encode .enc-readout dd{margin:0;font-family:var(--font-mono);font-size:var(--text-sm);color:var(--color-text-strong);text-align:right;
-  font-variant-numeric:tabular-nums;align-self:center}
-#encode .enc-readout dd.accent{color:var(--color-accent)}
-#encode .enc-readout dd small{color:var(--color-muted);font-size:var(--text-xs)}
-#encode .enc-readout .span2{grid-column:1/-1;border-top:1px solid var(--color-border);margin-top:.35em;padding-top:.6em;
-  display:flex;justify-content:space-between;align-items:center;gap:1rem}
-#encode .enc-readout .span2 .lab{font-size:var(--text-sm);color:var(--color-muted);white-space:nowrap}
-#encode .enc-readout .span2 .val{font-family:var(--font-mono);font-size:var(--text-sm);color:var(--color-accent);
-  letter-spacing:.1em;text-align:right;word-break:break-all}
-#encode .enc-readout .span2 .val.muted{color:var(--color-muted)}
 </style>
 </head>
 <body>
@@ -434,71 +382,12 @@ footer .mono{font-size:var(--text-xs);color:var(--color-muted);letter-spacing:va
   </div>
 </section>
 
-<!-- 04 ENCODE (INTERACTIVE) -->
-<section class="s-bg2" id="encode">
-  <div class="wrap">
-    <div class="reveal" style="max-width:66ch">
-      <span class="snum">04 / ENCODE</span>
-      <h2 style="font-size:var(--text-xl)">Drive the encoding</h2>
-      <p class="body" style="margin-top:var(--space-3)">The schematic above is a diagram; this one runs. The same field <span class="mono accent">f(r,θ)=cos(k·r)·cos(p·θ)</span> drives it: the radial mode <span class="mono accent">k</span> cuts concentric tracks, the angular mode <span class="mono accent">p</span> cuts radial sectors, and every track×sector cell is one addressable voxel - one bit. Write a value into the pod, freeze the lattice to lock it, then read it back.</p>
-      <span class="enc-flag">Illustrative · the capacity here is geometric, not a physical claim</span>
-    </div>
-
-    <div class="enc-lab reveal">
-      <div class="enc-stage" id="encStage" data-frozen="0" tabindex="0" role="application"
-           aria-label="Cymatic pod. Arrow keys move the addressed voxel; Enter or Space toggles its bit.">
-        <canvas id="encCv" aria-hidden="true"></canvas>
-        <span class="enc-hint">click a voxel to set a bit · arrow keys + enter to edit</span>
-      </div>
-
-      <div class="enc-panel">
-        <div class="enc-ctl">
-          <label for="encK"><span class="nm">radial mode</span> <span>k = <span class="v" id="encKv">3</span></span></label>
-          <input type="range" id="encK" min="1" max="7" step="1" value="3" />
-        </div>
-        <div class="enc-ctl">
-          <label for="encP"><span class="nm">angular mode</span> <span>p = <span class="v" id="encPv">5</span></span></label>
-          <input type="range" id="encP" min="1" max="10" step="1" value="5" />
-        </div>
-        <div class="enc-ctl">
-          <label for="encPh"><span class="nm">phase φ</span> <span><span class="v" id="encPhv">0.00</span>π</span></label>
-          <input type="range" id="encPh" min="0" max="200" step="1" value="0" />
-        </div>
-        <div class="enc-ctl">
-          <label for="encBits"><span class="nm">bitstring</span> <span><span class="v" id="encUsed">0</span> / <span id="encCap">40</span> bits</span></label>
-          <input type="text" id="encBits" inputmode="numeric" autocomplete="off" spellcheck="false" placeholder="e.g. 10110100" />
-        </div>
-
-        <div class="enc-row">
-          <button class="enc-btn" id="encWrite" type="button">Write</button>
-          <button class="enc-btn" id="encRead" type="button">Read</button>
-        </div>
-        <div class="enc-row">
-          <button class="enc-btn primary" id="encFreeze" type="button">Freeze</button>
-          <button class="enc-btn" id="encReset" type="button">Melt / reset</button>
-        </div>
-
-        <div class="enc-readout">
-          <div class="hd">capacity readout</div>
-          <dl>
-            <dt>tracks (radial)</dt><dd id="encTracks">3</dd>
-            <dt>sectors (angular)</dt><dd id="encSectors">10</dd>
-            <dt>voxels = capacity</dt><dd class="accent" id="encVox">30 <small>bits</small></dd>
-            <div class="span2"><span class="lab">addressed</span><span class="val" id="encAddr">-</span></div>
-            <div class="span2"><span class="lab">read-back</span><span class="val muted" id="encRecover">-</span></div>
-          </dl>
-        </div>
-      </div>
-    </div>
-    <p class="enc-sr" id="encStatus" role="status" aria-live="polite"></p>
-  </div>
-</section>
 
 <!-- 05 WRITE (CLIMAX) -->
 <section class="s-bg1" id="write">
   <div class="wrap grid">
     <div style="grid-column:1/-1" class="reveal">
-      <span class="snum">05 / WRITE</span>
+      <span class="snum">04 / WRITE</span>
       <h2 style="font-size:var(--text-xl);font-weight:500">The moment of freezing</h2>
       <p class="banner" style="margin-top:var(--space-3)">ASSUMPTION 3 - this is where the idea either works or it doesn't.</p>
     </div>
@@ -520,7 +409,7 @@ footer .mono{font-size:var(--text-xs);color:var(--color-muted);letter-spacing:va
 <section class="s-bg2" id="read">
   <div class="wrap grid">
     <div class="reveal" style="grid-column:4/13">
-      <span class="snum">06 / READ</span>
+      <span class="snum">05 / READ</span>
       <h2 style="font-size:var(--text-xl)">Reading frozen sound</h2>
       <p class="body" style="margin-top:var(--space-3)">Once data lives in the microscopic shape of the ice, read-back becomes an acoustic-holography problem. A megahertz pulse illuminates the frozen pod; its topology acts as a passive phase plate, scattering the wave into a complex 3-D pressure field. A calibrated hydrophone samples that field, and a trained neural network inverts it back to bits.</p>
       <p class="body">This is the most mature part - phase plates, hydrophone metrology, and deep-learning inversion are all real. The honest caveat: the inverse problem is ill-posed, so a network can hallucinate plausible bits. Any demonstration needs blinded, information-theoretic controls.</p>
@@ -537,7 +426,7 @@ footer .mono{font-size:var(--text-xs);color:var(--color-muted);letter-spacing:va
   <div class="wrap">
     <div class="grid" style="margin-bottom:var(--space-4)">
       <div class="col-wide reveal">
-        <span class="snum">07 / HONESTY</span>
+        <span class="snum">06 / HONESTY</span>
         <h2 style="font-size:var(--text-xl)">The epistemic ledger</h2>
       </div>
     </div>
@@ -550,7 +439,7 @@ footer .mono{font-size:var(--text-xs);color:var(--color-muted);letter-spacing:va
 <section id="predictions">
   <div class="wrap grid">
     <div class="col-wide reveal">
-      <span class="snum">08 / FALSIFIABLE</span>
+      <span class="snum">07 / FALSIFIABLE</span>
       <h2 style="font-size:var(--text-xl)">Probably won't work. Here's how to check.</h2>
       <p class="body" style="margin-top:var(--space-3);max-width:60ch">A speculative proposal earns its keep by being testable. Three gated tests; failing any one falsifies the matching assumption - and, because they are sequential, collapses the whole architecture back to its established parts.</p>
     </div>
@@ -608,7 +497,7 @@ footer .mono{font-size:var(--text-xs);color:var(--color-muted);letter-spacing:va
 <section class="s-bg2" id="potential">
   <div class="wrap grid">
     <div class="col-narrow reveal">
-      <span class="snum">09 / THE PRIZE</span>
+      <span class="snum">08 / THE PRIZE</span>
       <h2 style="font-size:var(--text-xl)">Why water? Look at the ceiling.</h2>
       <p class="body" style="margin-top:var(--space-3)">The information density of matter itself is staggering. A raindrop-sized droplet - about 50&nbsp;microlitres - holds roughly <span class="mono accent">10<sup>21</sup> water molecules</span>. At the molecular limit of one bit per molecule, that single drop could in principle hold <span class="mono accent">exabyte-scale</span> data - more than entire data centres, balanced on a fingertip. That ceiling is what makes water tantalizing.</p>
       <p class="body">The catch - and why this needs experiments, not enthusiasm: the megahertz acoustic addressing proposed here is diffraction-limited to micron-scale voxels, capping that same droplet at roughly <span class="mono">one megabyte</span>. About <em>fourteen orders of magnitude</em> separate the molecular ceiling from the method.</p>
@@ -633,7 +522,7 @@ footer .mono{font-size:var(--text-xs);color:var(--color-muted);letter-spacing:va
 <section id="preprint">
   <div class="wrap grid">
     <div class="col-narrow reveal">
-      <span class="snum">10 / WHITE PAPER</span>
+      <span class="snum">09 / WHITE PAPER</span>
       <h2 style="font-size:var(--text-xl);font-weight:300">The white paper</h2>
       <p class="body" style="margin-top:var(--space-3)">The full idea-paper - 14 pages, 49 verified citations, the complete epistemic ledger, falsifiable predictions, and a quantitative reckoning (capacity, density, energy) that benchmarks the architecture against 5D glass, DNA, and incumbent storage, then argues against itself. Download the PDF, read it in-browser, or open the LaTeX source.</p>
       <p style="margin-top:var(--space-4);display:flex;flex-wrap:wrap;gap:var(--space-3);align-items:center">
@@ -866,69 +755,5 @@ footer .mono{font-size:var(--text-xs);color:var(--color-muted);letter-spacing:va
 })();
 </script>
 
-<!-- 04 ENCODE - interactive cymatic encoder -->
-<script>
-"use strict";
-(function(){
-  const stage=document.getElementById("encStage"); if(!stage) return;
-  const reduce=window.matchMedia("(prefers-reduced-motion: reduce)").matches;
-  const DPR=Math.min(window.devicePixelRatio||1,2);
-  const cv=document.getElementById("encCv"), ctx=cv.getContext("2d"), $=id=>document.getElementById(id);
-  let W=0,H=0,cx=0,cy=0,R=0,parts=[],visible=false,raf=0;
-  const S={k:3,p:5,phase:0,frozen:false,addr:0,bits:"",reading:0};
-
-  const k0=()=>S.k*Math.PI;
-  function field(x,y){const dx=(x-cx)/R,dy=(y-cy)/R,r=Math.hypot(dx,dy),th=Math.atan2(dy,dx);return Math.cos(k0()*r)*Math.cos(S.p*(th-S.phase));}
-  function grad(x,y){const e=1.2;return[(field(x+e,y)-field(x-e,y))/(2*e),(field(x,y+e)-field(x,y-e))/(2*e)];}
-  function trackEdges(){const e=[0];for(let m=0;;m++){const r=(Math.PI/2+m*Math.PI)/k0()*R;if(r>=R){e.push(R);break;}e.push(r);}return e;}
-  const NTRACKS=()=>trackEdges().length-1, NSECT=()=>2*S.p, CAP=()=>NTRACKS()*NSECT();
-  const idxToTS=i=>({track:Math.floor(i/NSECT()),sector:i%NSECT()}), tsToIdx=(t,s)=>t*NSECT()+s;
-  function sectorAngles(s){const a0=Math.PI/(2*S.p)+s*(Math.PI/S.p)+S.phase;return[a0,a0+Math.PI/S.p];}
-  function voxelCenter(i){const{track,sector}=idxToTS(i),e=trackEdges();const rm=(e[track]+e[track+1])/2,[a0,a1]=sectorAngles(sector),th=(a0+a1)/2;return[cx+Math.cos(th)*rm,cy+Math.sin(th)*rm];}
-  function cellPath(i){const{track,sector}=idxToTS(i),e=trackEdges(),[a0,a1]=sectorAngles(sector);ctx.beginPath();ctx.arc(cx,cy,e[track+1],a0,a1);ctx.arc(cx,cy,e[track],a1,a0,true);ctx.closePath();}
-  function voxelAt(px,py){const dx=px-cx,dy=py-cy,r=Math.hypot(dx,dy);if(r>R)return null;const e=trackEdges();let t=0;for(let i=0;i<e.length-1;i++){if(r>=e[i]&&r<e[i+1]){t=i;break;}}let th=Math.atan2(dy,dx)-S.phase-Math.PI/(2*S.p);th=((th%6.283)+6.283)%6.283;return tsToIdx(t,Math.floor(th/(Math.PI/S.p))%NSECT());}
-
-  function seed(){parts=[];for(let i=0;i<380;i++){const a=Math.random()*6.283,r=Math.sqrt(Math.random())*R*0.985;parts.push({x:cx+Math.cos(a)*r,y:cy+Math.sin(a)*r,vx:0,vy:0,locked:false});}}
-  function fit(){const rect=cv.getBoundingClientRect();cv.width=Math.max(1,Math.round(rect.width*DPR));cv.height=Math.max(1,Math.round(rect.height*DPR));ctx.setTransform(DPR,0,0,DPR,0,0);W=rect.width;H=rect.height;cx=W/2;cy=H/2;R=Math.min(W,H)*0.45;seed();}
-  function settle(strong){const iters=strong?60:1;for(let it=0;it<iters;it++)for(const q of parts){const f=field(q.x,q.y),g=grad(q.x,q.y),s=2*f;if(strong){q.x+=-s*g[0]*0.4;q.y+=-s*g[1]*0.4;}else if(!q.locked){q.vx+=-s*g[0]*40;q.vy+=-s*g[1]*40;q.vx*=0.8;q.vy*=0.8;if(!S.frozen){q.vx+=(Math.random()-0.5)*0.5;q.vy+=(Math.random()-0.5)*0.5;}q.x+=q.vx*0.016;q.y+=q.vy*0.016;const dx=q.x-cx,dy=q.y-cy,d=Math.hypot(dx,dy);if(d>R){q.x=cx+dx/d*R;q.y=cy+dy/d*R;}}}}
-
-  function drawCells(){ctx.save();ctx.beginPath();ctx.arc(cx,cy,R-0.5,0,6.283);ctx.clip();const cap=CAP();for(let i=0;i<cap;i++){const c=voxelCenter(i);if(field(c[0],c[1])>0){cellPath(i);ctx.fillStyle="rgba(91,158,166,.055)";ctx.fill();}}ctx.restore();}
-  function drawGrid(){ctx.save();ctx.beginPath();ctx.arc(cx,cy,R-0.5,0,6.283);ctx.clip();ctx.globalAlpha=.5;ctx.strokeStyle="#3d6e75";ctx.lineWidth=1;for(const r of trackEdges()){if(r>0&&r<R){ctx.beginPath();ctx.arc(cx,cy,r,0,6.283);ctx.stroke();}}ctx.strokeStyle="rgba(42,46,51,.95)";for(let j=0;j<2*S.p;j++){const th=Math.PI/(2*S.p)+j*Math.PI/S.p+S.phase;ctx.beginPath();ctx.moveTo(cx,cy);ctx.lineTo(cx+Math.cos(th)*R,cy+Math.sin(th)*R);ctx.stroke();}ctx.restore();}
-  function pod(){ctx.save();ctx.globalAlpha=.6;ctx.strokeStyle="#2a2e33";ctx.lineWidth=1.5;ctx.beginPath();ctx.arc(cx,cy,R,0,6.283);ctx.stroke();ctx.restore();}
-  function drawParts(){for(const q of parts){ctx.beginPath();ctx.fillStyle=q.locked?"#9fd2d8":"#5b9ea6";ctx.globalAlpha=q.locked?0.9:0.72;ctx.arc(q.x,q.y,q.locked?1.6:1.3,0,6.283);ctx.fill();}ctx.globalAlpha=1;}
-  function drawBits(){const cap=CAP();for(let i=0;i<S.bits.length&&i<cap;i++){const c=voxelCenter(i);if(S.bits[i]==="1"){ctx.beginPath();ctx.fillStyle="#7fc4cc";ctx.globalAlpha=.95;ctx.arc(c[0],c[1],3.2,0,6.283);ctx.fill();ctx.beginPath();ctx.strokeStyle="#5b9ea6";ctx.globalAlpha=.5;ctx.lineWidth=1;ctx.arc(c[0],c[1],5,0,6.283);ctx.stroke();}else{ctx.beginPath();ctx.strokeStyle="#3d6e75";ctx.globalAlpha=.5;ctx.lineWidth=1;ctx.arc(c[0],c[1],2.4,0,6.283);ctx.stroke();}}ctx.globalAlpha=1;}
-  function drawAddr(){const cap=CAP();if(S.addr==null||S.addr>=cap)return;cellPath(S.addr);ctx.save();ctx.fillStyle="rgba(91,158,166,.18)";ctx.fill();ctx.strokeStyle="#5b9ea6";ctx.lineWidth=1.2;ctx.globalAlpha=.9;ctx.stroke();ctx.restore();}
-  function drawSweep(){if(S.reading<=0)return;const a=(1-S.reading)*6.283-Math.PI/2;ctx.save();ctx.beginPath();ctx.arc(cx,cy,R-1,0,6.283);ctx.clip();ctx.strokeStyle="#5b9ea6";ctx.globalAlpha=.8;ctx.lineWidth=1.4;ctx.beginPath();ctx.moveTo(cx,cy);ctx.lineTo(cx+Math.cos(a)*R,cy+Math.sin(a)*R);ctx.stroke();ctx.restore();}
-  function render(strong){ctx.clearRect(0,0,W,H);pod();drawCells();drawGrid();settle(strong);drawAddr();drawParts();drawBits();drawSweep();}
-  function loop(){if(!visible){raf=0;return;}if(S.reading>0)S.reading=Math.max(0,S.reading-0.012);render(false);raf=requestAnimationFrame(loop);}
-  function kick(){if(!raf&&visible&&!reduce)raf=requestAnimationFrame(loop);}
-
-  function clampState(){const cap=CAP();if(S.bits.length>cap)S.bits=S.bits.slice(0,cap);if(S.addr!=null&&S.addr>=cap)S.addr=cap-1;}
-  function announce(){const a=S.addr!=null?idxToTS(S.addr):{track:"-",sector:"-"};$("encStatus").textContent="k "+S.k+", p "+S.p+", "+CAP()+" voxels. Addressed track "+a.track+" sector "+a.sector+", bit "+(S.addr!=null&&S.bits[S.addr]==="1"?"1":"0")+". "+S.bits.length+" bits written.";}
-  function refresh(){clampState();$("encKv").textContent=S.k;$("encPv").textContent=S.p;$("encPhv").textContent=S.phase.toFixed(2);$("encTracks").textContent=NTRACKS();$("encSectors").textContent=NSECT();$("encVox").innerHTML=CAP()+' <small>bits</small>';$("encCap").textContent=CAP();$("encUsed").textContent=S.bits.length;$("encAddr").textContent=S.addr!=null?('track '+idxToTS(S.addr).track+' · sector '+idxToTS(S.addr).sector):'-';if($("encBits").value!==S.bits)$("encBits").value=S.bits;announce();if(reduce)render(S.frozen);}
-
-  function melt(){S.frozen=false;for(const q of parts)q.locked=false;stage.dataset.frozen="0";}
-  function freeze(){S.frozen=true;settle(true);for(const q of parts)q.locked=true;stage.dataset.frozen="1";if(reduce)render(true);}
-  function writeBits(){S.bits=($("encBits").value.replace(/[^01]/g,"")).slice(0,CAP());$("encRecover").textContent="-";$("encRecover").classList.add("muted");refresh();}
-  function readBits(){S.reading=1;kick();const out=S.bits||"(empty)";setTimeout(()=>{$("encRecover").textContent=out;$("encRecover").classList.toggle("muted",!S.bits);},reduce?0:1000);}
-  function toggleAt(i){if(i==null)return;let a=S.bits.split("");while(a.length<=i)a.push("0");a[i]=a[i]==="1"?"0":"1";S.bits=a.join("");melt();refresh();}
-
-  $("encK").addEventListener("input",e=>{S.k=+e.target.value;melt();refresh();});
-  $("encP").addEventListener("input",e=>{S.p=+e.target.value;melt();refresh();});
-  $("encPh").addEventListener("input",e=>{S.phase=(+e.target.value/100)*Math.PI;melt();refresh();});
-  $("encBits").addEventListener("input",writeBits);
-  $("encWrite").addEventListener("click",writeBits);
-  $("encRead").addEventListener("click",readBits);
-  $("encFreeze").addEventListener("click",freeze);
-  $("encReset").addEventListener("click",()=>{S.bits="";S.addr=0;$("encBits").value="";$("encRecover").textContent="-";$("encRecover").classList.add("muted");melt();seed();refresh();});
-  cv.addEventListener("click",ev=>{const r=cv.getBoundingClientRect();const i=voxelAt(ev.clientX-r.left,ev.clientY-r.top);if(i!=null){S.addr=i;toggleAt(i);}stage.focus();});
-  stage.addEventListener("keydown",ev=>{const cur=idxToTS(S.addr==null?0:S.addr);let t,s;switch(ev.key){case"ArrowUp":t=Math.max(0,cur.track-1);S.addr=tsToIdx(t,cur.sector);break;case"ArrowDown":t=Math.min(NTRACKS()-1,cur.track+1);S.addr=tsToIdx(t,cur.sector);break;case"ArrowLeft":s=(cur.sector-1+NSECT())%NSECT();S.addr=tsToIdx(cur.track,s);break;case"ArrowRight":s=(cur.sector+1)%NSECT();S.addr=tsToIdx(cur.track,s);break;case"Enter":case" ":toggleAt(S.addr);break;default:return;}ev.preventDefault();refresh();});
-  window.addEventListener("resize",()=>{fit();refresh();},{passive:true});
-
-  fit();refresh();
-  if(reduce){render(true);}
-  else{const io=new IntersectionObserver(es=>{es.forEach(e=>{visible=e.isIntersecting;kick();});},{threshold:0.04});io.observe(stage);}
-})();
-</script>
 </body>
 </html>
