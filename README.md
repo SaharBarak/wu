@@ -98,6 +98,34 @@ lists checked, several corrected). Status labels mirror the paper's epistemic le
 | Smith 2024 - sonified periodic table | SMC 2024 | - | ✅ (linear scaling, *not* "overtone stretching") |
 | Cowan et al. 2005 - ps memory loss in liquid water | Nature 434:199 | `10.1038/nature03383` | ✅ Crossref |
 
+### Established - quantitative-spine revision (added 2026-06; cited for comparators, density, and freeze physics)
+| # | Reference | DOI / ID | Verified |
+|---|-----------|----------|----------|
+| Zhang, Gecevičius, Beresna, Kazansky 2014 - 5D nanostructured-glass storage | PRL 112:033901 | `10.1103/PhysRevLett.112.033901` | ✅ Crossref |
+| Lei et al. 2021 - high-speed 5D laser nanostructuring | Optica 8(11):1365 | `10.1364/OPTICA.433765` | ✅ Crossref |
+| Church, Gao, Kosuri 2012 - digital information storage in DNA | Science 337:1628 | `10.1126/science.1226355` | ✅ Crossref |
+| Goldman et al. 2013 - high-capacity DNA storage | Nature 494:77 | `10.1038/nature11875` | ✅ Crossref |
+| Erlich & Zielinski 2017 - DNA Fountain (1.57 bits/nt; 215 PB/g) | Science 355:950 | `10.1126/science.aaj2038` | ✅ Crossref |
+| Organick et al. 2018 - random access in DNA storage | Nat. Biotechnol. 36:242 | `10.1038/nbt.4079` | ✅ Crossref |
+| Ceze, Nivala, Strauss 2019 - molecular DNA storage review | Nat. Rev. Genet. 20:456 | `10.1038/s41576-019-0125-3` | ✅ Crossref |
+| Heanue, Bashaw, Hesselink 1994 - volume holographic storage | Science 265:749 | `10.1126/science.265.5173.749` | ✅ Crossref |
+| Coufal, Psaltis, Sincerbox 2000 - *Holographic Data Storage* | Springer | `10.1007/978-3-540-47864-5` | ✅ Crossref |
+| Osborne 1939 - heat of fusion of ice (333.5 J/g) | J. Res. NBS 23:643 | NIST JRES (no Crossref DOI) | ✅ NIST archive |
+| Wagner & Pruß 2002 - IAPWS-95 water properties | JPCRD 31:387 | `10.1063/1.1461829` | ✅ Crossref |
+| Brüggeller & Mayer 1980 - complete vitrification of pure water | Nature 288:569 | `10.1038/288569a0` | ✅ Crossref |
+| Schmidt et al. 2025 - critical cooling rate for vitrification (6.4×10⁶ K/s) | PRR 7:013095 | `10.1103/PhysRevResearch.7.013095` | ✅ Crossref |
+| Shibkov et al. 2003 - dendritic ice growth morphology | Physica A 319:65 | `10.1016/S0378-4371(02)01517-0` | ✅ Crossref |
+| Xu et al. 2016 - ice growth rate / supercooled-water diffusivity | PNAS 113:14921 | `10.1073/pnas.1611395114` | ✅ Crossref |
+| Horowitz 2014 - computing's energy problem (pJ/bit benchmark) | ISSCC 2014:10 | `10.1109/ISSCC.2014.6757323` | ✅ Crossref |
+
+> **Reliability flags carried into the text.** The 5D-glass "360 TB / 13.8 Gyr / 190 °C"
+> figures originate in a 2016 Southampton press release, not the peer-reviewed PRL (which
+> states "hundreds of TB," ~10²⁰-yr decay, 1000 °C stability); the paper quotes the
+> peer-reviewed numbers and the press-derived ~26 TB/cm³ is labelled as such. The
+> structured-water density figures (water-pearl/chain dimensions, ~19 TB/µL) are presented
+> explicitly as the **contested theory's own internal accounting**, carried forward only to
+> show the acoustic-diffraction read limit dominates regardless - they carry no endorsement.
+
 ### Contested / minority (cited *with* their critical counter-sources)
 | Reference | DOI / ID | Status |
 |-----------|----------|--------|

@@ -133,8 +133,16 @@ than asserting feasibility, we cast the architecture as a set of falsifiable pre
 and identify the physical obstacles - above all the energetics, lattice distortion, and
 the ${\sim}50$\,fs memory loss and picosecond reorganization of the hydrogen-bond
 network~\cite{cowan2005water} - that would have to be overcome for any such scheme to be
-viable. The contribution is a conceptual synthesis and a research agenda, \emph{not} a
-validated device.
+viable. We make the reckoning quantitative: granting even the contested ``structured-water''
+figures their own most favourable numbers, the binding constraint is not molecular packing
+but the \emph{acoustic diffraction limit of the read path}, which caps a realistic
+megahertz-addressed pod at ${\sim}10^{5}$--$10^{6}$ bits per cubic millimetre - some
+8--15 orders of magnitude below the molecular and structured-water ceilings - while the
+energy to freeze a bit lands orders of magnitude above incumbent
+storage~\cite{horowitz2014energy}; against established archival media such as 5D
+fused-silica glass~\cite{zhang2014glass} and DNA~\cite{erlich2017fountain}, ACPCM is, on
+these numbers, uncompetitive. The contribution is a conceptual synthesis, a quantitative
+bound, and a research agenda, \emph{not} a validated device.
 \end{abstract}
 
 \vspace{2pt}
@@ -226,6 +234,25 @@ status, and engineer the architecture so that the refuted ideas carry no logical
 intended contribution is a clean conceptual synthesis across fields that are rarely
 discussed together, plus an explicit map of where the idea would break.
 
+\paragraph{Where this sits among unconventional storage.}
+The search for post-magnetic archival media is well populated, and ACPCM should be judged
+against it. \emph{5D optical data storage} writes birefringent nanogratings into fused
+silica with a femtosecond laser - three spatial coordinates plus slow-axis orientation and
+retardance - with a peer-reviewed room-temperature decay time of order $10^{20}$\,years and
+thermal stability to \qty{1000}{\celsius}~\cite{zhang2014glass}, and demonstrated
+high-speed writing toward hundreds-of-terabytes-per-disc capacities~\cite{lei2021optica}.
+\emph{DNA data storage} encodes bits in synthesized oligonucleotides: from the first
+megabit-scale demonstrations~\cite{church2012dna,goldman2013dna} to a coding density of
+$1.57$~bits/nucleotide and an experimentally realized
+$215$~PB/g~\cite{erlich2017fountain}, with random access at the
+${\sim}200$\,MB scale~\cite{organick2018random} and a molecular ceiling near
+$10^{18}$\,bytes/mm$^{3}$~\cite{ceze2019molecular}. \emph{Volume holographic storage}
+records data as superimposed interference gratings with a theoretical ceiling of order
+$V/\lambda^{3}$~\cite{heanue1994holographic,coufal2000holographic}. Each is mature or at
+least experimentally grounded; ACPCM is far more speculative than any of them, and
+\cref{sec:capacity} places it on the same axes so the comparison is explicit rather than
+rhetorical.
+
 \paragraph{Contributions.}
 \begin{enumerate}[leftmargin=1.6em,nosep]
   \item A subsystem-by-subsystem architecture (medium, format, write, read) that
@@ -234,6 +261,11 @@ discussed together, plus an explicit map of where the idea would break.
   \item An explicit \emph{epistemic ledger} (\cref{tab:status}) separating established
   mechanisms from speculative ones, so the proposal cannot be mistaken for a validated
   device and so that mainstream citations are not laundered into supporting fringe claims.
+  \item A \emph{quantitative reckoning} (\cref{sec:capacity}) that derives the achievable
+  density from the acoustic diffraction limit, takes the contested structured-water capacity
+  figures at face value to show what would be required, and benchmarks the resulting density
+  and energy-per-bit against 5D glass, DNA, and incumbent semiconductor storage
+  (\cref{tab:comparators}).
   \item A set of falsifiable predictions and order-of-magnitude obstacles
   (\cref{sec:predictions,sec:limits}) that define what an experimental test would have to
   measure.
@@ -359,6 +391,42 @@ picoseconds~\cite{cowan2005water}. It is treated here purely as a hypothesis
 A megahertz standing-wave field can define stable, reproducible nodal boundaries at the
 length scale of the intended voxels, and these boundaries survive the freezing transition
 well enough to serve as a read-time coordinate system.
+\end{assumption}
+
+\subsection{Two-axis addressing: slice into discs, then encode each disc}
+\label{sec:biaxial}
+We separate \emph{addressing} from \emph{encoding} by superposing two orthogonal acoustic
+fields of very different scale - directly analogous to a hard drive's split between the
+coarse mechanical track/cylinder geometry and the fine, high-frequency bit cells written
+along a track.
+
+\begin{enumerate}[leftmargin=1.6em,nosep]
+  \item \textbf{A low-frequency axial ``slicing'' wave (the disc former).} A single
+  longitudinal standing wave along the pod's $z$-axis, at the \emph{low} end of the band,
+  partitions the pod into a stack of parallel nodal planes spaced by $\lambda_z/2$. Its
+  pressure antinodes define a register of flat ``discs'' (the platter/cylinder analogue) -
+  a small number of robust, widely spaced, easily resolved layers. Because $\lambda_z$ is
+  large, these boundaries are the most likely structure to \emph{survive freezing}
+  (\cref{sec:limits}) and so anchor the read-time coordinate system.
+  \item \textbf{An orthogonal directional ``encoding'' wave (the in-disc data).} Within each
+  disc, a transverse, higher-frequency, \emph{travelling-or-standing} field projected along
+  $(x,y)$ writes the payload: the fine pressure pattern in the plane of a disc is the data,
+  the multi-tone codebook of \cref{sec:write} modulating amplitude and phase across the
+  disc. The encoding wave rides at the fine end of the resolution budget; the slicing wave
+  guarantees that the decoder always knows \emph{which} disc a given fine feature belongs
+  to.
+\end{enumerate}
+
+The two axes are deliberately decoupled in frequency so that the coarse layer index is
+robust even where the fine payload is degraded - a graceful-degradation property borrowed
+from how a drive can still seek a track whose individual bits are marginal. It also makes
+the diffraction budget legible: the disc count is set by $\lambda_z$, the in-disc bit count
+by the transverse wavelength, and the achievable product is bounded in \cref{sec:capacity}.
+
+\begin{assumption}[Separable addressing]\label{as:biaxial}
+A coarse axial standing wave and a fine transverse field can be imposed simultaneously
+without the strong (low-frequency) former corrupting the weak (high-frequency) payload, and
+the disc boundaries remain registered to the in-disc pattern through the freeze.
 \end{assumption}
 
 %================================================================== pod figure
@@ -532,7 +600,118 @@ the speculative burden lies entirely on the write side (\cref{as:commit}).}
 \label{fig:read}
 \end{figure}
 
-%================================================================== 6. Epistemic ledger
+%================================================================== Capacity / density / energy
+\section{Capacity, density, and energy: a quantitative reckoning}
+\label{sec:capacity}
+
+An architecture proposal that omits the numbers is untestable as engineering. Here we put
+ACPCM on the same axes as real storage. The conclusion is unflattering and, we think,
+clarifying: the binding limit is not how finely water can be arranged but the wavelength of
+the wave used to read it, and on that limit ACPCM is many orders of magnitude short of every
+incumbent.
+
+\subsection{The optimistic ceilings (granted, then discounted)}
+A \qty{1}{\micro\liter} pod (a \qty{1}{\milli\meter} cube of water, ${\sim}\qty{1}{\milli\gram}$)
+holds ${\sim}3.3\times10^{19}$ molecules. A naive ``one bit per molecule'' bound therefore
+suggests ${\sim}3\times10^{19}$ bits ($\approx$ 4\,EB) \emph{per microlitre} - a physically
+meaningless upper bound, but a useful ceiling.
+
+The structured-water literature supplies a more specific, internally quantified claim, which
+we state explicitly and \emph{without endorsement} (it rests on the contested ``fourth-phase''
+premise~\cite{pollack2013fourth,elton2020ez}). In that account the storage unit is not a
+molecule but a ${\sim}\qty{15}{\nano\meter}$ ``pearl'' of ${\sim}85{,}000$ molecules; pearls
+link into ${\sim}\qty{300}{\nano\meter}$ ``chains'' of ${\sim}20$ pearls, with chains below
+${\sim}\qty{100}{\nano\meter}$ deemed too short to resolve a distinct signature. Treating one
+chain (a ${\sim}\qty{15}{\nano\meter}$-wide, ${\sim}\qty{300}{\nano\meter}$-long cylinder,
+${\sim}5.3\times10^{4}\,\mathrm{nm}^3$) as one symbol gives ${\sim}1.9\times10^{16}$
+chains/cm$^3$, i.e.\ the literature's own headline of ${\sim}1.9\times10^{16}$ bytes/cm$^3$
+($\approx$ 19\,TB per microlitre, ${\sim}700\times$ the density of 5D
+glass)~\cite{pollack2013fourth}. We carry this figure forward only to show, next, that even
+granting it in full changes nothing: a constraint downstream of storage dominates.
+
+\subsection{The diffraction limit sets the real ceiling}
+\label{sec:diffraction}
+Read-out is acoustic (\cref{sec:read}), so spatial resolution is bounded by the probe
+wavelength. With sound speed $c\approx\qty{1500}{\meter\per\second}$ in water (and
+${\sim}\qty{3200}{\meter\per\second}$ in ice), a \qty{50}{\mega\hertz} pulse has
+$\lambda\approx\qty{30}{\micro\meter}$ and resolves voxels no finer than
+$\lambda/2\approx\qty{15}{\micro\meter}$. Absorption climbs as ${\sim}f^2$, so halving the
+voxel by going to ${\sim}\qty{100}{\mega\hertz}$ costs steeply in penetration depth - a hard,
+physics-imposed resolution--penetration trade. A \qty{1}{\milli\meter} pod thus contains
+${\sim}(1000/15)^3\approx 3\times10^{5}$ resolvable voxels; allotting several bits per voxel
+by exploiting phase and amplitude lifts this only to ${\sim}10^{6}$ bits - of order
+\qty{100}{\kilo\byte} per cubic-millimetre pod.\footnote{The two-axis scheme of
+\cref{sec:biaxial} makes the budget concrete and, deliberately, more conservative: a
+\qty{5}{\mega\hertz} axial former ($\lambda_z\approx\qty{300}{\micro\meter}$) yields only
+${\sim}6$ freeze-robust discs across a \qty{1}{\milli\meter} pod, and a \qty{50}{\mega\hertz}
+transverse field ${\sim}(1000/15)^2\approx 4\times10^{3}$ cells per disc, for
+${\sim}2\times10^{4}$ voxels - about an order of magnitude \emph{below} the isotropic
+${\sim}3\times10^{5}$ ceiling, the price of trading axial resolution for a coarse,
+freeze-robust layer index.}
+
+The verdict follows immediately. The realistic ${\sim}10^{6}$ bits/mm$^3$ sits roughly
+\emph{eight} orders of magnitude below the structured-water theory's own
+${\sim}1.5\times10^{14}$ bits/mm$^3$, and roughly \emph{thirteen} below the one-bit-per-molecule
+ceiling. \emph{You cannot read what you cannot resolve}; the molecular real estate is
+irrelevant if the only available probe paints it with a ${\sim}\qty{15}{\micro\meter}$ brush.
+This is the quantitative core of why ACPCM, even with every contested premise granted, is not
+a high-density medium.
+
+\subsection{Energy and throughput}
+Committing a bit means freezing a droplet. Removing heat from a pod of mass $m$ held
+$\Delta T$ above freezing costs at least $E = m\,(c_p\,\Delta T + L_{\mathrm{f}})$, with
+$c_p\approx\qty{4.18}{\joule\per\gram\per\kelvin}$~\cite{iapws95} and
+$L_{\mathrm{f}}\approx\qty{333.5}{\joule\per\gram}$~\cite{osborne1939fusion}. For a
+\qty{1}{\micro\liter} pod cooled \qty{20}{\kelvin} then frozen,
+$E\approx\qty{1e-3}{\gram}\times(84+333.5)\,\unit{\joule\per\gram}\approx\qty{0.42}{\joule}$.
+Spread over the diffraction-limited ${\sim}10^{6}$ bits, that is ${\sim}\qty{4e-7}{\joule}$
+per bit (${\sim}400$\,nJ/bit) of heat that must be \emph{removed} - by a refrigerator with
+coefficient of performance well below unity, multiplying the wall-plug cost several-fold,
+and before counting transducer drive, hydrophone scan, and neural inversion. Incumbent
+operations sit at the picojoule-per-bit scale (on-chip and DRAM access; 3D-NAND programming
+amortizes to ${\sim}$\,pJ--tens-of-pJ per bit)~\cite{horowitz2014energy}. ACPCM's write
+energy is therefore ${\sim}10^{4}$--$10^{6}\times$ worse per bit before refrigeration
+overhead. Throughput compounds it: freezing is a stochastic-nucleation event on
+millisecond-and-slower scales against HAMR's sub-nanosecond per-bit write~\cite{kryder2008hamr},
+and because rewriting demands re-melting, the medium is closer to write-once archival than to
+random-access memory.
+
+\begin{table}[t]
+\centering
+\small
+\renewcommand{\arraystretch}{1.25}
+\begin{tabularx}{\textwidth}{@{}>{\raggedright\arraybackslash}p{0.27\textwidth}
+  >{\raggedright\arraybackslash}p{0.30\textwidth}
+  >{\raggedright\arraybackslash}X@{}}
+\toprule
+\textbf{Medium} & \textbf{Volumetric density (order)} & \textbf{Status / note} \\
+\midrule
+5D fused-silica glass
+  & ${\sim}26$\,TB/cm$^3$
+  & \textcolor{acpcmteal}{\bfseries Emerging}; ${\sim}10^{20}$-yr decay, \qty{1000}{\celsius} stable~\cite{zhang2014glass,lei2021optica} \\
+DNA (synthesized oligos)
+  & ${\sim}215$\,PB/g (${\sim}10^{17}$\,B/cm$^3$); ceiling ${\sim}10^{18}$\,B/mm$^3$
+  & \textcolor{acpcmteal}{\bfseries Emerging}; random access demonstrated~\cite{erlich2017fountain,ceze2019molecular} \\
+Volume holography
+  & ${\sim}1/\lambda^3$ (order $1$\,TB/cm$^3$)
+  & \textcolor{acpcmgray}{\bfseries Niche}; theoretical bound~\cite{heanue1994holographic,coufal2000holographic} \\
+ACPCM - structured-water accounting
+  & ${\sim}1.9\times10^{16}$\,B/cm$^3$ (19\,TB/$\mu$L)
+  & \textcolor{warnrule}{\bfseries Speculative}; contested premise~\cite{pollack2013fourth} \\
+ACPCM - diffraction-limited reality
+  & ${\sim}10^{8}$\,B/cm$^3$ (${\sim}10^{6}$ bits/mm$^3$)
+  & \textcolor{red!70!black}{\bfseries This work}; set by read wavelength (\cref{sec:diffraction}) \\
+\bottomrule
+\end{tabularx}
+\caption{ACPCM against unconventional storage media on volumetric density. DNA per-cm$^3$
+assumes a dry density ${\sim}\qty{1.1}{\gram\per\centi\meter\cubed}$. The two ACPCM rows bracket the
+gap between what the contested premise claims and what the acoustic read path can actually
+resolve: ${\sim}8$ orders of magnitude, with a further ${\sim}5$ to the one-bit-per-molecule
+ceiling. The realistic ACPCM density is below every established medium in the table.}
+\label{tab:comparators}
+\end{table}
+
+%================================================================== Epistemic ledger
 \section{Epistemic ledger}
 \label{sec:ledger}
 
@@ -562,6 +741,9 @@ Cell isolation via pods (\cref{sec:medium})
 Cymatic addressing grid (\cref{sec:format})
   & Acoustofluidic patterning; holographic tweezers~\cite{rufo2022acoustofluidics,marzo2015holographic}
   & Particle nodes \textcolor{acpcmteal}{\bfseries established}; molecular ordering \textcolor{warnrule}{\bfseries speculative} (\cref{as:cymgrid}) \\
+Two-axis disc addressing (\cref{sec:biaxial})
+  & Drive track/sector split; axial vs.\ transverse standing waves
+  & Geometry \textcolor{acpcmgray}{\bfseries plausible}; survival through freeze \textcolor{warnrule}{\bfseries speculative} (\cref{as:biaxial}) \\
 Sonification codebook (\cref{sec:write})
   & Data-sonification methodology~\cite{kramer1999nsf,hermann2011handbook}
   & Mapping \textcolor{acpcmteal}{\bfseries established}; Russell octaves \textcolor{warnrule}{\bfseries esoteric/optional}~\cite{russell1926universalone} \\
@@ -613,6 +795,16 @@ decoding accuracy is at chance on held-out data, indicating no recoverable infor
 guarding against the network merely memorizing or hallucinating).
 \end{prediction}
 
+\begin{prediction}[Diffraction-bounded, two-axis capacity]\label{pr:capacity}
+The recoverable channel capacity per pod scales as ${\sim}(D/\lambda)^3$ in the pod diameter
+$D$ and read wavelength $\lambda$, and a low-frequency axial former produces a separable
+layer index (\cref{as:biaxial}): the decoder recovers \emph{which disc} a feature occupies
+independently of the in-disc payload. \emph{Falsified if} the layer index is not separable,
+\emph{or} - the genuinely exciting failure - if recovered capacity \emph{exceeds} the
+acoustic diffraction ceiling of \cref{sec:diffraction}, which would imply a sub-wavelength
+read channel and overturn the pessimistic density verdict.
+\end{prediction}
+
 If \cref{pr:transfer} fails - the most likely outcome given current physics - the
 architecture collapses to its established components, and that negative result is itself
 worth reporting.
@@ -625,15 +817,33 @@ We do not claim ACPCM is feasible. The honest reading is that it is \emph{probab
 for reasons worth stating precisely because they sharpen the predictions above.
 
 \paragraph{The freezing transition is violent.}
-Water expands by roughly 9\% on freezing and releases substantial latent heat; nucleation is
-stochastic and growth is dendritic. Any acoustic ``imprint'' must survive a disordering,
-mechanically disruptive event: a ${\sim}9\%$ volume change (a ${\sim}3\%$ linear strain) at
-a voxel scale of $\lambda/2 \approx 15$--$75\,\unit{\micro\meter}$ (10--50\,MHz in water)
-implies linear displacements of order ${\sim}0.5$--$2\,\unit{\micro\meter}$ - a
-non-negligible fraction of the intended nodal spacing itself. \Cref{as:commit} is thus in
-direct tension with the thermodynamics of solidification. Controlling nucleation site,
-rate, and crystal habit (hexagonal ice $\mathrm{I_h}$ vs.\ vitrified/amorphous ice) is
-itself a hard, partly unsolved problem.
+On freezing, water releases its latent heat of fusion, $L_{\mathrm{f}}\approx\qty{333.5}{\joule\per\gram}$~\cite{osborne1939fusion},
+and expands by ${\sim}9\%$ as it drops from ${\sim}\qty{1.0}{\gram\per\centi\meter\cubed}$ to
+the ${\sim}\qty{0.917}{\gram\per\centi\meter\cubed}$ of hexagonal ice
+$\mathrm{I_h}$~\cite{iapws95}; nucleation is stochastic and growth is dendritic. Any acoustic
+``imprint'' must survive this disordering, mechanically disruptive event. A ${\sim}9\%$
+volume change (a ${\sim}3\%$ linear strain) at a voxel scale of
+$\lambda/2 \approx 15$--$75\,\unit{\micro\meter}$ (10--50\,MHz in water) implies linear
+displacements of order ${\sim}0.5$--$2\,\unit{\micro\meter}$ - a non-negligible fraction of
+the intended nodal spacing itself, directly threatening the registration the two-axis scheme
+depends on (\cref{as:biaxial,as:commit}).
+
+\emph{The obvious escape - vitrify rather than crystallize - is itself punishing.} Forming
+amorphous (glassy) ice instead of dendritic $\mathrm{I_h}$ avoids the worst of the
+crystallization disruption, but pure water vitrifies only above a critical cooling rate
+recently measured at ${\sim}6.4\times10^{6}\,\unit{\kelvin\per\second}$~\cite{schmidt2025cooling}
+(first demonstrated by hyperquenching micron-scale droplets~\cite{bruggeller1980vitrification}),
+practical only for very small volumes - in direct tension with the ${\sim}\qty{15}{\micro\meter}$
+voxels the read path can resolve (\cref{sec:diffraction}). Crystallize instead and you race a
+moving front: dendritic ice tip velocities reach ${\sim}0.1$--$10\,\unit{\centi\meter\per\second}$
+at moderate supercooling~\cite{shibkov2003ice,xu2016ice}, fast enough to sweep a
+${\sim}\qty{15}{\micro\meter}$ voxel in microseconds and rearrange whatever the field had
+arranged. Homogeneous nucleation does not even begin until the classical limit of
+${\sim}\qty{235}{\kelvin}$ (${\sim}\qty{-38}{\celsius}$), so the ``hold the field, then
+freeze'' write cycle must thread a narrow window of deep supercooling. \Cref{as:commit} is thus in
+direct tension with the thermodynamics of solidification on every axis - rate, habit, and
+strain - and controlling nucleation site, rate, and crystal habit ($\mathrm{I_h}$ vs.\
+vitrified) is a hard, partly unsolved problem in its own right.
 
 \paragraph{Liquid water has no long-term memory.}
 The hydrogen-bond network reorganizes on picosecond timescales~\cite{cowan2005water}; there
@@ -896,6 +1106,86 @@ doi:\,10.1007/s12539-009-0036-7. [Non-reproduced fringe revival.]
 W.~Russell, \emph{The Universal One}. New York: privately published by the author, 1926.
 [Esoteric/occult cosmology; historical primary source for the octave/spiral metaphor only,
 not a chemistry reference. Facsimile: \url{https://archive.org/details/the-universal-one-1926-walter-russell}.]
+
+% ---- Prior art: unconventional / archival storage (ESTABLISHED) ----
+\bibitem{zhang2014glass}
+J.~Zhang, M.~Gecevi\v{c}ius, M.~Beresna, and P.~G. Kazansky, ``Seemingly unlimited lifetime
+data storage in nanostructured glass,'' \emph{Phys. Rev. Lett.}, vol.~112, no.~3,
+art.~033901, 2014, doi:\,10.1103/PhysRevLett.112.033901.
+
+\bibitem{lei2021optica}
+Y.~Lei, M.~Sakakura, L.~Wang, Y.~Yu, H.~Wang, G.~Shayeganrad, and P.~G. Kazansky, ``High
+speed ultrafast laser anisotropic nanostructuring by energy deposition control via
+near-field enhancement,'' \emph{Optica}, vol.~8, no.~11, pp.~1365--1371, 2021,
+doi:\,10.1364/OPTICA.433765.
+
+\bibitem{church2012dna}
+G.~M. Church, Y.~Gao, and S.~Kosuri, ``Next-generation digital information storage in DNA,''
+\emph{Science}, vol.~337, no.~6102, p.~1628, 2012, doi:\,10.1126/science.1226355.
+
+\bibitem{goldman2013dna}
+N.~Goldman, P.~Bertone, S.~Chen, C.~Dessimoz, E.~M. LeProust, B.~Sipos, and E.~Birney,
+``Towards practical, high-capacity, low-maintenance information storage in synthesized
+DNA,'' \emph{Nature}, vol.~494, no.~7435, pp.~77--80, 2013, doi:\,10.1038/nature11875.
+
+\bibitem{erlich2017fountain}
+Y.~Erlich and D.~Zielinski, ``DNA Fountain enables a robust and efficient storage
+architecture,'' \emph{Science}, vol.~355, no.~6328, pp.~950--954, 2017,
+doi:\,10.1126/science.aaj2038.
+
+\bibitem{organick2018random}
+L.~Organick \emph{et al.}, ``Random access in large-scale DNA data storage,'' \emph{Nat.
+Biotechnol.}, vol.~36, no.~3, pp.~242--248, 2018, doi:\,10.1038/nbt.4079.
+
+\bibitem{ceze2019molecular}
+L.~Ceze, J.~Nivala, and K.~Strauss, ``Molecular digital data storage using DNA,'' \emph{Nat.
+Rev. Genet.}, vol.~20, no.~8, pp.~456--466, 2019, doi:\,10.1038/s41576-019-0125-3.
+
+\bibitem{heanue1994holographic}
+J.~F. Heanue, M.~C. Bashaw, and L.~Hesselink, ``Volume holographic storage and retrieval of
+digital data,'' \emph{Science}, vol.~265, no.~5173, pp.~749--752, 1994,
+doi:\,10.1126/science.265.5173.749.
+
+\bibitem{coufal2000holographic}
+H.~J. Coufal, D.~Psaltis, and G.~T. Sincerbox, Eds., \emph{Holographic Data Storage}
+(Springer Series in Optical Sciences). Berlin: Springer, 2000, ISBN 978-3-540-66691-2,
+doi:\,10.1007/978-3-540-47864-5.
+
+% ---- Ice / water phase-transition physics (ESTABLISHED) ----
+\bibitem{osborne1939fusion}
+N.~S. Osborne, ``Heat of fusion of ice. A revision,'' \emph{J. Res. Natl. Bur. Stand.},
+vol.~23, no.~6, pp.~643--646, 1939. [Classic calorimetric value $L_{\mathrm{f}}=\qty{333.5}{\joule\per\gram}$.
+Online: \url{https://nvlpubs.nist.gov/nistpubs/jres/23/jresv23n6p643_A1b.pdf}.]
+
+\bibitem{iapws95}
+W.~Wagner and A.~Pru{\ss}, ``The IAPWS formulation 1995 for the thermodynamic properties of
+ordinary water substance for general and scientific use,'' \emph{J. Phys. Chem. Ref. Data},
+vol.~31, no.~2, pp.~387--535, 2002, doi:\,10.1063/1.1461829.
+
+\bibitem{bruggeller1980vitrification}
+P.~Br\"uggeller and E.~Mayer, ``Complete vitrification in pure liquid water and dilute
+aqueous solutions,'' \emph{Nature}, vol.~288, no.~5791, pp.~569--571, 1980,
+doi:\,10.1038/288569a0.
+
+\bibitem{schmidt2025cooling}
+J.~Schmidt \emph{et al.}, ``Direct measurement of the critical cooling rate for the
+vitrification of water,'' \emph{Phys. Rev. Research}, vol.~7, art.~013095, 2025,
+doi:\,10.1103/PhysRevResearch.7.013095.
+
+\bibitem{shibkov2003ice}
+A.~A. Shibkov, Yu.~I. Golovin, M.~A. Zheltov, A.~A. Korolev, and A.~A. Leonov, ``Morphology
+diagram of nonequilibrium patterns of ice crystals growing in supercooled water,''
+\emph{Physica A}, vol.~319, pp.~65--79, 2003, doi:\,10.1016/S0378-4371(02)01517-0.
+
+\bibitem{xu2016ice}
+Y.~Xu, N.~G. Petrik, R.~S. Smith, B.~D. Kay, and G.~A. Kimmel, ``Growth rate of crystalline
+ice and the diffusivity of supercooled water from 126 to 262\,K,'' \emph{Proc. Natl. Acad.
+Sci. USA}, vol.~113, no.~52, pp.~14921--14925, 2016, doi:\,10.1073/pnas.1611395114.
+
+\bibitem{horowitz2014energy}
+M.~Horowitz, ``Computing's energy problem (and what we can do about it),'' in \emph{2014
+IEEE Int. Solid-State Circuits Conf. (ISSCC) Dig. Tech. Papers}, 2014, pp.~10--14,
+doi:\,10.1109/ISSCC.2014.6757323.
 
 \end{thebibliography}
 

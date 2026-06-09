@@ -22,3 +22,6 @@
 
 # local agent state / harness
 .claude/
+
+# octo multi-LLM tooling state
+.claude-octopus/
