@@ -135,9 +135,9 @@ the ${\sim}50$\,fs memory loss and picosecond reorganization of the hydrogen-bon
 network~\cite{cowan2005water} - that would have to be overcome for any such scheme to be
 viable. We make the reckoning quantitative: granting even the contested ``structured-water''
 figures their own most favourable numbers, the binding constraint is not molecular packing
-but the \emph{acoustic diffraction limit of the read path}, which caps a realistic
-megahertz-addressed pod at ${\sim}10^{5}$--$10^{6}$ bits per cubic millimetre - some
-8--15 orders of magnitude below the molecular and structured-water ceilings - while the
+but the \emph{acoustic diffraction limit of the read path} (in ice, not water), which caps a
+realistic megahertz-addressed pod at ${\sim}10^{4}$--$10^{5}$ bits per cubic millimetre -
+some 9--14 orders of magnitude below the molecular and structured-water ceilings - while the
 energy to freeze a bit lands orders of magnitude above incumbent
 storage~\cite{horowitz2014energy}; against established archival media such as 5D
 fused-silica glass~\cite{zhang2014glass} and DNA~\cite{erlich2017fountain}, ACPCM is, on
@@ -631,29 +631,33 @@ granting it in full changes nothing: a constraint downstream of storage dominate
 
 \subsection{The diffraction limit sets the real ceiling}
 \label{sec:diffraction}
-Read-out is acoustic (\cref{sec:read}), so spatial resolution is bounded by the probe
-wavelength. With sound speed $c\approx\qty{1500}{\meter\per\second}$ in water (and
-${\sim}\qty{3200}{\meter\per\second}$ in ice), a \qty{50}{\mega\hertz} pulse has
-$\lambda\approx\qty{30}{\micro\meter}$ and resolves voxels no finer than
-$\lambda/2\approx\qty{15}{\micro\meter}$. Absorption climbs as ${\sim}f^2$, so halving the
-voxel by going to ${\sim}\qty{100}{\mega\hertz}$ costs steeply in penetration depth - a hard,
-physics-imposed resolution--penetration trade. A \qty{1}{\milli\meter} pod thus contains
-${\sim}(1000/15)^3\approx 3\times10^{5}$ resolvable voxels; allotting several bits per voxel
-by exploiting phase and amplitude lifts this only to ${\sim}10^{6}$ bits - of order
-\qty{100}{\kilo\byte} per cubic-millimetre pod.\footnote{The two-axis scheme of
-\cref{sec:biaxial} makes the budget concrete and, deliberately, more conservative: a
-\qty{5}{\mega\hertz} axial former ($\lambda_z\approx\qty{300}{\micro\meter}$) yields only
-${\sim}6$ freeze-robust discs across a \qty{1}{\milli\meter} pod, and a \qty{50}{\mega\hertz}
-transverse field ${\sim}(1000/15)^2\approx 4\times10^{3}$ cells per disc, for
-${\sim}2\times10^{4}$ voxels - about an order of magnitude \emph{below} the isotropic
-${\sim}3\times10^{5}$ ceiling, the price of trading axial resolution for a coarse,
-freeze-robust layer index.}
+Read-out is acoustic (\cref{sec:read}) and - crucially - propagates through the frozen
+\emph{ice}, where the sound speed is $c\approx\qty{3200}{\meter\per\second}$, roughly twice
+the $\qty{1500}{\meter\per\second}$ of liquid water. Spatial resolution is bounded by the
+probe wavelength \emph{in that medium}: a \qty{50}{\mega\hertz} read pulse has
+$\lambda\approx\qty{64}{\micro\meter}$ in ice and resolves voxels no finer than
+$\lambda/2\approx\qty{32}{\micro\meter}$. (Features may be \emph{written} more finely - the
+cymatic field forms in the liquid, where $\lambda/2\approx\qty{15}{\micro\meter}$ - but they
+cannot be \emph{read} below the ice limit, so the channel is read-limited.) Absorption climbs
+as ${\sim}f^2$, so halving the voxel by going to ${\sim}\qty{100}{\mega\hertz}$ costs steeply
+in penetration depth - a hard, physics-imposed resolution--penetration trade. A
+\qty{1}{\milli\meter} pod thus contains ${\sim}(1000/32)^3\approx 3\times10^{4}$ resolvable
+voxels; allotting several bits per voxel by exploiting phase and amplitude lifts this only to
+${\sim}10^{5}$ bits - of order \qty{10}{\kilo\byte} per cubic-millimetre pod.\footnote{The
+two-axis scheme of \cref{sec:biaxial} makes the budget concrete and, deliberately, more
+conservative: a \qty{5}{\mega\hertz} axial former (liquid-phase
+$\lambda_z\approx\qty{300}{\micro\meter}$) writes ${\sim}6$ coarse, freeze-robust discs
+across a \qty{1}{\milli\meter} pod - well above the ice read limit, so all are resolvable -
+while the read-limited transverse cells number ${\sim}(1000/32)^2\approx 10^{3}$ per disc,
+for ${\sim}6\times10^{3}$ voxels: below the isotropic ${\sim}3\times10^{4}$ ceiling, the
+price of trading resolution for a coarse, freeze-robust layer index.}
 
-The verdict follows immediately. The realistic ${\sim}10^{6}$ bits/mm$^3$ sits roughly
-\emph{eight} orders of magnitude below the structured-water theory's own
-${\sim}1.5\times10^{14}$ bits/mm$^3$, and roughly \emph{thirteen} below the one-bit-per-molecule
-ceiling. \emph{You cannot read what you cannot resolve}; the molecular real estate is
-irrelevant if the only available probe paints it with a ${\sim}\qty{15}{\micro\meter}$ brush.
+The verdict follows immediately. The realistic ${\sim}10^{5}$ bits/mm$^3$ sits roughly
+\emph{nine} orders of magnitude below the structured-water theory's own
+${\sim}1.5\times10^{14}$ bits/mm$^3$, and roughly \emph{fourteen} below the
+one-bit-per-molecule ceiling. \emph{You cannot read what you cannot resolve}; the molecular
+real estate is irrelevant if the only available probe paints it with a
+${\sim}\qty{32}{\micro\meter}$ brush.
 This is the quantitative core of why ACPCM, even with every contested premise granted, is not
 a high-density medium.
 
@@ -664,13 +668,13 @@ $c_p\approx\qty{4.18}{\joule\per\gram\per\kelvin}$~\cite{iapws95} and
 $L_{\mathrm{f}}\approx\qty{333.5}{\joule\per\gram}$~\cite{osborne1939fusion}. For a
 \qty{1}{\micro\liter} pod cooled \qty{20}{\kelvin} then frozen,
 $E\approx\qty{1e-3}{\gram}\times(84+333.5)\,\unit{\joule\per\gram}\approx\qty{0.42}{\joule}$.
-Spread over the diffraction-limited ${\sim}10^{6}$ bits, that is ${\sim}\qty{4e-7}{\joule}$
-per bit (${\sim}400$\,nJ/bit) of heat that must be \emph{removed} - by a refrigerator with
+Spread over the diffraction-limited ${\sim}10^{5}$ bits, that is ${\sim}\qty{4e-6}{\joule}$
+per bit (${\sim}4\,\mu$J/bit) of heat that must be \emph{removed} - by a refrigerator with
 coefficient of performance well below unity, multiplying the wall-plug cost several-fold,
 and before counting transducer drive, hydrophone scan, and neural inversion. Incumbent
 operations sit at the picojoule-per-bit scale (on-chip and DRAM access; 3D-NAND programming
 amortizes to ${\sim}$\,pJ--tens-of-pJ per bit)~\cite{horowitz2014energy}. ACPCM's write
-energy is therefore ${\sim}10^{4}$--$10^{6}\times$ worse per bit before refrigeration
+energy is therefore ${\sim}10^{5}$--$10^{7}\times$ worse per bit before refrigeration
 overhead. Throughput compounds it: freezing is a stochastic-nucleation event on
 millisecond-and-slower scales against HAMR's sub-nanosecond per-bit write~\cite{kryder2008hamr},
 and because rewriting demands re-melting, the medium is closer to write-once archival than to
@@ -699,14 +703,14 @@ ACPCM - structured-water accounting
   & ${\sim}1.9\times10^{16}$\,B/cm$^3$ (19\,TB/$\mu$L)
   & \textcolor{warnrule}{\bfseries Speculative}; contested premise~\cite{pollack2013fourth} \\
 ACPCM - diffraction-limited reality
-  & ${\sim}10^{8}$\,B/cm$^3$ (${\sim}10^{6}$ bits/mm$^3$)
-  & \textcolor{red!70!black}{\bfseries This work}; set by read wavelength (\cref{sec:diffraction}) \\
+  & ${\sim}10^{7}$\,B/cm$^3$ (${\sim}10^{5}$ bits/mm$^3$)
+  & \textcolor{red!70!black}{\bfseries This work}; set by ice read wavelength (\cref{sec:diffraction}) \\
 \bottomrule
 \end{tabularx}
 \caption{ACPCM against unconventional storage media on volumetric density. DNA per-cm$^3$
 assumes a dry density ${\sim}\qty{1.1}{\gram\per\centi\meter\cubed}$. The two ACPCM rows bracket the
 gap between what the contested premise claims and what the acoustic read path can actually
-resolve: ${\sim}8$ orders of magnitude, with a further ${\sim}5$ to the one-bit-per-molecule
+resolve: ${\sim}9$ orders of magnitude, with a further ${\sim}5$ to the one-bit-per-molecule
 ceiling. The realistic ACPCM density is below every established medium in the table.}
 \label{tab:comparators}
 \end{table}
