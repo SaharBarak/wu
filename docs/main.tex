@@ -39,11 +39,13 @@
 % ---- Graphics, color, tables -----------------------------------------------
 \usepackage{graphicx}
 \usepackage{xcolor}
-\definecolor{acpcmblue}{HTML}{1F4E79}
-\definecolor{acpcmteal}{HTML}{2E8B8B}
+% Plain-academic palette: monochrome. Headings/links black; figures in grayscale;
+% callout boxes have no fill (white) and a thin near-black rule.
+\definecolor{acpcmblue}{HTML}{000000}
+\definecolor{acpcmteal}{HTML}{595959}
 \definecolor{acpcmgray}{HTML}{4D4D4D}
-\definecolor{warnbg}{HTML}{FBF3E2}
-\definecolor{warnrule}{HTML}{B8860B}
+\definecolor{warnbg}{HTML}{FFFFFF}
+\definecolor{warnrule}{HTML}{1A1A1A}
 \usepackage{booktabs}
 \usepackage{array}
 \usepackage{tabularx}
@@ -60,6 +62,8 @@
 % ---- Diagrams --------------------------------------------------------------
 \usepackage{tikz}
 \usetikzlibrary{arrows.meta,positioning,calc,shapes.geometric,backgrounds,fit,decorations.pathmorphing,patterns}
+\usepackage{pgfplots}
+\pgfplotsset{compat=1.18}
 
 % ---- Hyperlinks (load late, then cleveref last) ----------------------------
 \usepackage[colorlinks=true,allcolors=acpcmblue,breaklinks=true]{hyperref}
@@ -71,7 +75,7 @@
 
 % ---- Section styling --------------------------------------------------------
 \titleformat{\section}{\normalfont\large\bfseries\color{acpcmblue}}{\thesection}{0.6em}{}
-\titleformat{\subsection}{\normalfont\normalsize\bfseries\color{acpcmgray}}{\thesubsection}{0.6em}{}
+\titleformat{\subsection}{\normalfont\normalsize\bfseries\color{black}}{\thesubsection}{0.6em}{}
 
 % ---- Running header ---------------------------------------------------------
 \pagestyle{fancy}
@@ -661,6 +665,42 @@ ${\sim}\qty{32}{\micro\meter}$ brush.
 This is the quantitative core of why ACPCM, even with every contested premise granted, is not
 a high-density medium.
 
+\begin{figure}[t]
+\centering
+\begin{tikzpicture}
+\begin{axis}[
+  xmode=log, xmin=1e6, xmax=5e22,
+  width=0.9\textwidth, height=6cm,
+  xbar, bar width=8pt,
+  xlabel={Volumetric density (bytes\,/\,cm$^3$, log scale)},
+  xlabel style={font=\footnotesize},
+  symbolic y coords={ACPCM read-limited,Volume holography,5D fused silica,Structured-water claim,DNA demonstrated,DNA ceiling,One bit per molecule},
+  ytick=data,
+  yticklabel style={font=\footnotesize},
+  xtick={1e6,1e9,1e12,1e15,1e18,1e21},
+  xticklabel style={font=\scriptsize},
+  enlarge y limits=0.10,
+  axis line style={gray!60}, tick style={gray!60},
+  xmajorgrids, grid style={gray!22,thin},
+]
+\addplot[draw=black, fill=black!12] coordinates {
+  (1e7,ACPCM read-limited)
+  (1e12,Volume holography)
+  (2.6e13,5D fused silica)
+  (1.9e16,Structured-water claim)
+  (2.4e17,DNA demonstrated)
+  (1e21,DNA ceiling)
+  (4e21,One bit per molecule)};
+\end{axis}
+\end{tikzpicture}
+\caption{Volumetric storage density across media (log scale; figures as in \cref{tab:comparators}).
+The read-limited ACPCM reality (bottom, this work) sits roughly nine orders of magnitude below the
+structured-water theory's own claim and fourteen below the one-bit-per-molecule ceiling, and below
+every established medium. The binding constraint is the ice-borne read wavelength
+(\cref{sec:diffraction}), not how finely matter can be arranged.}
+\label{fig:density}
+\end{figure}
+
 \subsection{Energy and throughput}
 Committing a bit means freezing a droplet. Removing heat from a pod of mass $m$ held
 $\Delta T$ above freezing costs at least $E = m\,(c_p\,\Delta T + L_{\mathrm{f}})$, with
@@ -679,6 +719,36 @@ overhead. Throughput compounds it: freezing is a stochastic-nucleation event on
 millisecond-and-slower scales against HAMR's sub-nanosecond per-bit write~\cite{kryder2008hamr},
 and because rewriting demands re-melting, the medium is closer to write-once archival than to
 random-access memory.
+
+\begin{figure}[t]
+\centering
+\begin{tikzpicture}
+\begin{axis}[
+  xmode=log, xmin=3e-13, xmax=2e-5,
+  width=0.86\textwidth, height=3.7cm,
+  xbar, bar width=9pt,
+  xlabel={Write energy per bit (joules, log scale)},
+  xlabel style={font=\footnotesize},
+  symbolic y coords={DRAM/on-chip access,3D NAND program,ACPCM freeze-write},
+  ytick=data, yticklabel style={font=\footnotesize},
+  xtick={1e-12,1e-9,1e-6}, xticklabel style={font=\scriptsize},
+  enlarge y limits=0.32,
+  axis line style={gray!60}, tick style={gray!60},
+  xmajorgrids, grid style={gray!22,thin},
+]
+\addplot[draw=black, fill=black!12] coordinates {
+  (1e-12,DRAM/on-chip access)
+  (1e-11,3D NAND program)
+  (4e-6,ACPCM freeze-write)};
+\end{axis}
+\end{tikzpicture}
+\caption{Write energy per bit (log scale). Freezing a ${\sim}\qty{1}{\micro\liter}$ pod and
+amortizing over its ${\sim}10^{5}$ read-limited bits costs ${\sim}\qty{4}{\micro\joule}$ of heat
+removed per bit (\cref{sec:capacity}) - five to seven orders of magnitude above incumbent
+picojoule-scale operations~\cite{horowitz2014energy}, and that is before refrigeration overhead,
+transducer drive, and neural decoding.}
+\label{fig:energy}
+\end{figure}
 
 \begin{table}[t]
 \centering
@@ -704,7 +774,7 @@ ACPCM - structured-water accounting
   & \textcolor{warnrule}{\bfseries Speculative}; contested premise~\cite{pollack2013fourth} \\
 ACPCM - diffraction-limited reality
   & ${\sim}10^{7}$\,B/cm$^3$ (${\sim}10^{5}$ bits/mm$^3$)
-  & \textcolor{red!70!black}{\bfseries This work}; set by ice read wavelength (\cref{sec:diffraction}) \\
+  & \textbf{This work}; set by ice read wavelength (\cref{sec:diffraction}) \\
 \bottomrule
 \end{tabularx}
 \caption{ACPCM against unconventional storage media on volumetric density. DNA per-cm$^3$
@@ -759,7 +829,7 @@ MHz acoustic-holography read-out (\cref{sec:read})
   & \textcolor{warnrule}{\bfseries Contested / minority}~\cite{elton2020ez,tegmark2000decoherence} \\
 ``Water memory'' (motivation only)
   & Benveniste high-dilution claims~\cite{benveniste1988}
-  & \textcolor{red!70!black}{\bfseries Refuted}~\cite{maddox1988} \\
+  & \textbf{Refuted}~\cite{maddox1988} \\
 \bottomrule
 \end{tabularx}
 \caption{Epistemic ledger mapping each ACPCM subsystem to its borrowed real mechanism and
