@@ -369,7 +369,10 @@ footer .mono{font-size:var(--text-xs);color:var(--color-muted);letter-spacing:va
         <p>As magnetic and solid-state storage approach the superparamagnetic limit, the field hunts for new media. <span class="mono accent">wu</span> is a thought experiment: encode data into the physical topology of a pod of water, then freeze it solid in an instant to lock it in. It almost certainly does not work - and <span class="hl">the honest part is the point</span>.</p>
       </div>
     </div>
-    <div class="hero-canvas reveal"><canvas data-anim="cymatic" data-mode="liquid" aria-label="Animation: liquid water in motion"></canvas></div>
+    <div class="hero-canvas reveal">
+      <div class="fig" style="min-height:clamp(240px,42vh,440px)"><canvas data-anim="endtoend" aria-label="Animation: the complete ACPCM cycle in one loop - chaotic liquid water, an acoustic standing-wave grid encodes data, a freeze front locks the pattern into ice, then a read pulse scatters off the frozen structure and decodes back to bits"></canvas></div>
+      <p class="figcap" style="text-align:center">THE WHOLE IDEA IN ONE LOOP &#183; liquid &rarr; encode &rarr; freeze &rarr; read</p>
+    </div>
   </div>
   <span class="sidelabel" aria-hidden="true">PREPRINT // 2026 // SPECULATIVE</span>
 </section>
@@ -460,6 +463,7 @@ footer .mono{font-size:var(--text-xs);color:var(--color-muted);letter-spacing:va
       <p class="body" style="margin-top:var(--space-3)">The pod is held at the edge of freezing while the transducers broadcast both the addressing grid and the data tones. <span class="hl">Then - in an instant - it freezes.</span> The hope, by loose analogy to a phase-change memory cell's melt-and-quench, is that rapid solidification <em>records</em> the live acoustic field as a frozen-in topology: displacements and densities locked into ice.</p>
       <p class="lead">It is the one claim everything rests on, and the most likely to fail.</p>
       <p class="body">Freezing is violent: water expands ~9%, releases latent heat, and nucleates dendritically - all of which fight the delicate pattern you are trying to preserve.</p>
+      <p class="inline-note"><b>The one real sound→ice channel is the wrong one.</b> Ultrasound <em>does</em> imprint structure on freezing ice - that field is called <span class="hl">sonocrystallization</span> - but it works through <em>cavitation</em>: bubbles nucleate ice at random sites and their collapse shatters dendrites. That is stochastic and pattern-<em>destroying</em>, not a faithful copy of the field. So the cheapest test (P1) risks a <span class="hl">misleading positive</span> from cavitation alone, and must be designed to exclude it.</p>
     </div>
     <div class="col-right reveal">
       <div class="fig"><canvas data-anim="cymatic" data-mode="freeze" aria-label="Animation: liquid water freezing and locking into a cymatic lattice"></canvas></div>
@@ -467,6 +471,7 @@ footer .mono{font-size:var(--text-xs);color:var(--color-muted);letter-spacing:va
     </div>
     <div style="grid-column:1/-1" class="reveal">
       <p class="pullquote" style="margin-top:var(--space-4)">The established citations ground only their own subsystems; none of them lends support to the central acousto-cymatic conjecture. That bridge is the author's, and it is conjecture.</p>
+      <p class="inline-note" style="margin-top:var(--space-4);max-width:62ch"><b>A buildable exit, drawn honestly.</b> One version isn't speculative at all: seed the pod with tiny tracer particles, arrange them at the acoustic nodes, and freeze. Assembling scatterers and locking them in a solidifying matrix is <span class="hl">demonstrated technology</span> (holographic acoustic assembly fixed by gelation, Melde&nbsp;2023). It records the <em>particles' positions</em>, not the water itself - a modest, still read-limited memory - but it marks the exact boundary: everything up to assemble-and-lock is real; the lone remaining conjecture is that bare water records the field with no seeds at all.</p>
     </div>
   </div>
 </section>
@@ -638,13 +643,37 @@ footer .mono{font-size:var(--text-xs);color:var(--color-muted);letter-spacing:va
   </div>
 </section>
 
-<!-- 10 PREPRINT -->
+<!-- 11 THE DEVICE -->
+<section class="s-bg1" id="device">
+  <div class="wrap grid">
+    <div class="col-wide reveal">
+      <span class="snum">11 / THE DEVICE</span>
+      <h2 style="font-size:var(--text-xl)">Could it ever stand as a device?</h2>
+      <p class="lead" style="margin-top:var(--space-3)">The high-density dream is dead. The device isn't — if it stops competing where it loses.</p>
+      <p class="body">The verdict above kills ACPCM as a <em>dense</em> memory. It does not kill it as a <em>device</em> — provided it's rebuilt from the regime where freezing water is controllable, not chaotic. The unlock: <span class="hl">directional freezing of water is an industry, not a thought experiment</span>. Freeze-casting (ice-templating) routinely makes ordered, repeatable ice architecture by steering a freeze front. "Freezing is too chaotic to record structure" is only true of the violent quench — not the controlled one.</p>
+    </div>
+    <div class="reveal" style="grid-column:1/-1;margin-top:var(--space-4)">
+      <div class="compare">
+        <div><span class="ch">Commit fails →</span><span><b>seed the scatterers.</b> Don't ask water to record the field; park tracer particles at the nodes and freeze. Assemble-and-lock is demonstrated (Melde 2023). Records positions, not water.</span></div>
+        <div><span class="ch">Front overruns →</span><span><b>stay below the instability.</b> The Mullins–Sekerka critical velocity: freeze slow in a steep gradient and the front stays <em>planar</em> — faithful, not dendritic.</span></div>
+        <div><span class="ch">No grid →</span><span><b>encode the grain architecture.</b> Lamellar spacing, grain-boundary map, and <em>c</em>-axis orientation set by a weak <span class="mono accent">millitesla</span> (not tesla) magnetic bias — the confound becomes the signal.</span></div>
+        <div><span class="ch">Energy cost →</span><span><b>co-opt ambient cold.</b> Polar, cryo-datacenter, or lunar shadow at ~40 K. Freeze energy is free where cold already stands. Re-melt = secure erase + recycle.</span></div>
+      </div>
+    </div>
+    <div class="col-wide reveal" style="margin-top:var(--space-4)">
+      <p class="body"><b>The honest operating point.</b> Still read-limited: ~10⁴–10⁷ bits/mm³, below every incumbent on density, energy-competitive only where cold is free. <span class="hl">No density win, no energy win.</span> The pitch is the opposite axis — cheapest substrate on Earth, zero synthesis, non-toxic, and <em>infinitely re-writable at the substrate level</em>: the gravel of data storage, not the diamond. A niche, and a narrow one — but a non-empty one.</p>
+      <p class="inline-note">Every block — acoustic assembly, planar-front freeze-casting, magnetic grain alignment, acoustic-anisotropy readout — is <span class="hl">established in isolation</span>. The lone remaining conjecture is that they <em>compose</em>. That's the difference between a metaphor and a device — and a bench can test it (new predictions P5–P7).</p>
+    </div>
+  </div>
+</section>
+
+<!-- 12 PREPRINT -->
 <section id="preprint">
   <div class="wrap grid">
     <div class="col-narrow reveal">
-      <span class="snum">11 / WHITE PAPER</span>
+      <span class="snum">12 / WHITE PAPER</span>
       <h2 style="font-size:var(--text-xl);font-weight:300">The white paper</h2>
-      <p class="body" style="margin-top:var(--space-3)">The full idea-paper - 14 pages, 49 verified citations, the complete epistemic ledger, falsifiable predictions, and a quantitative reckoning (capacity, density, energy) that benchmarks the architecture against 5D glass, DNA, and incumbent storage, then argues against itself. Download the PDF, read it in-browser, or open the LaTeX source.</p>
+      <p class="body" style="margin-top:var(--space-3)">The full idea-paper - 20 pages, 68 verified citations, the complete epistemic ledger, falsifiable predictions, a device-shaped operating point, and a quantitative reckoning (capacity, density, energy) that benchmarks the architecture against 5D glass, DNA, and incumbent storage, then argues against itself. Download the PDF, read it in-browser, or open the LaTeX source.</p>
       <p style="margin-top:var(--space-4);display:flex;flex-wrap:wrap;gap:var(--space-3);align-items:center">
         <a class="cta" href="main.pdf" download="wu-ACPCM-white-paper.pdf">Download the white paper (PDF)
           <svg width="20" height="14" viewBox="0 0 20 14" fill="none" aria-hidden="true"><path d="M10 1v10M5 7l5 5 5-5M1 13h18" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
@@ -713,6 +742,8 @@ footer .mono{font-size:var(--text-xs);color:var(--color-muted);letter-spacing:va
   const CVAR=s=>"var(--color-"+s+")";
   const ROWS=[
     {sub:"Rapid write by phase change",mech:"HAMR heat–quench; chalcogenide PCM melt–quench",status:"speculative",note:"Assumption 3 · load-bearing",loadbearing:true},
+    {sub:"Assemble-and-lock seeded scatterers",mech:"Holographic acoustic assembly fixed by gelation (Melde 2023); acoustic focus + cross-link",status:"established",note:"buildable for particles · pure-water recording is the leap"},
+    {sub:"Sound → ice structural imprint",mech:"Sonocrystallization / ultrasound-assisted freezing",status:"contested",note:"imprint real, but via cavitation: stochastic, pattern-destroying"},
     {sub:"Cell isolation via pods",mech:"Charge-trap flash discrete traps",status:"plausible",note:"Assumption 1"},
     {sub:"Cymatic addressing grid",mech:"Acoustofluidic patterning; holographic tweezers",status:"speculative",note:"nodes established · molecular ordering speculative (Assumption 2)"},
     {sub:"Sonification codebook",mech:"Data-sonification methodology",status:"established",note:"mapping established · Russell octaves esoteric"},
@@ -792,6 +823,111 @@ footer .mono{font-size:var(--text-xs);color:var(--color-muted);letter-spacing:va
     function staticFrame(){ctx.clearRect(0,0,W,H);settle();if(mode==="freeze")for(const q of parts)q.locked=true;backdrop(mode==="freeze"?1:0.9,undefined);rim();drawParts();}
     const api={cv,resize,tick:(ts)=>{if(!visible)return;if(mode==="freeze"&&freezeT===null)return;step(ts);},
       onVisible:(v)=>{visible=v;if(v&&mode==="freeze"&&freezeT===null)freezeT=performance.now();},reduced:staticFrame};
+    api.resize();return api;
+  }
+
+  /* End-to-end demo - hero. One ~14s loop through the full concept:
+     LIQUID (chaotic jitter) -> ENCODE (transducers fire, cymatic grid forms,
+     particles collect at nodes) -> FREEZE (front sweeps, pattern locks) ->
+     READ (pulse scatters off the ice, decoded bits appear). */
+  function makeEndToEnd(cv){
+    const ctx=cv.getContext("2d");
+    let W=0,H=0,cx=0,cy=0,R=0,parts=[],t0=null,visible=false,edges=[],loopN=0;
+    const k0=3*Math.PI,p=6,LOOP=14;
+    const bits="10110 01001 11010";
+    const field=(x,y)=>{const dx=(x-cx)/R,dy=(y-cy)/R,r=Math.hypot(dx,dy),th=Math.atan2(dy,dx);return Math.cos(k0*r)*Math.cos(p*th);};
+    const grad=(x,y)=>{const e=1.2;return[(field(x+e,y)-field(x-e,y))/(2*e),(field(x,y+e)-field(x,y-e))/(2*e)];};
+    function trackEdges(){const e=[0];for(let m=0;;m++){const r=(Math.PI/2+m*Math.PI)/k0*R;if(r>=R){e.push(R);break;}e.push(r);}return e;}
+    function seed(){parts=[];const n=Math.min(320,Math.max(150,Math.round(W*H/260)));for(let i=0;i<n;i++){const a=Math.random()*6.283,r=Math.sqrt(Math.random())*R;parts.push({x:cx+Math.cos(a)*r,y:cy+Math.sin(a)*r,vx:0,vy:0,locked:false});}}
+    function resize(){const s=fit(cv);W=s.w;H=s.h;ctx.setTransform(DPR,0,0,DPR,0,0);cx=W/2;cy=H*0.45;R=Math.min(W*0.42,H*0.345);edges=trackEdges();seed();}
+    function backdrop(intensity,front){
+      if(intensity<=0)return;
+      ctx.save();ctx.beginPath();ctx.arc(cx,cy,R,0,6.283);ctx.clip();
+      if(front!==undefined){ctx.beginPath();ctx.rect(0,0,front,H);ctx.clip();}
+      const NS=2*p;
+      for(let t=0;t<edges.length-1;t++){const rm=(edges[t]+edges[t+1])/2;
+        for(let s=0;s<NS;s++){const a0=Math.PI/(2*p)+s*Math.PI/p,a1=a0+Math.PI/p,th=(a0+a1)/2;
+          if(field(cx+Math.cos(th)*rm,cy+Math.sin(th)*rm)>0){
+            ctx.beginPath();ctx.arc(cx,cy,edges[t+1],a0,a1);ctx.arc(cx,cy,edges[t],a1,a0,true);ctx.closePath();
+            ctx.fillStyle="#5b9ea6";ctx.globalAlpha=0.075*intensity;ctx.fill();}}}
+      ctx.globalAlpha=0.55*intensity;ctx.strokeStyle="#3d6e75";ctx.lineWidth=1;
+      for(const r of edges){if(r>0&&r<R){ctx.beginPath();ctx.arc(cx,cy,r,0,6.283);ctx.stroke();}}
+      ctx.globalAlpha=0.4*intensity;
+      for(let j=0;j<2*p;j++){const th=Math.PI/(2*p)+j*Math.PI/p;ctx.beginPath();ctx.moveTo(cx,cy);ctx.lineTo(cx+Math.cos(th)*R,cy+Math.sin(th)*R);ctx.stroke();}
+      ctx.restore();
+    }
+    function rim(){ctx.save();ctx.globalAlpha=.6;ctx.strokeStyle="#2a2e33";ctx.lineWidth=1.2;ctx.beginPath();ctx.arc(cx,cy,R,0,6.283);ctx.stroke();ctx.restore();}
+    function toNodes(q,strength,jitter){const f=field(q.x,q.y),g=grad(q.x,q.y),s=2*f;
+      q.vx+=-s*g[0]*strength;q.vy+=-s*g[1]*strength;q.vx*=0.8;q.vy*=0.8;
+      if(jitter){q.vx+=(Math.random()-0.5)*jitter;q.vy+=(Math.random()-0.5)*jitter;}
+      q.x+=q.vx*0.016;q.y+=q.vy*0.016;
+      const dx=q.x-cx,dy=q.y-cy,d=Math.hypot(dx,dy);if(d>R){q.x=cx+dx/d*R;q.y=cy+dy/d*R;q.vx*=-0.3;q.vy*=-0.3;}}
+    function drawParts(){for(const q of parts){ctx.beginPath();ctx.fillStyle=q.locked?"#9fd2d8":"#6fb0b8";ctx.globalAlpha=q.locked?0.95:0.82;ctx.arc(q.x,q.y,q.locked?1.8:1.5,0,6.283);ctx.fill();}ctx.globalAlpha=1;}
+    function transducers(el,alpha){
+      if(alpha<=0)return;
+      ctx.save();ctx.lineWidth=2.2;ctx.lineCap="round";
+      for(let j=0;j<12;j++){const th=j*Math.PI/6;
+        const b=alpha*(0.45+0.55*(0.5+0.5*Math.sin(el*4-j*0.7)));
+        ctx.strokeStyle="#5b9ea6";ctx.globalAlpha=b;
+        ctx.beginPath();ctx.moveTo(cx+Math.cos(th)*(R+5),cy+Math.sin(th)*(R+5));
+        ctx.lineTo(cx+Math.cos(th)*(R+11),cy+Math.sin(th)*(R+11));ctx.stroke();}
+      ctx.restore();}
+    function stageBar(t){
+      const names=["LIQUID","ENCODE","FREEZE","READ"],starts=[0,2.5,6,9];
+      let act=0;for(let i=0;i<starts.length;i++)if(t>=starts[i])act=i;
+      ctx.save();ctx.textAlign="left";
+      ctx.font='500 '+Math.max(9,Math.round(Math.min(W,H)*0.034))+'px "JetBrains Mono",monospace';
+      const sep="  ·  ",ws=names.map(n=>ctx.measureText(n).width),wsep=ctx.measureText(sep).width;
+      const tot=ws.reduce((a,b)=>a+b,0)+wsep*(names.length-1);
+      let x=cx-tot/2;const y=H-6;
+      for(let i=0;i<names.length;i++){
+        ctx.fillStyle=i===act?"#7fc4cc":"#5a6370";ctx.globalAlpha=i===act?1:0.65;
+        ctx.fillText(names[i],x,y);x+=ws[i];
+        if(i<names.length-1){ctx.fillStyle="#5a6370";ctx.globalAlpha=.45;ctx.fillText(sep,x,y);x+=wsep;}}
+      ctx.restore();}
+    function drawBits(alpha){
+      if(alpha<=0)return;
+      ctx.save();ctx.font='600 '+Math.round(Math.min(W,H)*0.062)+'px "JetBrains Mono",monospace';
+      ctx.fillStyle="#7fc4cc";ctx.globalAlpha=alpha;ctx.textAlign="center";
+      ctx.fillText(bits,cx,Math.min(H-26,cy+R+26));ctx.restore();}
+    function step(ts){
+      if(t0===null)t0=ts;const el=(ts-t0)/1000,t=el%LOOP,ln=Math.floor(el/LOOP);
+      if(ln!==loopN){loopN=ln;seed();}
+      ctx.clearRect(0,0,W,H);
+      const enc=t<2.5?0:Math.min(1,(t-2.5)/1.2);
+      const freezeP=t<6?0:Math.min(1,(t-6)/2.4);
+      const front=cx-R+freezeP*2*R;
+      backdrop(0.9*enc,undefined);
+      if(freezeP>0)backdrop(0.55,front);
+      rim();
+      const tAlpha=t<2.5?0:t<6?Math.min(1,(t-2.5)/0.5):Math.max(0,1-(t-6)/0.8);
+      transducers(el,tAlpha);
+      if(t<2.5){for(const q of parts){q.x+=(Math.random()-0.5)*1.4;q.y+=(Math.random()-0.5)*1.4;
+        const dx=q.x-cx,dy=q.y-cy,d=Math.hypot(dx,dy);if(d>R*0.97){q.x=cx+dx/d*R*0.97;q.y=cy+dy/d*R*0.97;}}}
+      else if(t<6){const g=(t-2.5)/3.5;for(const q of parts)toNodes(q,8+30*g,0.5*(1-g));}
+      else if(t<9){for(const q of parts){if(q.x<front){toNodes(q,42,0);if(Math.hypot(q.vx,q.vy)<0.05)q.locked=true;}
+        else{q.x+=(Math.random()-0.5)*0.5;q.y+=(Math.random()-0.5)*0.5;}}}
+      drawParts();
+      if(freezeP>0&&freezeP<1){ctx.save();ctx.strokeStyle="#9fd2d8";ctx.globalAlpha=.9;ctx.lineWidth=1.6;
+        ctx.beginPath();ctx.moveTo(front,cy-R*1.03);ctx.lineTo(front,cy+R*1.03);ctx.stroke();ctx.restore();}
+      if(t>=9&&t<13){const rt=t-9;
+        if(rt<1.0){const x=6+rt*(cx-R-10-6);ctx.save();ctx.strokeStyle="#5b9ea6";ctx.lineWidth=1.5;ctx.globalAlpha=.85;
+          ctx.beginPath();let first=true;
+          for(let y=cy-R*0.9;y<=cy+R*0.9;y+=3){const xx=x+Math.sin((y+ts*0.12)*0.1)*3.5;
+            if(first){ctx.moveTo(xx,y);first=false;}else ctx.lineTo(xx,y);}ctx.stroke();ctx.restore();}
+        if(rt>=0.9&&rt<2.3){const sp=(rt-0.9)/1.4;ctx.save();ctx.strokeStyle="#5b9ea6";ctx.lineWidth=1;
+          for(let i=0;i<6;i++){ctx.globalAlpha=(1-sp)*0.65;const rad=sp*R*1.9*(0.45+i*0.12);
+            const a0=-0.8+i*0.27;ctx.beginPath();ctx.arc(cx,cy,rad,a0,a0+0.95);ctx.stroke();}ctx.restore();}
+        drawBits(rt<1.8?0:Math.min(1,(rt-1.8)/1.0));}
+      else if(t>=13){drawBits(Math.max(0,1-(t-13)/0.7));}
+      stageBar(t);
+      if(t>=13.2){ctx.save();ctx.fillStyle="#0c0e0f";ctx.globalAlpha=Math.min(1,(t-13.2)/0.8)*0.85;ctx.fillRect(0,0,W,H);ctx.restore();}
+    }
+    function staticFrame(){ctx.clearRect(0,0,W,H);
+      for(let it=0;it<80;it++)for(const q of parts){const f=field(q.x,q.y),g=grad(q.x,q.y),s=2*f;q.x+=-s*g[0]*0.4;q.y+=-s*g[1]*0.4;}
+      for(const q of parts)q.locked=true;
+      backdrop(1,undefined);rim();drawParts();drawBits(1);stageBar(9.5);}
+    const api={cv,resize,tick:(ts)=>{if(visible)step(ts);},onVisible:(v)=>{visible=v;},reduced:staticFrame};
     api.resize();return api;
   }
 
@@ -947,6 +1083,7 @@ footer .mono{font-size:var(--text-xs);color:var(--color-muted);letter-spacing:va
   document.querySelectorAll("canvas[data-anim]").forEach(cv=>{
     const t=cv.dataset.anim;let a;
     if(t==="cymatic")a=makeCymatic(cv,cv.dataset.mode||"liquid");
+    else if(t==="endtoend")a=makeEndToEnd(cv);
     else if(t==="medium")a=makeMedium(cv);
     else if(t==="device")a=makeDevice(cv);
     else if(t==="read")a=makeRead(cv);

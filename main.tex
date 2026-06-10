@@ -145,8 +145,20 @@ some 9--14 orders of magnitude below the molecular and structured-water ceilings
 energy to freeze a bit lands orders of magnitude above incumbent
 storage~\cite{horowitz2014energy}; against established archival media such as 5D
 fused-silica glass~\cite{zhang2014glass} and DNA~\cite{erlich2017fountain}, ACPCM is, on
-these numbers, uncompetitive. The contribution is a conceptual synthesis, a quantitative
-bound, and a research agenda, \emph{not} a validated device.
+these numbers, uncompetitive. We further locate the proposal against the
+\emph{sonocrystallization} literature~\cite{zhang2021uafmech}: ultrasound demonstrably imprints
+structure on freezing ice, but through \emph{cavitation} - a stochastic, pattern-destroying
+mechanism - so the architecture's cheapest test is at risk of a misleading positive and must
+control for it, while the one genuinely buildable variant (acoustically assembling seeded
+scatterers and locking them by solidification, already demonstrated~\cite{melde2023assembly})
+records particle positions rather than the water field itself. Finally we sketch the pivot
+that lets the idea stand as a \emph{device} rather than a high-density medium: built from
+directional (freeze-cast) solidification below the Mullins--Sekerka instability, seeded
+acoustic scatterers, and millitesla magnetic grain orientation - each demonstrated in
+isolation - and pitched not on density but on substrate cost, non-toxicity, and recyclability
+in environments where cold is free. The contribution is a conceptual synthesis, a
+quantitative bound, a device-shaped operating point, and a research agenda, \emph{not} a
+validated device.
 \end{abstract}
 
 \vspace{2pt}
@@ -330,19 +342,33 @@ isolated in the freeze step (\cref{as:commit}). Each block's epistemic status is
 For water to act even momentarily as an addressable medium, it cannot be a bulk volume.
 In bulk liquid, distinct driving frequencies superpose and produce beat phenomena, so
 independently addressed ``cells'' would modulate and erase one another (crosstalk). The
-proposal therefore confines the medium to microscopic \emph{pods} that physically isolate
+proposal therefore confines the medium to discrete \emph{pods} that physically isolate
 addressable regions - an acoustic analogue of CTF's discrete charge traps, where isolation,
 not bulk capacity, is the design goal~\cite{white2000sonos}.
 
+A note on scale is needed up front, because it disciplines everything that follows. The
+addressing grid is drawn by a megahertz field, so the smallest feature it can write or read
+is set by that field's wavelength: at \qtyrange{5}{50}{\mega\hertz} the half-wavelength in
+water is ${\sim}\qtyrange{15}{150}{\micro\meter}$ (\cref{sec:diffraction}). A pod must
+therefore be \emph{at least} a few wavelengths across to host an internal grid at all - of
+order \qtyrange{0.1}{1}{\milli\meter}, not sub-micron. We retain ``microscopic'' only in the
+loose sense of sub-millimetre; the isolation in \cref{as:confine} is between neighbouring
+pods in an addressed array, not within a single nanoscale cell. Any nanometre-scale
+structure invoked below (microtubule water, structured-water ``pearls'') is therefore
+\emph{motivational only} and explicitly \emph{not} the addressed unit - a point the capacity
+reckoning of \cref{sec:capacity} makes quantitative.
+
 \begin{assumption}[Confinement enables isolation]\label{as:confine}
-Sub-micron confinement suppresses inter-cell acoustic crosstalk enough that independently
-addressed regions do not annihilate one another during the write window.
+Sub-millimetre pod confinement suppresses inter-pod acoustic crosstalk enough that
+independently addressed pods do not annihilate one another during the write window.
 \end{assumption}
 
 As biological \emph{motivation only}, we note the recurring (and contested) claim that
 cytoskeletal microtubules - hollow cylinders with an inner diameter of order
 \qty{15}{\nano\meter} - might shield ordered internal water from thermal noise, a premise of
-the Orch-OR quantum-biology hypothesis~\cite{hameroff2014orchor}. That premise is itself
+the Orch-OR quantum-biology hypothesis~\cite{hameroff2014orchor}. (This is a nanometre-scale
+intuition pump, four orders of magnitude below the sub-millimetre addressed pod above; we
+borrow only the \emph{qualitative} notion that confinement protects order.) That premise is itself
 disputed: Tegmark's decoherence estimates put any quantum coherence in warm, wet
 microtubules many orders of magnitude below cognitive
 timescales~\cite{tegmark2000decoherence} (a critique that proponents have in turn disputed
@@ -439,7 +465,7 @@ the disc boundaries remain registered to the in-disc pattern through the freeze.
 \begin{tikzpicture}[font=\small]
 % pod boundary
 \draw[acpcmteal,very thick,fill=acpcmteal!6] (0,0) circle (2.4cm);
-\node[acpcmteal] at (0,2.78) {confined aqueous pod (sub-\unit{\micro\meter})};
+\node[acpcmteal] at (0,2.78) {confined aqueous pod (sub-\unit{\milli\meter})};
 % standing-wave nodal grid (concentric + radial = CHS analogy)
 \foreach \r in {0.8,1.4,2.0} \draw[acpcmblue!60,thick] (0,0) circle (\r);
 \foreach \a in {0,30,...,330} \draw[acpcmblue!35] (\a:0.4) -- (\a:2.35);
@@ -523,6 +549,53 @@ citations establish only that \emph{their own} rapid-quench mechanisms work; the
 \emph{no} evidence that an acoustic field can be recorded by freezing water. That bridge is
 ours, and it is conjecture.
 
+\subsection{What the freezing-under-sound literature actually says}
+\label{sec:sono}
+There \emph{is} an established body of work in which ultrasound applied during freezing
+leaves a structural imprint in the resulting ice - \emph{sonocrystallization}, or
+ultrasound-assisted freezing (UAF), studied extensively in food and pharmaceutical
+processing~\cite{zhang2021uafmech,islam2014radish,delgado2017reviewcontrol}. Power
+ultrasound demonstrably triggers ice nucleation in supercooled water, shortens freezing
+time, and controls ice-crystal size and dendrite morphology. At first glance this is
+encouragement for \cref{as:commit}: sound applied during a freeze \emph{does} change the
+solid that results.
+
+The mechanism, however, cuts the wrong way, and honesty requires stating it plainly. The
+established coupling is \emph{cavitation}: the field nucleates and collapses gas/vapour
+bubbles, and those bubbles - not the field's spatial pattern - seed the
+ice~\cite{zhang2021uafmech,saclier2010bubbles}; collapsing bubbles further emit microjets
+and shock waves that \emph{fragment} growing dendrites into secondary
+nuclei~\cite{zhang2021uafmech}. This is spatially \emph{stochastic} (bubble sites are random)
+and pattern-\emph{destroying} (fragmentation erases fine structure), the opposite of a
+faithful field-to-lattice transcription. So the one real sound$\rightarrow$ice channel
+supports the weak claim (a patterned freeze differs from a sham freeze) while actively
+undermining the strong one ACPCM needs (the difference \emph{is} a readable copy of the
+field). \Cref{sec:limits} draws the consequence: the cheapest test, \cref{pr:transfer}, is at
+risk of a \emph{misleading positive} driven by cavitation rather than recording, and must be
+designed to exclude it.
+
+\subsection{A buildable special case: acoustically assembled, then locked}
+\label{sec:assembly}
+One variant of the write step is \emph{not} speculative at all, and we flag it as the
+project's honest engineering exit. If the pod is seeded with discrete, acoustically
+responsive tracer objects (micro-particles, beads, or cells), then arranging them at the
+standing-wave nodes and \emph{locking} them in place by solidifying the surrounding medium
+is demonstrated, current technology: holographic ultrasound fields assemble particles, gel
+beads, and cells into prescribed 3D shapes that are then fixed permanently by gelation of the
+host medium~\cite{melde2023assembly}, and acoustic focusing of beads/cells in a droplet
+followed by cross-linking locks their positions to within ${\sim}10\%$ of the target
+line~\cite{olofsson2021hydrogel}. Substitute ``freeze'' for ``gel'' and this is precisely
+ACPCM's write--lock cycle, minus the speculative leap.
+
+The price of buildability is that this records the \emph{positions of seeded objects}, not
+the topology of the water itself - it is a particle-in-matrix memory, not ``molecular
+cymatics.'' It still inherits the acoustic read limit of \cref{sec:diffraction} (the locked
+pattern is read no finer than the ice wavelength), so it does not rescue the density verdict;
+and it is a more modest claim than the pure-water proposal. We include it because it draws
+the boundary exactly: everything up to and including \emph{assemble-and-lock discrete
+scatterers} is established; the single remaining conjecture is that the same freeze records
+the \emph{continuous water field} with no seeded objects at all (\cref{as:commit}).
+
 %================================================================== 5. Read
 \section{Reading: megahertz acoustic holography}
 \label{sec:read}
@@ -532,7 +605,10 @@ resolution of any microphone. Read-back is posed as an \emph{acoustic holography
 problem~\cite{melde2016holograms}.
 
 \paragraph{The ice as a phase plate.}
-A megahertz ultrasonic pulse illuminates the frozen pod. Because acoustic holography is
+A megahertz ultrasonic pulse illuminates the frozen pod. (That an acoustic probe can
+interrogate the water-to-ice transition at all is established: MHz plate waves resolve the
+freezing transition through its attenuation signature~\cite{anisimkin2021platewave}.)
+Because acoustic holography is
 diffraction-limited, resolving microscopic features requires correspondingly short
 wavelengths - i.e.\ MHz (or higher) ultrasound, with millimetre-to-sub-millimetre
 wavelengths in water and ice~\cite{melde2016holograms,jimenez2019skull}. The ice topology
@@ -809,6 +885,15 @@ about how freezing water records and preserves an acoustic field.} The refuted i
 Rapid ``write'' by phase change (\cref{sec:write})
   & HAMR heat--quench; chalcogenide PCM melt--quench switching~\cite{kryder2008hamr,wuttig2007pcm}
   & \textcolor{warnrule}{\bfseries Speculative} (\cref{as:commit}) \\
+Assemble-and-lock seeded scatterers (\cref{sec:assembly})
+  & Holographic acoustic assembly fixed by gelation; acoustic focusing $+$ cross-link~\cite{melde2023assembly,olofsson2021hydrogel}
+  & \textcolor{acpcmteal}{\bfseries Established} for \emph{particles}; the leap is pure-water recording \\
+Sound$\rightarrow$ice structural imprint (\cref{sec:sono})
+  & Sonocrystallization / ultrasound-assisted freezing~\cite{zhang2021uafmech,delgado2017reviewcontrol}
+  & Imprint \textcolor{acpcmteal}{\bfseries established} but via \textcolor{warnrule}{\bfseries cavitation} (stochastic, pattern-destroying) \\
+Ordered ice by directional freeze (\cref{sec:device})
+  & Freeze-casting; planar-front stability; magnetic grain alignment~\cite{deville2006freezecast,mullins1964stability,porter2012magnetic}
+  & \textcolor{acpcmteal}{\bfseries Established} at scale; the device regime, not the chaotic quench \\
 Cell isolation via pods (\cref{sec:medium})
   & Charge-trap flash discrete traps~\cite{white2000sonos}
   & \textcolor{acpcmgray}{\bfseries Plausible} (\cref{as:confine}) \\
@@ -854,6 +939,17 @@ birefringence, or scattered-field signature) that is absent under sham (unmodula
 freezing. \emph{Test:} interferometric or acoustic readout of patterned vs.\ control
 freezes under blinding; \emph{falsified if} no above-noise, pattern-correlated structure
 survives (\cref{as:commit}).
+
+\emph{Mandatory confound control.} A bare positive here is \textbf{not} sufficient, because
+sonocrystallization guarantees that \emph{any} insonated freeze differs from a quiescent one
+through cavitation-seeded nucleation and dendrite fragmentation
+(\cref{sec:sono})~\cite{zhang2021uafmech} - an effect that carries no field information. The
+test must therefore (i)~suppress cavitation as a confound (degassed water, elevated static
+pressure, or amplitudes below the cavitation threshold), and (ii)~demand that the imprint
+\emph{tracks the imposed pattern's geometry} - changing with node spacing and orientation and
+registering to the antinode lattice - rather than merely exceeding the sham. A difference
+that does not move with the pattern is a cavitation artefact, not a recording, and counts as a
+\emph{falsification}, not a success.
 \end{prediction}
 
 \begin{prediction}[Addressable nodes]\label{pr:nodes}
@@ -919,6 +1015,52 @@ direct tension with the thermodynamics of solidification on every axis - rate, h
 strain - and controlling nucleation site, rate, and crystal habit ($\mathrm{I_h}$ vs.\
 vitrified) is a hard, partly unsolved problem in its own right.
 
+\paragraph{The only established sound$\rightarrow$ice channel is the wrong one.}
+It would be convenient if the sonocrystallization literature
+(\cref{sec:sono})~\cite{zhang2021uafmech,delgado2017reviewcontrol} supplied the missing
+mechanism. It does not. That literature couples sound to ice through \emph{cavitation} -
+bubble nucleation and collapse - which seeds ice at \emph{stochastic} sites and fragments
+dendrites~\cite{zhang2021uafmech,saclier2010bubbles}; it changes ice statistics, not ice
+\emph{coordinates}. A faithful commit (\cref{as:commit}) needs the inverse: a deterministic,
+spatially registered transcription of a continuous field. The established effect is thus
+simultaneously the best evidence that freezing-under-sound does \emph{something} and the
+clearest reason to expect that something to be informationally empty - which is exactly why
+\cref{pr:transfer} carries a mandatory cavitation control.
+
+\paragraph{What the nearest experiments actually show.}
+No one has performed the exact ACPCM experiment - impose a cymatic standing wave in bulk
+water, freeze, and recover spatial information - but the closest containerless-freezing work
+is consistent on the point that matters. When a water droplet is frozen while held in an
+acoustic levitation field, it supercools, nucleates a crust, and then solidifies by
+\emph{inward dendritic growth}; the field's role is to \emph{hold} the droplet without a
+container, not to write its interior, and the resulting ice records the thermal field and
+crystallography, not the acoustic node geometry~\cite{biswas2025snowflake}. Where an imposed
+field \emph{does} leave a preserved pattern, it does so by arranging \emph{discrete objects}:
+suspended particles in a levitated or drying droplet are driven to the pressure field's nodes
+and that arrangement survives into the dried/solid granule~\cite{yarin2002drying}. Both
+observations reproduce the boundary of \cref{sec:assembly}: fields move and freeze
+\emph{things}; ordinary crystallization writes the \emph{ice}.
+
+\paragraph{Field-stabilised (containerless) freezing: a better rig, not a better device.}
+A natural instinct is to hold each pod still and freeze it in place by a static field rather
+than against a wall. This is real and worth using. Water is diamagnetic and can be
+\emph{levitated} in a strong gradient magnetic field - the route by which Tagami and
+co-workers performed containerless solidification of magnetically levitated water in a hybrid
+magnet~\cite{tagami1999maglev}, and which a recent design achieves for ${\sim}\qty{0.3}{\milli\meter}$
+droplets with only ordinary permanent magnets~\cite{naito2024diamaglev}; charged droplets are
+likewise held contact-free in electrostatic levitators, the standard tool for
+deep-undercooling solidification studies~\cite{rhim1993esl}. Static and oscillating magnetic
+fields also demonstrably bias ice nucleation and crystal size~\cite{otero2016magnetic}, and the magnetic
+anisotropy of ice even lets a strong field orient the crystal $c$-axis - a genuine lever on
+habit and registration. The honest verdict is that this improves the \emph{experiment} rather
+than the architecture: containerless levitation removes wall (heterogeneous) nucleation,
+enables the deep, controlled supercooling \cref{as:commit} needs, and is in fact the cleanest
+rig in which to run \cref{pr:transfer}. But it does not address the load-bearing failure - the
+freeze front still overruns the pattern (above), the read path is still diffraction-limited
+(\cref{sec:diffraction}), and a tesla-scale magnet or kilovolt trap \emph{per pod} runs
+directly against the cheap-archival premise that motivates the medium. Levitation makes the
+test honest; it does not make the device feasible.
+
 \paragraph{Liquid water has no long-term memory.}
 The hydrogen-bond network reorganizes on picosecond timescales~\cite{cowan2005water}; there
 is no credible evidence for persistent information storage in \emph{liquid} water, and the
@@ -942,11 +1084,115 @@ throughput. Even if every assumption held, the density/energy/latency envelope w
 beat HAMR~\cite{kryder2008hamr} and 3D NAND~\cite{goda2020} to matter - a very high bar.
 
 \paragraph{What would change our mind.}
-A positive, replicated result on \cref{pr:transfer} under blinded controls - pattern-
-dependent, above-noise structure that survives freezing and carries recoverable
-information - would promote \cref{as:commit} from speculation to phenomenon and justify
-pursuing the rest. Absent that, ACPCM remains an organizing metaphor and a teaching device
-for cross-disciplinary analogy, not a storage technology.
+A positive, replicated result on \cref{pr:transfer} under blinded controls \emph{with
+cavitation excluded} - pattern-dependent, above-noise, geometry-tracking structure that
+survives freezing and carries recoverable information - would promote \cref{as:commit} from
+speculation to phenomenon and justify pursuing the rest. Absent that, the honest fallback is
+not nothing: the particle-seeded, assemble-and-lock variant of \cref{sec:assembly} is already
+demonstrated in adjacent fields~\cite{melde2023assembly,olofsson2021hydrogel} and is the
+buildable core that survives if the pure-water conjecture fails. What dies in that case is
+specifically the claim that water records a continuous acoustic field without seeded
+scatterers; what remains is a modest, read-limited particle-in-ice memory and an organizing
+metaphor for cross-disciplinary analogy, not a competitive storage technology.
+
+%================================================================== Toward a device
+\section{Toward a device that could stand}
+\label{sec:device}
+
+The preceding sections refute ACPCM as a \emph{high-density} memory. They do not, by
+themselves, refute it as a \emph{device} - provided it stops competing on the axis it loses
+and is rebuilt from the regimes where freezing water is \emph{controllable} rather than
+chaotic. This section sketches that pivot in the same honest spirit as the rest of the paper:
+it remains speculative, but it is now device-\emph{shaped} - a build recipe assembled from
+individually demonstrated components, a concrete operating point, and a fresh set of
+falsifiable tests. The key realization is that \emph{directional} solidification of water is
+not a thought experiment but an industry: \emph{freeze-casting} (ice-templating) routinely
+produces ordered, regular, repeatable ice architecture by controlling a freezing
+front~\cite{deville2006freezecast}. ``Freezing is too chaotic to record structure'' is false
+in that regime; it is true only of the uncontrolled, deeply supercooled quench assumed in
+\cref{sec:limits}.
+
+\subsection{Reframe the competition}
+ACPCM should not be pitched on density or energy, where it loses to DNA, 5D glass, and DRAM
+by the margins of \cref{sec:capacity}. It should be pitched on the axes where water is without
+peer: \emph{substrate cost, abundance, non-toxicity, and recyclability}, deployed where cold
+is already free. Water is the cheapest write medium on Earth; it requires no synthesis (unlike
+DNA), is benign at any scale (unlike essentially every engineered medium), and is - uniquely -
+\emph{infinitely re-writable at the substrate level}: melt it and the medium is pristine
+again. The target is the coldest, cheapest, most disposable tier of the storage hierarchy -
+the gravel of data storage, not the diamond.
+
+\subsection{Four moves that turn each obstacle into a design choice}
+Each load-bearing objection of \cref{sec:limits} maps to an established mechanism that
+neutralizes it, at the cost of abandoning the pure-water, high-density framing.
+
+\begin{enumerate}[leftmargin=1.6em,nosep]
+  \item \textbf{Faithful commit $\rightarrow$ seed the scatterers.} Do not ask bare water to
+  record the field. Seed the pod with acoustically responsive tracers and lock their
+  field-assembled positions by freezing - the assemble-and-lock cycle already demonstrated
+  with gelation~\cite{melde2023assembly,olofsson2021hydrogel} (\cref{sec:assembly}). This
+  retires \cref{as:commit} entirely; the recorded quantity is particle position, which
+  \emph{is} preserved through solidification.
+  \item \textbf{Dendritic overrun $\rightarrow$ stay below the instability.} The freeze front
+  destroys fine structure only \emph{above} the Mullins--Sekerka critical
+  velocity~\cite{mullins1964stability}: below it, in a sufficiently steep thermal gradient,
+  the solid--liquid interface is morphologically \emph{stable} and advances as a planar (or
+  regularly cellular) front. Freeze-casting exploits exactly this to template ordered
+  lamellae~\cite{deville2006freezecast}. Trade write speed for fidelity and the
+  ``front overruns the pattern'' objection becomes a regime boundary to engineer around, not
+  a law.
+  \item \textbf{No addressable grid $\rightarrow$ encode in the grain architecture.} Let the
+  directional freeze itself carry the data: lamellar spacing, the grain-boundary map, and -
+  the multi-level axis - the crystallographic $c$-axis orientation of each grain, steered by a
+  \emph{weak} (millitesla, not tesla) rotating magnetic bias during freezing, as in magnetic
+  freeze-casting~\cite{porter2012magnetic}. Orientation read by acoustic (or birefringence)
+  anisotropy gives more than one bit per grain. The mechanism that
+  \cref{sec:limits} called a confound - fields steering nucleation and growth - becomes the
+  \emph{signal}.
+  \item \textbf{Energy/throughput $\rightarrow$ co-opt ambient cold.} The ${\sim}\qty{4}{\micro\joule}$/bit
+  freeze cost (\cref{sec:capacity}) is a cost only where heat must be actively pumped. Site
+  the medium where cold is free and standing - polar archives, the cold aisle of a cryogenic
+  data centre, or lunar permanently-shadowed regions at ${\sim}\qty{40}{\kelvin}$ - and the
+  budget collapses toward the transducer and read electronics. Re-melt-to-rewrite, a drawback
+  for RAM, is reframed as built-in secure erasure plus substrate recycling.
+\end{enumerate}
+
+\subsection{The honest operating point}
+This device is still acoustic-read-limited (\cref{sec:diffraction}): ${\sim}10^{4}$--$10^{7}$
+bits/mm$^3$, below every incumbent on volumetric density, and energy-competitive only where
+cold is ambient. We claim no density win and no energy win. The claim is narrower and, we
+think, defensible: a \emph{non-empty niche} for an ultra-low-cost, non-toxic, substrate-recyclable,
+geologically stable cold-archive tier, built from components each demonstrated in isolation.
+Whether that niche is worth occupying is an economic question; that it is physically
+constructible to test is the point.
+
+\subsection{Device-mode predictions}
+The pivot earns its keep only if it, too, is falsifiable. It adds three tests to those of
+\cref{sec:predictions}.
+\begin{prediction}[Planar-front fidelity]\label{pr:planar}
+Recording fidelity of a seeded pattern is high when the front advances \emph{below} the
+Mullins--Sekerka critical velocity~\cite{mullins1964stability} and degrades sharply above it.
+\emph{Falsified if} fidelity is independent of front velocity (which would mean the imprint is
+not a solidification-front effect at all).
+\end{prediction}
+\begin{prediction}[Recyclability]\label{pr:recycle}
+The pod survives many melt--refreeze--rewrite cycles with no accumulating error floor.
+\emph{Falsified if} dissolved-gas or solute build-up degrades readback within a few cycles -
+the failure mode that would make ``infinitely re-writable'' false in practice.
+\end{prediction}
+\begin{prediction}[Orientation multi-level]\label{pr:orient}
+A millitesla rotating bias during directional freezing sets per-grain $c$-axis orientation
+that survives the full freeze and is recoverable by acoustic anisotropy, yielding
+$>1$~bit/grain~\cite{porter2012magnetic}. \emph{Falsified if} orientation does not survive
+solidification or cannot be read above chance.
+\end{prediction}
+
+Every block invoked here - acoustic assembly~\cite{melde2023assembly}, planar-front
+directional solidification~\cite{mullins1964stability,deville2006freezecast}, magnetic grain
+alignment~\cite{porter2012magnetic}, and acoustic-anisotropy read-out~\cite{anisimkin2021platewave} -
+is established in isolation. The remaining conjecture is only that they \emph{compose} into a
+working channel. That is the precise difference between a metaphor and a device, and it is a
+conjecture one can build a bench to test.
 
 %================================================================== 9. Conclusion
 \section{Conclusion}
@@ -962,8 +1208,12 @@ claim but the discipline of the synthesis: by laying out an explicit epistemic l
 (\cref{tab:status}) and a falsifiable test program (\cref{sec:predictions}), the proposal
 makes clear exactly which single physical claim (\cref{as:commit}) it lives or dies by,
 concentrates all genuinely speculative risk there, and quarantines refuted ideas as
-motivation only. We offer it in that spirit: a provocation to be tested and, most likely,
-falsified - which is the useful kind.
+motivation only. And where the high-density framing fails, \cref{sec:device} shows the idea
+need not collapse to metaphor: rebuilt from controlled directional solidification, seeded
+scatterers, and millitesla grain orientation - each established in isolation - it has a
+device-shaped, falsifiable operating point as a recyclable cold-archive medium, competing on
+cost and benignity rather than density. We offer the whole in that spirit: a provocation to be
+tested and, most likely, falsified - which is the useful kind.
 
 %------------------------------------------------------------------ back matter
 \section*{Epistemic disclosure}
@@ -1088,6 +1338,19 @@ waves,'' \emph{Nat. Commun.}, vol.~6, art.~8686, 2015, doi:\,10.1038/ncomms9686.
 J.~Rufo, F.~Cai, J.~Friend, M.~Wiklund, and T.~J. Huang, ``Acoustofluidics for biomedical
 applications,'' \emph{Nat. Rev. Methods Primers}, vol.~2, art.~30, 2022,
 doi:\,10.1038/s43586-022-00109-7.
+
+\bibitem{melde2023assembly}
+K.~Melde, H.~Kremer, M.~Shi, S.~Seneca, C.~Frey, I.~Niemann, S.~Wei{\ss}enbruch, S.~Harrer,
+B.~Maier, B.~W. Drinkwater, and P.~Fischer, ``Compact holographic sound fields enable rapid
+one-step assembly of matter in 3D,'' \emph{Sci. Adv.}, vol.~9, no.~6, art.~eadf6182, 2023,
+doi:\,10.1126/sciadv.adf6182. [Acoustic assembly of particles/cells fixed permanently by
+gelation of the host medium.]
+
+\bibitem{olofsson2021hydrogel}
+K.~Olofsson, B.~Hammarstr\"om, and M.~Wiklund, ``Acoustic focusing of beads and cells in
+hydrogel droplets,'' \emph{Sci. Rep.}, vol.~11, art.~8090, 2021,
+doi:\,10.1038/s41598-021-86985-7. [Standing-wave focusing then cross-linking locks particle
+positions.]
 
 % ---- Hydrophone metrology & DL acoustic inversion ----
 \bibitem{iec62127}
@@ -1245,6 +1508,87 @@ doi:\,10.1038/288569a0.
 J.~Schmidt \emph{et al.}, ``Direct measurement of the critical cooling rate for the
 vitrification of water,'' \emph{Phys. Rev. Research}, vol.~7, art.~013095, 2025,
 doi:\,10.1103/PhysRevResearch.7.013095.
+
+% ---- Sonocrystallization / ultrasound-assisted freezing (ESTABLISHED; cavitation mechanism) ----
+\bibitem{zhang2021uafmech}
+P.~Zhang, Z.~Zhu, and D.-W. Sun, ``Mechanism of ultrasound assisted nucleation during
+freezing and its application in food freezing process,'' \emph{Int. J. Food Prop.}, vol.~24,
+no.~1, pp.~68--88, 2021, doi:\,10.1080/10942912.2020.1858862. [Cavitation-bubble nucleation
+and dendrite fragmentation; stochastic, not field-recording.]
+
+\bibitem{delgado2017reviewcontrol}
+A.~E. Delgado, L.~Zheng, and D.-W. Sun, ``Influence of ultrasound on freezing rate of
+immersion-frozen apples,'' and review of ice-nucleation control by ultrasonic, electric, and
+magnetic fields, \emph{J. Food Eng.}, vol.~195, pp.~1--12, 2017,
+doi:\,10.1016/j.jfoodeng.2016.09.011. [Review: external fields steer ice nucleation
+statistics.]
+
+\bibitem{saclier2010bubbles}
+M.~Saclier, R.~Peczalski, and J.~Andrieu, ``A theoretical model for ice primary nucleation
+induced by acoustic cavitation,'' \emph{Ultrason. Sonochem.}, vol.~17, no.~1, pp.~98--105,
+2010, doi:\,10.1016/j.ultsonch.2009.04.008. [Cavitation bubbles as the nucleation trigger.]
+
+\bibitem{anisimkin2021platewave}
+V.~Anisimkin, V.~Kolesov, A.~Kuznetsova, E.~Shamsutdinova, and I.~Kuznetsova, ``An analysis
+of the water-to-ice phase transition using acoustic plate waves,'' \emph{Sensors}, vol.~21,
+no.~3, art.~919, 2021, doi:\,10.3390/s21030919. [MHz plate waves track the freezing
+transition acoustically.]
+
+% ---- Nearest-neighbour containerless-freezing experiments ----
+\bibitem{biswas2025snowflake}
+S.~Biswas \emph{et al.}, ``Revealing the structure of snowflakes using acoustic levitation,''
+\emph{Proc. Natl. Acad. Sci. USA}, 2025, doi:\,10.1073/pnas.2502112122. [Levitated droplet
+freezes by inward dendritic growth; field holds, does not write the interior.]
+
+\bibitem{yarin2002drying}
+A.~L. Yarin, G.~Brenn, O.~Kastner, and C.~Tropea, ``Drying of acoustically levitated droplets
+of liquid--solid suspensions: evaporation and crust formation,'' \emph{Phys. Fluids},
+vol.~14, no.~7, pp.~2289--2298, 2002, doi:\,10.1063/1.1483308. [Suspended particles driven by
+the field; arrangement preserved into the dried/solid granule.]
+
+% ---- Field-stabilised (containerless) freezing: magnetic / electrostatic levitation ----
+\bibitem{tagami1999maglev}
+M.~Tagami, M.~Hamai, I.~Mogi, K.~Watanabe, and M.~Motokawa, ``Solidification of levitating
+water in a gradient strong magnetic field,'' \emph{J. Cryst. Growth}, vol.~203, no.~4,
+pp.~594--598, 1999, doi:\,10.1016/S0022-0248(99)00141-4. [Containerless freezing of
+diamagnetically levitated water.]
+
+\bibitem{naito2024diamaglev}
+T.~Naito, T.~Suzuki, and Y.~Ikezoe, ``Diamagnetic levitation of water realized with a simple
+device consisting of ordinary permanent magnets,'' \emph{Appl. Phys. Lett.}, vol.~125,
+no.~26, art.~264102, 2024, doi:\,10.1063/5.0241203. [${\sim}\qty{0.3}{\milli\meter}$ droplet
+levitated without a superconducting magnet.]
+
+\bibitem{rhim1993esl}
+W.-K. Rhim, S.~K. Chung, D.~Barber, K.~F. Man, G.~Gutt, A.~Rulison, and R.~E. Spjut, ``An
+electrostatic levitator for high-temperature containerless materials processing in 1-g,''
+\emph{Rev. Sci. Instrum.}, vol.~64, no.~10, pp.~2961--2970, 1993, doi:\,10.1063/1.1144475.
+[Charged-droplet containerless processing; deep undercooling.]
+
+\bibitem{otero2016magnetic}
+L.~Otero, A.~C. Rodr\'iguez, M.~P\'erez-Mateos, and P.~D. Sanz, ``Effects of magnetic fields
+on freezing: application to biological products,'' \emph{Compr. Rev. Food Sci. Food Saf.},
+vol.~15, no.~3, pp.~646--667, 2016, doi:\,10.1111/1541-4337.12202. [Review: magnetic-field
+effects on ice nucleation and crystal size.]
+
+% ---- Controlled directional solidification: the device regime (ESTABLISHED) ----
+\bibitem{mullins1964stability}
+W.~W. Mullins and R.~F. Sekerka, ``Stability of a planar interface during solidification of a
+dilute binary alloy,'' \emph{J. Appl. Phys.}, vol.~35, no.~11, pp.~444--451, 1964,
+doi:\,10.1063/1.1713333. [Planar front is stable below a critical growth velocity; above it,
+cellular/dendritic.]
+
+\bibitem{deville2006freezecast}
+S.~Deville, E.~Saiz, R.~K. Nalla, and A.~P. Tomsia, ``Freezing as a path to build complex
+composites,'' \emph{Science}, vol.~311, no.~5760, pp.~515--518, 2006,
+doi:\,10.1126/science.1120937. [Freeze-casting: directional solidification of water yields
+ordered, regular ice architecture at scale.]
+
+\bibitem{porter2012magnetic}
+M.~M. Porter, M.~Yeh, J.~Strawson, T.~Goehring, S.~Lujan, P.~Siripasopsotorn, M.~A. Meyers,
+and J.~McKittrick, ``Magnetic freeze casting inspired by nature,'' \emph{Mater. Sci. Eng. A},
+vol.~556, pp.~741--750, 2012, doi:\,10.1016/j.msea.2012.07.058. [A weak rotating magnetic
+field orients grains during directional freezing - long-range order at millitesla scale.]
 
 \bibitem{shibkov2003ice}
 A.~A. Shibkov, Yu.~I. Golovin, M.~A. Zheltov, A.~A. Korolev, and A.~A. Leonov, ``Morphology

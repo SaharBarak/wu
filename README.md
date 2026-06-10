@@ -20,7 +20,7 @@ feasibility claim**.
 | File | Purpose |
 |------|---------|
 | `main.tex`   | The complete preprint (self-contained; embedded `thebibliography`). |
-| `main.pdf`   | Compiled output (11 pages). |
+| `main.pdf`   | Compiled output (20 pages). |
 | `Makefile`   | `make` / `make clean` helpers. |
 | `README.md`  | This file, including the **citation audit trail**. |
 
@@ -117,6 +117,39 @@ lists checked, several corrected). Status labels mirror the paper's epistemic le
 | Shibkov et al. 2003 - dendritic ice growth morphology | Physica A 319:65 | `10.1016/S0378-4371(02)01517-0` | ✅ Crossref |
 | Xu et al. 2016 - ice growth rate / supercooled-water diffusivity | PNAS 113:14921 | `10.1073/pnas.1611395114` | ✅ Crossref |
 | Horowitz 2014 - computing's energy problem (pJ/bit benchmark) | ISSCC 2014:10 | `10.1109/ISSCC.2014.6757323` | ✅ Crossref |
+
+### Established - sonocrystallization & acoustic-assembly revision (added 2026-06; the sound→ice channel and the buildable particle-seeded exit)
+| # | Reference | DOI / ID | Verified |
+|---|-----------|----------|----------|
+| Melde et al. 2023 - holographic sound fields assemble matter in 3D, fixed by gelation | Sci. Adv. 9(6):eadf6182 | `10.1126/sciadv.adf6182` | ✅ Crossref |
+| Olofsson, Hammarström, Wiklund 2021 - acoustic focusing in hydrogel droplets, then cross-link | Sci. Rep. 11:8090 | `10.1038/s41598-021-86985-7` | ✅ Crossref |
+| Zhang, Zhu, Sun 2021 - mechanism of ultrasound-assisted nucleation (cavitation) | Int. J. Food Prop. 24(1):68 | `10.1080/10942912.2020.1858862` | ✅ Crossref |
+| Delgado, Zheng, Sun 2017 - ultrasonic control of ice nucleation (review) | J. Food Eng. 195:1 | `10.1016/j.jfoodeng.2016.09.011` | ✅ Crossref |
+| Saclier, Peczalski, Andrieu 2010 - model of cavitation-induced ice nucleation | Ultrason. Sonochem. 17(1):98 | `10.1016/j.ultsonch.2009.04.008` | ✅ Crossref |
+| Anisimkin et al. 2021 - water-to-ice transition via acoustic plate waves | Sensors 21(3):919 | `10.3390/s21030919` | ✅ Crossref |
+
+> **Cuts both ways, stated honestly.** Sonocrystallization is real established physics, but the coupling is *cavitation* — stochastic bubble-seeded nucleation and dendrite fragmentation — so it supports "a patterned freeze differs from sham" while undermining "the difference *records* the field." Carried into the text as a mandatory confound control on Prediction 1, and as the boundary line for the buildable particle-seeded variant (Melde 2023).
+
+### Established - nearest-neighbour experiments & field-stabilised freezing (added 2026-06; §limits grounding)
+| # | Reference | DOI / ID | Verified |
+|---|-----------|----------|----------|
+| Biswas et al. 2025 - snowflake structure via acoustic levitation (containerless freeze) | PNAS 2025 | `10.1073/pnas.2502112122` | ✅ Crossref |
+| Yarin, Brenn, Kastner, Tropea 2002 - drying of levitated suspension droplets (particle arrangement locks) | Phys. Fluids 14(7):2289 | `10.1063/1.1483308` | ✅ Crossref |
+| Tagami, Hamai, Mogi, Watanabe, Motokawa 1999 - solidification of magnetically levitated water | J. Cryst. Growth 203(4):594 | `10.1016/S0022-0248(99)00141-4` | ✅ Crossref |
+| Naito, Suzuki, Ikezoe 2024 - diamagnetic water levitation with ordinary permanent magnets | Appl. Phys. Lett. 125(26):264102 | `10.1063/5.0241203` | ✅ Crossref |
+| Rhim et al. 1993 - electrostatic levitator for containerless processing | Rev. Sci. Instrum. 64(10):2961 | `10.1063/1.1144475` | ✅ Crossref |
+| Otero, Rodríguez, Pérez-Mateos, Sanz 2016 - magnetic fields on freezing (review) | Compr. Rev. Food Sci. 15(3):646 | `10.1111/1541-4337.12202` | ✅ Crossref |
+
+> **The nearest real experiments agree with the mechanism.** No one has run the exact ACPCM experiment, but containerless-freezing work shows fields *hold/arrange* (levitation, particle assembly) while ordinary dendritic crystallisation *writes the ice*. Magnetic (diamagnetic levitation; magnetic-assisted freezing) and electrostatic levitation improve the **experiment** — containerless, deep-supercooling, wall-nucleation-free — but a tesla-scale magnet per pod runs against the cheap-archival premise: a better rig, not a better device.
+
+### Established - the device regime: controlled directional solidification (added 2026-06; §device)
+| # | Reference | DOI / ID | Verified |
+|---|-----------|----------|----------|
+| Mullins & Sekerka 1964 - planar-interface morphological stability (critical velocity) | J. Appl. Phys. 35(11):444 | `10.1063/1.1713333` | ✅ Crossref |
+| Deville, Saiz, Nalla, Tomsia 2006 - freeze-casting / ice-templating ordered architecture | Science 311(5760):515 | `10.1126/science.1120937` | ✅ Crossref |
+| Porter et al. 2012 - magnetic freeze casting (mT-scale grain alignment) | Mater. Sci. Eng. A 556:741 | `10.1016/j.msea.2012.07.058` | ✅ Crossref |
+
+> **The device pivot, kept honest.** Directional freezing is an *industry* (freeze-casting), not a thought experiment: below the Mullins–Sekerka critical velocity a steep-gradient front stays planar and templates ordered ice. §device rebuilds ACPCM from (i) seeded scatterers [Melde 2023], (ii) planar-front directional solidification [Mullins–Sekerka 1964; Deville 2006], (iii) mT magnetic grain orientation [Porter 2012], (iv) co-opted ambient cold. Each block is established in isolation; the lone conjecture is that they *compose*. Operating point: ~10⁴–10⁷ bits/mm³ — no density/energy win, pitched instead on substrate cost, non-toxicity, recyclability. New falsifiable tests P5 (planar-front fidelity), P6 (recyclability), P7 (orientation multi-level).
 
 > **Reliability flags carried into the text.** The 5D-glass "360 TB / 13.8 Gyr / 190 °C"
 > figures originate in a 2016 Southampton press release, not the peer-reviewed PRL (which
