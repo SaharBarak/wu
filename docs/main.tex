@@ -64,6 +64,7 @@
 \usetikzlibrary{arrows.meta,positioning,calc,shapes.geometric,backgrounds,fit,decorations.pathmorphing,patterns}
 \usepackage{pgfplots}
 \pgfplotsset{compat=1.18}
+\usepackage{placeins} % \FloatBarrier - keep floats from drifting across sections
 
 % ---- Hyperlinks (load late, then cleveref last) ----------------------------
 \usepackage[colorlinks=true,allcolors=acpcmblue,breaklinks=true]{hyperref}
@@ -103,8 +104,8 @@
 \title{\bfseries\color{acpcmblue}\Large Acousto-Cymatic Phase-Change Memory:\\[2pt]
 A Speculative Theoretical Framework for High-Density Data Storage\\ in Confined Aqueous Media}
 
-\author[1]{Sahar Barak\thanks{Correspondence: \texttt{sahar.h.barak@gmail.com}. Authorship and affiliation are placeholders to be edited before any submission or circulation.}}
-\affil[1]{Independent Researcher}
+\author{Sahar Barak\thanks{Correspondence: \texttt{hi@saharbarak.dev}.}}
+\affil{Independent Researcher}
 
 \date{\small Preprint - \today \\[2pt] \emph{Speculative ``idea paper'' (cf.\ \texttt{physics.pop-ph} / \texttt{cs.ET}).}}
 
@@ -872,7 +873,7 @@ while the speculative weight is concentrated in a small number of clearly marked
 about how freezing water records and preserves an acoustic field.} The refuted ingredient
 (``water memory'') is load-bearing nowhere; it is motivational framing only.
 
-\begin{table}[t]
+\begin{table}[!t]
 \centering
 \small
 \renewcommand{\arraystretch}{1.25}
@@ -1193,6 +1194,8 @@ alignment~\cite{porter2012magnetic}, and acoustic-anisotropy read-out~\cite{anis
 is established in isolation. The remaining conjecture is only that they \emph{compose} into a
 working channel. That is the precise difference between a metaphor and a device, and it is a
 conjecture one can build a bench to test.
+
+\FloatBarrier % flush any remaining floats before the conclusion / references
 
 %================================================================== 9. Conclusion
 \section{Conclusion}
