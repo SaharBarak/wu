@@ -512,7 +512,7 @@ footer .mono{font-size:var(--text-xs);color:var(--color-muted);letter-spacing:va
     <div class="col-wide reveal">
       <span class="snum">09 / FALSIFIABLE</span>
       <h2 style="font-size:var(--text-xl)">Probably won't work. Here's how to check.</h2>
-      <p class="body" style="margin-top:var(--space-3);max-width:60ch">A speculative proposal earns its keep by being testable. Three gated tests - failing any one falsifies the matching assumption and collapses the architecture back to its established parts - plus a capacity measurement that bounds the whole idea.</p>
+      <p class="body" style="margin-top:var(--space-3);max-width:60ch">A speculative proposal earns its keep by being testable. Three gated tests - failing any one falsifies the matching assumption and collapses the architecture back to its established parts - plus a capacity measurement that bounds the whole idea, and three more (below) for the device variant.</p>
     </div>
     <div class="reveal" style="grid-column:1/6;align-self:start">
       <svg class="flow" viewBox="0 0 360 296" role="img" aria-label="Falsification flow: any gate that fails collapses the architecture to its established parts">
@@ -547,7 +547,8 @@ footer .mono{font-size:var(--text-xs);color:var(--color-muted);letter-spacing:va
       <div class="pred reveal"><div class="pn">P1</div><div>
         <h3>Field-to-lattice transfer</h3>
         <p class="body">Freezing a thin water film under a fixed MHz pattern leaves a reproducible, pattern-dependent modulation in the ice that sham (unmodulated) freezing does not.</p>
-        <p class="fcond">FALSIFIED IF - no above-noise, pattern-correlated structure survives the freeze.</p>
+        <p class="body" style="margin-top:.4em"><span class="hl">Mandatory cavitation control.</span> A bare positive isn't enough - sonocrystallization guarantees any insonated freeze differs from a quiet one via cavitation, carrying no field information. The imprint must <em>track the pattern's geometry</em> (move with node spacing, register to the lattice), with cavitation suppressed (degassed, pressurised, or sub-threshold).</p>
+        <p class="fcond">FALSIFIED IF - no above-noise structure survives, OR the difference does not move with the pattern (a cavitation artefact, not a recording).</p>
       </div></div>
       <div class="pred reveal"><div class="pn">P2</div><div>
         <h3>Addressable nodes</h3>
@@ -565,6 +566,7 @@ footer .mono{font-size:var(--text-xs);color:var(--color-muted);letter-spacing:va
         <p class="fcond">FALSIFIED IF - the layer index is not separable, OR - the exciting case - recovered capacity exceeds the ice diffraction ceiling, implying a sub-wavelength channel.</p>
       </div></div>
       <p class="reveal" style="font-size:var(--text-md);font-weight:300;color:var(--color-muted);margin-top:var(--space-4);max-width:60ch">If P1 fails - the most likely outcome - that negative result is itself worth reporting.</p>
+      <p class="inline-note reveal" style="margin-top:var(--space-4);max-width:60ch"><b>And three more for the device variant (§11).</b> <span class="mono accent">P5</span> recording fidelity is high below the Mullins–Sekerka front velocity and collapses above it. <span class="mono accent">P6</span> the pod survives many melt–refreeze–rewrite cycles with no error floor. <span class="mono accent">P7</span> a millitesla bias sets per-grain <em>c</em>-axis orientation that survives the freeze and reads back, giving &gt;1 bit/grain. Each one is a clean falsification target.</p>
     </div>
   </div>
 </section>
