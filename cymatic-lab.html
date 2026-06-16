@@ -1,0 +1,313 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>wu — cymatic encoding lab (local prototype)</title>
+<meta name="robots" content="noindex" />
+<!-- GA4 + auto-instrumentation (Sahar Barak network) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-M5K829F5CF"></script>
+<script>
+window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('js',new Date());gtag('config','G-M5K829F5CF');
+(function(){
+function track(n,p){try{gtag('event',n,p||{});}catch(e){}}
+try{var m=document.cookie.match(/(?:^|; )__cfbot=([^;]+)/);var sc=null,vf=false;if(m){var v=decodeURIComponent(m[1]).split(':');sc=parseInt(v[0],10);vf=v[1]==='1';}track('bot_check',{cf_bot_score:isNaN(sc)?null:sc,is_bot:(sc!=null&&!isNaN(sc))?(sc<30):null,verified_bot:vf});}catch(e){}
+document.addEventListener('click',function(e){var a=e.target.closest&&e.target.closest('a,button,[data-ga]');if(!a)return;var ga=a.getAttribute&&a.getAttribute('data-ga');var href=(a.getAttribute&&a.getAttribute('href'))||'';var text=((a.textContent||'').trim()).slice(0,80);if(ga){track('cta_click',{cta_label:ga,location:location.pathname});return;}if(href){if(/buymeacoffee|patreon|ko-fi|paypal/i.test(href))track('support_click',{platform:href.replace(/^https?:\/\//,'').split('/')[0]});if(/\.(pdf|zip|csv|tex|gif)$/i.test(href))track('file_download',{file_name:href.split('/').pop()});var ext=/^https?:\/\//.test(href)&&href.indexOf(location.host)===-1;if(ext)track('outbound_click',{link_url:href,link_text:text});else if(a.tagName==='A')track('nav_click',{nav_label:text||href});}else if(a.tagName==='BUTTON'){track('cta_click',{cta_label:text,location:location.pathname});}},true);
+var hit={};window.addEventListener('scroll',function(){var h=document.documentElement;var p=h.scrollTop/((h.scrollHeight-h.clientHeight)||1)*100;[25,50,75,100].forEach(function(m){if(p>=m&&!hit[m]){hit[m]=1;track('scroll_depth',{percent:m});}});},{passive:true});
+function ready(){if('IntersectionObserver'in window){var seen={};var io=new IntersectionObserver(function(es){es.forEach(function(en){if(en.isIntersecting){var id=en.target.id||en.target.getAttribute('data-section');if(id&&!seen[id]){seen[id]=1;track('section_view',{section_id:id});}}});},{threshold:0.4});document.querySelectorAll('section[id],[data-section]').forEach(function(el){io.observe(el);});}}
+if(document.readyState!=='loading')ready();else document.addEventListener('DOMContentLoaded',ready);
+})();
+</script>
+<meta name="color-scheme" content="dark" />
+<link rel="preconnect" href="https://api.fontshare.com" crossorigin />
+<link rel="preconnect" href="https://cdn.fontshare.com" crossorigin />
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://api.fontshare.com/v2/css?f[]=satoshi@300,400,500,700&display=swap" rel="stylesheet" />
+<link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet" />
+<style>
+:root{
+  --color-bg:#0c0e0f; --color-surface-1:#141618; --color-surface-2:#1e2124;
+  --color-border:#2a2e33; --color-muted:#5a6370; --color-text:#d8dde3; --color-text-strong:#edf0f3;
+  --color-accent:#5b9ea6; --color-accent-dim:#3d6e75; --color-accent-pale:#1a3840;
+  --color-speculative:#9a8560;
+  --font-display:"Satoshi",ui-sans-serif,system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;
+  --font-mono:"JetBrains Mono",ui-monospace,"SF Mono",Menlo,Consolas,monospace;
+  --ease-out:cubic-bezier(.16,1,.3,1);
+}
+*,*::before,*::after{box-sizing:border-box}
+body{margin:0;background:var(--color-bg);color:var(--color-text);font-family:var(--font-display);
+  font-size:16px;line-height:1.6;-webkit-font-smoothing:antialiased}
+.shell{max-width:1180px;margin:0 auto;padding:clamp(1.5rem,5vw,4rem) clamp(1.25rem,5vw,3.5rem)}
+.kick{font-family:var(--font-mono);font-size:.72rem;letter-spacing:.14em;text-transform:uppercase;color:var(--color-accent-dim);margin:0 0 .9rem}
+h1{font-weight:500;letter-spacing:-.03em;font-size:clamp(1.6rem,3vw,2.1rem);margin:0 0 .5rem;color:var(--color-text-strong)}
+.lede{max-width:64ch;color:var(--color-text);margin:0 0 1.4rem;font-size:1.02rem}
+.lede b{color:var(--color-text-strong);font-weight:500}
+.flag{display:inline-block;font-family:var(--font-mono);font-size:.66rem;letter-spacing:.1em;text-transform:uppercase;
+  color:var(--color-speculative);border:1px solid color-mix(in srgb,var(--color-speculative) 40%,transparent);
+  border-radius:4px;padding:.2em .55em;margin-bottom:1.6rem}
+.sr{position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap;border:0}
+
+.lab{display:grid;grid-template-columns:1.55fr 1fr;gap:clamp(1rem,3vw,2.4rem);align-items:start}
+@media (max-width:820px){.lab{grid-template-columns:1fr}}
+
+.stage{position:relative;border:1px solid var(--color-border);border-radius:10px;background:
+  radial-gradient(120% 120% at 50% 40%,#101315,#0c0e0f);overflow:hidden;aspect-ratio:1/1;outline:none}
+.stage:focus-visible{box-shadow:inset 0 0 0 1px var(--color-accent),0 0 0 3px var(--color-accent-pale)}
+.stage canvas{display:block;width:100%;height:100%;cursor:crosshair}
+.stage .hint{position:absolute;left:12px;bottom:10px;font-family:var(--font-mono);font-size:.64rem;
+  letter-spacing:.08em;color:var(--color-muted);pointer-events:none;opacity:.85}
+.stage[data-frozen="1"]{box-shadow:inset 0 0 0 1px var(--color-accent-dim)}
+
+.panel{display:flex;flex-direction:column;gap:1.35rem}
+.ctl label{display:flex;justify-content:space-between;align-items:baseline;font-family:var(--font-mono);
+  font-size:.74rem;letter-spacing:.04em;color:var(--color-text);margin-bottom:.5rem}
+.ctl label .v{color:var(--color-accent);font-weight:500;font-variant-numeric:tabular-nums}
+.ctl label .nm{color:var(--color-muted)}
+input[type=range]{-webkit-appearance:none;appearance:none;width:100%;height:2px;background:var(--color-border);
+  border-radius:2px;outline:none}
+input[type=range]::-webkit-slider-thumb{-webkit-appearance:none;width:15px;height:15px;border-radius:50%;
+  background:var(--color-accent);border:2px solid var(--color-bg);cursor:pointer;transition:transform .15s var(--ease-out)}
+input[type=range]::-webkit-slider-thumb:hover{transform:scale(1.18)}
+input[type=range]::-moz-range-thumb{width:13px;height:13px;border-radius:50%;background:var(--color-accent);
+  border:2px solid var(--color-bg);cursor:pointer}
+input[type=range]:focus-visible{box-shadow:0 0 0 3px var(--color-accent-pale)}
+input[type=range]:disabled{opacity:.4}
+input[type=text]{width:100%;font-family:var(--font-mono);font-size:.92rem;letter-spacing:.18em;color:var(--color-accent);
+  background:var(--color-bg);border:1px solid var(--color-border);border-radius:7px;padding:.6em .7em;outline:none;
+  transition:border-color .2s var(--ease-out)}
+input[type=text]:focus-visible{border-color:var(--color-accent-dim);box-shadow:0 0 0 3px var(--color-accent-pale)}
+input[type=text]::placeholder{color:var(--color-muted);letter-spacing:.04em}
+
+.row{display:flex;gap:.6rem}
+.btn{flex:1;font-family:var(--font-mono);font-size:.72rem;letter-spacing:.06em;text-transform:uppercase;
+  padding:.7em .5em;border-radius:7px;border:1px solid var(--color-border);background:var(--color-surface-1);
+  color:var(--color-text);cursor:pointer;transition:border-color .2s var(--ease-out),color .2s var(--ease-out),background .2s var(--ease-out)}
+.btn:hover{border-color:var(--color-accent-dim);color:var(--color-text-strong)}
+.btn:focus-visible{outline:none;border-color:var(--color-accent);box-shadow:0 0 0 3px var(--color-accent-pale)}
+.btn.primary{background:var(--color-accent-pale);border-color:var(--color-accent-dim);color:var(--color-text-strong)}
+.btn.primary:hover{background:color-mix(in srgb,var(--color-accent-pale) 70%,var(--color-accent))}
+
+.readout{border:1px solid var(--color-border);border-radius:9px;background:var(--color-surface-1);overflow:hidden}
+.readout .hd{font-family:var(--font-mono);font-size:.64rem;letter-spacing:.12em;text-transform:uppercase;color:var(--color-muted);
+  padding:.6em .9em;border-bottom:1px solid var(--color-border);background:var(--color-surface-2)}
+.readout dl{margin:0;padding:.35em .9em .7em;display:grid;grid-template-columns:1fr auto;gap:.02em .8em}
+.readout dt{font-size:.78rem;color:var(--color-muted);align-self:center;padding:.38em 0}
+.readout dd{margin:0;font-family:var(--font-mono);font-size:.9rem;color:var(--color-text-strong);text-align:right;
+  font-variant-numeric:tabular-nums;align-self:center}
+.readout dd.accent{color:var(--color-accent)}
+.readout dd small{color:var(--color-muted);font-size:.72rem}
+.readout .span2{grid-column:1/-1;border-top:1px solid var(--color-border);margin-top:.35em;padding-top:.6em;
+  display:flex;justify-content:space-between;align-items:center;gap:1rem}
+.readout .span2 .lab{font-size:.78rem;color:var(--color-muted);white-space:nowrap}
+.readout .span2 .val{font-family:var(--font-mono);font-size:.85rem;color:var(--color-accent);
+  letter-spacing:.12em;text-align:right;word-break:break-all}
+.readout .span2 .val.muted{color:var(--color-muted)}
+.foot{margin-top:2.2rem;font-family:var(--font-mono);font-size:.66rem;letter-spacing:.06em;color:var(--color-muted)}
+.foot a{color:var(--color-accent-dim)}
+</style>
+</head>
+<body>
+<div class="shell">
+  <p class="kick">wu · cymatic encoding · local prototype</p>
+  <h1>Drive the encoding</h1>
+  <p class="lede">The pod's data lives in a standing wave <b>f(r,θ) = cos(k·r)·cos(p·θ)</b>. The radial mode <b>k</b> cuts concentric <b>tracks</b>; the angular mode <b>p</b> cuts radial <b>sectors</b>. Each track×sector cell is one addressable <b>voxel</b> - one bit. Type a bitstring and <b>write</b> it, <b>freeze</b> to lock the lattice, then <b>read</b> it back.</p>
+  <span class="flag">Illustrative · the capacity here is geometric, not a physical claim</span>
+
+  <div class="lab">
+    <div class="stage" id="stage" data-frozen="0" tabindex="0" role="application"
+         aria-label="Cymatic pod. Arrow keys move the addressed voxel; Enter or Space toggles its bit.">
+      <canvas id="cv"></canvas>
+      <span class="hint">click a voxel to set a bit · arrow keys + enter to edit</span>
+    </div>
+
+    <div class="panel">
+      <div class="ctl">
+        <label for="k"><span class="nm">radial mode</span> <span>k = <span class="v" id="kv">3</span></span></label>
+        <input type="range" id="k" min="1" max="7" step="1" value="3" />
+      </div>
+      <div class="ctl">
+        <label for="p"><span class="nm">angular mode</span> <span>p = <span class="v" id="pv">5</span></span></label>
+        <input type="range" id="p" min="1" max="10" step="1" value="5" />
+      </div>
+      <div class="ctl">
+        <label for="ph"><span class="nm">phase φ</span> <span><span class="v" id="phv">0.00</span>π</span></label>
+        <input type="range" id="ph" min="0" max="200" step="1" value="0" />
+      </div>
+      <div class="ctl">
+        <label for="bits"><span class="nm">bitstring</span> <span><span class="v" id="usedv">0</span> / <span id="capv">40</span> bits</span></label>
+        <input type="text" id="bits" inputmode="numeric" autocomplete="off" spellcheck="false" placeholder="e.g. 10110100" />
+      </div>
+
+      <div class="row">
+        <button class="btn" id="write">Write</button>
+        <button class="btn" id="read">Read</button>
+      </div>
+      <div class="row">
+        <button class="btn primary" id="freeze">Freeze</button>
+        <button class="btn" id="reset">Melt / reset</button>
+      </div>
+
+      <div class="readout">
+        <div class="hd">capacity readout</div>
+        <dl>
+          <dt>tracks (radial)</dt><dd id="rTracks">3</dd>
+          <dt>sectors (angular)</dt><dd id="rSectors">10</dd>
+          <dt>voxels = capacity</dt><dd class="accent" id="rVox">30 <small>bits</small></dd>
+          <div class="span2"><span class="lab">addressed</span><span class="val" id="rAddr">—</span></div>
+          <div class="span2"><span class="lab">read-back</span><span class="val muted" id="rRecover">—</span></div>
+        </dl>
+      </div>
+    </div>
+  </div>
+
+  <p class="foot">local prototype · not deployed · field model shared with the live <a href="https://saharbarak.github.io/wu/">wu</a> canvases</p>
+  <p class="sr" id="status" role="status" aria-live="polite"></p>
+</div>
+
+<script>
+"use strict";
+(function(){
+  const reduce = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+  const DPR = Math.min(window.devicePixelRatio||1, 2);
+  const cv = document.getElementById("cv"), ctx = cv.getContext("2d"), stage = document.getElementById("stage");
+  const $ = id => document.getElementById(id);
+  let W=0,H=0,cx=0,cy=0,R=0,parts=[];
+
+  // single source of truth
+  const S = { k:3, p:5, phase:0, frozen:false, addr:0, bits:"", reading:0 };
+
+  const k0 = () => S.k*Math.PI;
+  function field(x,y){
+    const dx=(x-cx)/R, dy=(y-cy)/R, r=Math.hypot(dx,dy), th=Math.atan2(dy,dx);
+    return Math.cos(k0()*r)*Math.cos(S.p*(th - S.phase));
+  }
+  function grad(x,y){const e=1.2;return[(field(x+e,y)-field(x-e,y))/(2*e),(field(x,y+e)-field(x,y-e))/(2*e)];}
+
+  // ---- geometry -------------------------------------------------------
+  function trackEdges(){ const e=[0]; for(let m=0;;m++){ const r=(Math.PI/2+m*Math.PI)/k0()*R;
+      if(r>=R){e.push(R);break;} e.push(r);} return e; }
+  const NTRACKS = () => trackEdges().length-1;
+  const NSECT   = () => 2*S.p;
+  const CAP     = () => NTRACKS()*NSECT();
+  const idxToTS = i => ({track:Math.floor(i/NSECT()), sector:i%NSECT()});
+  const tsToIdx = (t,s) => t*NSECT()+s;
+  function sectorAngles(s){ const a0=Math.PI/(2*S.p)+s*(Math.PI/S.p)+S.phase; return [a0,a0+Math.PI/S.p]; }
+  function voxelCenter(i){ const {track,sector}=idxToTS(i), e=trackEdges();
+    const rm=(e[track]+e[track+1])/2, [a0,a1]=sectorAngles(sector), th=(a0+a1)/2;
+    return [cx+Math.cos(th)*rm, cy+Math.sin(th)*rm]; }
+  function cellPath(i){ const {track,sector}=idxToTS(i), e=trackEdges(), [a0,a1]=sectorAngles(sector);
+    ctx.beginPath(); ctx.arc(cx,cy,e[track+1],a0,a1); ctx.arc(cx,cy,e[track],a1,a0,true); ctx.closePath(); }
+  function voxelAt(px,py){ const dx=px-cx,dy=py-cy,r=Math.hypot(dx,dy); if(r>R)return null;
+    const e=trackEdges(); let t=0; for(let i=0;i<e.length-1;i++){ if(r>=e[i]&&r<e[i+1]){t=i;break;} }
+    let th=Math.atan2(dy,dx)-S.phase-Math.PI/(2*S.p); th=((th%6.283)+6.283)%6.283;
+    return tsToIdx(t, Math.floor(th/(Math.PI/S.p))%NSECT()); }
+
+  // ---- particles ------------------------------------------------------
+  function seed(){ parts=[]; const n=420;
+    for(let i=0;i<n;i++){const a=Math.random()*6.283, r=Math.sqrt(Math.random())*R*0.985;
+      parts.push({x:cx+Math.cos(a)*r,y:cy+Math.sin(a)*r,vx:0,vy:0,locked:false});} }
+  function fit(){ const rect=cv.getBoundingClientRect();
+    cv.width=Math.max(1,Math.round(rect.width*DPR)); cv.height=Math.max(1,Math.round(rect.height*DPR));
+    ctx.setTransform(DPR,0,0,DPR,0,0); W=rect.width; H=rect.height; cx=W/2; cy=H/2; R=Math.min(W,H)*0.45; seed(); }
+  function settle(strong){ const iters=strong?60:1;
+    for(let it=0;it<iters;it++) for(const q of parts){ const f=field(q.x,q.y),g=grad(q.x,q.y),s=2*f;
+      if(strong){ q.x+=-s*g[0]*0.4; q.y+=-s*g[1]*0.4; }
+      else if(!q.locked){ q.vx+=-s*g[0]*40; q.vy+=-s*g[1]*40; q.vx*=0.8; q.vy*=0.8;
+        if(!S.frozen){ q.vx+=(Math.random()-0.5)*0.5; q.vy+=(Math.random()-0.5)*0.5; }
+        q.x+=q.vx*0.016; q.y+=q.vy*0.016;
+        const dx=q.x-cx,dy=q.y-cy,d=Math.hypot(dx,dy); if(d>R){q.x=cx+dx/d*R;q.y=cy+dy/d*R;} } } }
+
+  // ---- drawing --------------------------------------------------------
+  function drawCells(){ // antinode shading: faint accent on positive-antinode cells
+    ctx.save(); ctx.beginPath(); ctx.arc(cx,cy,R-0.5,0,6.283); ctx.clip();
+    const cap=CAP();
+    for(let i=0;i<cap;i++){ const c=voxelCenter(i); if(field(c[0],c[1])>0){ cellPath(i);
+      ctx.fillStyle="rgba(91,158,166,.055)"; ctx.fill(); } }
+    ctx.restore(); }
+  function drawGrid(){ ctx.save(); ctx.beginPath(); ctx.arc(cx,cy,R-0.5,0,6.283); ctx.clip();
+    ctx.globalAlpha=.5; ctx.strokeStyle="#3d6e75"; ctx.lineWidth=1;
+    for(const r of trackEdges()){ if(r>0&&r<R){ ctx.beginPath(); ctx.arc(cx,cy,r,0,6.283); ctx.stroke(); } }
+    ctx.strokeStyle="rgba(42,46,51,.95)";
+    for(let j=0;j<2*S.p;j++){ const th=Math.PI/(2*S.p)+j*Math.PI/S.p+S.phase;
+      ctx.beginPath(); ctx.moveTo(cx,cy); ctx.lineTo(cx+Math.cos(th)*R,cy+Math.sin(th)*R); ctx.stroke(); }
+    ctx.restore(); }
+  function pod(){ ctx.save(); ctx.globalAlpha=.6; ctx.strokeStyle="#2a2e33"; ctx.lineWidth=1.5;
+    ctx.beginPath(); ctx.arc(cx,cy,R,0,6.283); ctx.stroke(); ctx.restore(); }
+  function drawParts(){ for(const q of parts){ ctx.beginPath();
+      ctx.fillStyle=q.locked?"#9fd2d8":"#5b9ea6"; ctx.globalAlpha=q.locked?0.9:0.72;
+      ctx.arc(q.x,q.y,q.locked?1.6:1.3,0,6.283); ctx.fill(); } ctx.globalAlpha=1; }
+  function drawBits(){ const cap=CAP();
+    for(let i=0;i<S.bits.length && i<cap;i++){ const c=voxelCenter(i);
+      if(S.bits[i]==="1"){ ctx.beginPath(); ctx.fillStyle="#7fc4cc"; ctx.globalAlpha=.95;
+        ctx.arc(c[0],c[1],3.2,0,6.283); ctx.fill();
+        ctx.beginPath(); ctx.strokeStyle="#5b9ea6"; ctx.globalAlpha=.5; ctx.lineWidth=1; ctx.arc(c[0],c[1],5,0,6.283); ctx.stroke(); }
+      else { ctx.beginPath(); ctx.strokeStyle="#3d6e75"; ctx.globalAlpha=.5; ctx.lineWidth=1; ctx.arc(c[0],c[1],2.4,0,6.283); ctx.stroke(); } }
+    ctx.globalAlpha=1; }
+  function drawAddr(){ const cap=CAP(); if(S.addr==null||S.addr>=cap)return;
+    cellPath(S.addr); ctx.save(); ctx.fillStyle="rgba(91,158,166,.18)"; ctx.fill();
+    ctx.strokeStyle="#5b9ea6"; ctx.lineWidth=1.2; ctx.globalAlpha=.9; ctx.stroke(); ctx.restore(); }
+  function drawSweep(){ if(S.reading<=0)return; const a=(1-S.reading)*6.283-Math.PI/2;
+    ctx.save(); ctx.beginPath(); ctx.arc(cx,cy,R-1,0,6.283); ctx.clip();
+    ctx.strokeStyle="#5b9ea6"; ctx.globalAlpha=.8; ctx.lineWidth=1.4;
+    ctx.beginPath(); ctx.moveTo(cx,cy); ctx.lineTo(cx+Math.cos(a)*R,cy+Math.sin(a)*R); ctx.stroke(); ctx.restore(); }
+  function render(strong){ ctx.clearRect(0,0,W,H); pod(); drawCells(); drawGrid();
+    settle(strong); drawAddr(); drawParts(); drawBits(); drawSweep(); }
+  function frame(){ if(S.reading>0) S.reading=Math.max(0,S.reading-0.012); if(!reduce) render(false); requestAnimationFrame(frame); }
+
+  // ---- state sync -----------------------------------------------------
+  function clampState(){ const cap=CAP();
+    if(S.bits.length>cap) S.bits=S.bits.slice(0,cap);
+    if(S.addr!=null && S.addr>=cap) S.addr=cap-1; }
+  function announce(){ const {track,sector}=S.addr!=null?idxToTS(S.addr):{track:"-",sector:"-"};
+    $("status").textContent = "k "+S.k+", p "+S.p+", "+CAP()+" voxels. Addressed track "+track+" sector "+sector
+      +", bit "+(S.addr!=null&&S.bits[S.addr]==="1"?"1":"0")+". "+S.bits.length+" bits written."; }
+  function refresh(){ clampState();
+    $("kv").textContent=S.k; $("pv").textContent=S.p; $("phv").textContent=S.phase.toFixed(2);
+    $("rTracks").textContent=NTRACKS(); $("rSectors").textContent=NSECT();
+    $("rVox").innerHTML=CAP()+' <small>bits</small>';
+    $("capv").textContent=CAP(); $("usedv").textContent=S.bits.length;
+    $("rAddr").textContent = S.addr!=null ? ('track '+idxToTS(S.addr).track+' · sector '+idxToTS(S.addr).sector) : '—';
+    if($("bits").value!==S.bits) $("bits").value=S.bits;
+    announce(); if(reduce) render(S.frozen); }
+
+  // ---- actions --------------------------------------------------------
+  function melt(){ S.frozen=false; for(const q of parts)q.locked=false; stage.dataset.frozen="0"; }
+  function freeze(){ S.frozen=true; settle(true); for(const q of parts)q.locked=true; stage.dataset.frozen="1"; if(reduce)render(true); }
+  function writeBits(){ S.bits=($("bits").value.replace(/[^01]/g,"")).slice(0,CAP());
+    $("rRecover").textContent="—"; $("rRecover").classList.add("muted"); refresh(); }
+  function readBits(){ S.reading=1; const out=S.bits||"(empty)";
+    setTimeout(()=>{ $("rRecover").textContent=out; $("rRecover").classList.toggle("muted",!S.bits); }, reduce?0:1000); }
+  function toggleAt(i){ if(i==null)return; let a=S.bits.split(""); while(a.length<=i)a.push("0");
+    a[i]=a[i]==="1"?"0":"1"; S.bits=a.join(""); melt(); refresh(); }
+
+  // ---- controls -------------------------------------------------------
+  $("k").addEventListener("input",e=>{ S.k=+e.target.value; melt(); refresh(); });
+  $("p").addEventListener("input",e=>{ S.p=+e.target.value; melt(); refresh(); });
+  $("ph").addEventListener("input",e=>{ S.phase=(+e.target.value/100)*Math.PI; melt(); refresh(); });
+  $("bits").addEventListener("input",writeBits);
+  $("write").addEventListener("click",writeBits);
+  $("read").addEventListener("click",readBits);
+  $("freeze").addEventListener("click",freeze);
+  $("reset").addEventListener("click",()=>{ S.bits=""; S.addr=0; $("bits").value=""; $("rRecover").textContent="—";
+    $("rRecover").classList.add("muted"); melt(); seed(); refresh(); });
+
+  cv.addEventListener("click",ev=>{ const r=cv.getBoundingClientRect(); const i=voxelAt(ev.clientX-r.left,ev.clientY-r.top);
+    if(i!=null){ S.addr=i; toggleAt(i); } stage.focus(); });
+  stage.addEventListener("keydown",ev=>{ const cap=CAP(); let t,s; const cur=idxToTS(S.addr==null?0:S.addr);
+    switch(ev.key){
+      case "ArrowUp": t=Math.max(0,cur.track-1); S.addr=tsToIdx(t,cur.sector); break;
+      case "ArrowDown": t=Math.min(NTRACKS()-1,cur.track+1); S.addr=tsToIdx(t,cur.sector); break;
+      case "ArrowLeft": s=(cur.sector-1+NSECT())%NSECT(); S.addr=tsToIdx(cur.track,s); break;
+      case "ArrowRight": s=(cur.sector+1)%NSECT(); S.addr=tsToIdx(cur.track,s); break;
+      case "Enter": case " ": toggleAt(S.addr); break;
+      default: return;
+    } ev.preventDefault(); refresh(); });
+
+  window.addEventListener("resize",()=>{ fit(); refresh(); });
+  fit(); refresh();
+  if(reduce) render(true); else requestAnimationFrame(frame);
+})();
+</script>
+</body>
+</html>
